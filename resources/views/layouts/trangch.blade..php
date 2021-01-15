@@ -4,7 +4,9 @@
 <head>
     <title>trang chu</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable = no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -12,13 +14,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/mobile.css" />
+
+    <script src="/js/config.js"></script>
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/mobile.css" />
+    <link rel="stylesheet" href="/css/dsresponsive.css" />
+
     <style>
-        /* .logo {
+        .logo {
             height: 130px;
-            background-image: url(images/aspace.jpg);
-        } */
+            background-image: url(/images/aspace.jpg);
+        }
 
         a {
             color: #fff;
@@ -27,9 +33,9 @@
         }
     </style>
 </head>
-<!-- <header class="row logo">
+<header class="row logo">
     <div class="col-sm-4">
-        <img src="images/logo.png" class="" style="width: 47%; margin-left: 90px; margin-top: 15px;">
+        <img src="/images/logo.png" class="" style="width: 47%; margin-left: 90px; margin-top: 15px;">
 
     </div>
     <div class="col-sm-8 shopping-mall">
@@ -37,7 +43,7 @@
             CỔNG THÔNG TIN ĐIỆN TỬ TRƯỜNG KỸ THUẬT <a style="color: #D90000; font-size: 29px;">@</a>SPACE</h2>
     </div>
 
-</header> -->
+</header>
 
 <body>
 
@@ -46,7 +52,7 @@
     <div class="w3-top">
         <div class="w3-bar w3-white w3-card" id="myNavbar">
             <!-- logo start -->
-            <a href="#" class="plus-index">{{$title}}</a>
+            <span style="font-size: 17px; font-weight: bold;" class="plus-index">Đăng nhập</span>
             <!-- logo end -->
 
             <!-- Right-sided navbar links -->
@@ -60,39 +66,17 @@
             </div>
             <!-- Hide right-floated links on small screens and replace them with a menu icon -->
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-                <i class="fa fa-bars" style="margin-right: 14px; font-size: 23px;"></i>
+                <i class="" style="margin-right: 14px; font-size: 0px;"></i>
             </a>
         </div>
     </div>
 
-    <!-- Sidebar on small screens when clicking the menu icon -->
-    <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none; top: 0;" id="mySidebar">
-        <!-- <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16" style="margin-left: 140px;">
-            ×</a> -->
-        <a><img src="images/logo.png" class="logotruong" style="  width: 100%; background-color: #fff;
-            margin-top: 0;
-            margin-left: 0px;
-            padding: 12px;
-            /* margin-right: -10px; */
-            margin-bottom: 20px;"></a>
-        <a href="" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý sinh viên</a>
-        <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý giảng viên</a>
-        <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">Quảng lý khoá học</a>
-        <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý điểm</a>
-        <div class="dropdown">
-            <a class="w3-bar-item w3-button" data-toggle="dropdown">Quản trị hệ thống<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li class="active" href="#"><a>Text</a></li>
-                <li class="active" href="#"><a>Text</a></li>
-                <li class="active" href="#"><a>Text</a></li>
-            </ul>
-        </div>
-        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý môn học</a>
 
-    </nav>
+    <!-- Sidebar on small screens when clicking the menu icon -->
+  
 
     <!--  content  -->
-    <main class="py-4">
+    <main style="padding-top: 0px; margin-top: 70px;">
         @yield('content')
     </main>
     <!-- end content -->
@@ -120,27 +104,17 @@
 
 </body>
 <!-- footer -->
-<footer class="footer-distributed" style="margin-top: 0px;">
-    <div class="footer-left">
-        <h3>Trường kỹ thuật<span> <a style="font-size: 30px; color: #222;">@</a><a style="font-size: 39px;">Space</a></span></h3>
-        <div style="margin-top: 13px;">
-            <p><span style="color: #fff;">Liên kết:</span></p>
-            <a style="text-align: center; color: #222;" href="http://ispacedanang.edu.vn/">http://ispacedanang.edu.vn/</a>
-            <a style="text-align: center; color: #222;" href="http://ispacedanang.edu.vn/">https://aspace.edu.vn/</a>
+<footer class="footer-distributed">
+    <div class="form-group row">
+        <div class="col-xs-7">
+            <p><span style="color: #fff; font-size: 14px;">Liên kết :</span></p>
+            <a style=" color: #fff; font-size: 14px;" href="http://ispacedanang.edu.vn/">ispacedanang.edu.vn</a>
+            <a style=" color: #fff; font-size: 14px;" href="https://aspace.edu.vn/">aspace.edu.vn</a>
         </div>
-    </div>
-
-    <div class="footer-center">
-        <div>
-
-            <p> <i class="fa fa-map-marker" style="margin-left: -80px; margin-bottom: -40px;"></i><span class="fa-address" style="margin-left: -56px">Địa chỉ:</span>18 Võ Văn Tần, Thanh Khê, Đà Nẵng</p>
-        </div>
-
-        <div>
-            <i class="fa fa-phone" style=""></i>
-            <p>Hotline: 0774 955 635</p>
+        <div class="col-xs-5">
+            <p style="color: #fff; font-size: 14px;">Liên hệ :</p><a style="font-size: 14px;">0774 955 635</a>
         </div>
     </div>
 </footer>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>

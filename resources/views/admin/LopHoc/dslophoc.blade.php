@@ -38,12 +38,12 @@
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
                 <td width=100%>
-                    <i>Lớp: {{$cl->tenlophoc}}</i><br>
+                    <i style="margin-left: 15px;">Lớp: {{$cl->tenlophoc}}</i><br>
                     <!-- <i>Khoá: <?php echo \App\qlsv_khoahoc::find($cl->id_khoahoc)->tenkhoahoc ?></i><br> -->
-                    <i>GV: <?php echo \App\qlsv_giangvien::find($cl->id_giangvien)->hovaten ?></i><br>
-                    <i>Tổng SV: {{$cl->soluongsv}}</i><br>
-                    <i>Môn: <?php echo \App\qlsv_monhoc::find($cl->id_monhoc)->tenmonhoc ?></i><br>
-                    <a href="/" type="submit" class="btn-sm btn-success px-4 float-right">
+                    <i style="margin-left: 15px;">GV: <?php echo \App\qlsv_giangvien::find($cl->id_giangvien)->hovaten ?></i><br>
+                    <i style="margin-left: 15px;">Tổng SV: {{$cl->soluongsv}}</i><br>
+                    <i style="margin-left: 15px;">Môn: <?php echo \App\qlsv_monhoc::find($cl->id_monhoc)->tenmonhoc ?></i><br>
+                    <a style="margin-left: 15px;" href="/" type="submit" class="btn-sm btn-success px-4 float-right">
                         <i class="glyphicon glyphicon-user"></i> sinh viên</a>
 
                   

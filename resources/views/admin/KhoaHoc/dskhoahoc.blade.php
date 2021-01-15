@@ -15,7 +15,7 @@
     <form action="<?= route("qlsv_khoahoc.index") ?>" method="get">
         <div class="form-group row">
             <div class="col-sm-12 col-xs-7" style="margin-left: 30px;">
-                <input style="width: 220px; margin-left: -23px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="Tìm kiếm">
+                <input style="width: 220px; margin-left: -23px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="nhập tên khoá">
             </div>
             <div class="col-sm-4 col-xs-3">
                 <button style="margin-left: 9px;" type="submit" class="btn btn-primary btn-sm">Tìm kiếm</button>

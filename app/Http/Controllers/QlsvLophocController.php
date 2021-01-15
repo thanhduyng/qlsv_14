@@ -31,7 +31,7 @@ class QlsvLophocController extends Controller
             ->groupBy('qlsv_lophocs.id')
             ->orderBy('qlsv_lophocs.created_at', 'DESC')
             ->paginate(10);
-            // dd($lopHoc);
+        // dd($lopHoc);
         return view('admin.LopHoc.dslophoc', compact(['lopHoc', 'title', 'search']));
     }
 
@@ -69,14 +69,18 @@ class QlsvLophocController extends Controller
             $lopHoc = new qlsv_lophoc();
         }
 
+        $search = $request->get('search') ?? "";
+        DB::enableQueryLog();
         $sinhVienLopHoc = DB::table('qlsv_sinhvienlophocs')
+            ->where('qlsv_sinhviens.hovaten', 'like', '%' . $search . '%')
             ->join('qlsv_sinhviens', 'qlsv_sinhviens.id', '=', 'qlsv_sinhvienlophocs.id_sinhvien')
             ->where('id_lophoc', $id)->select('qlsv_sinhviens.hovaten', 'qlsv_sinhviens.id')->pluck('hovaten', 'id');
+        // dd(DB::getQueryLog());
         $giangVien = DB::table('qlsv_giangviens')->pluck('hovaten', 'id');
         $sinhVien = qlsv_sinhvien::all();
         $khoaHoc = DB::table('qlsv_khoahocs')->pluck('tenkhoahoc', 'id');
         $monHoc = DB::table('qlsv_monhocs')->pluck('tenmonhoc', 'id');
-        return view('admin.LopHoc.addlophoc', compact(['sinhVienLopHoc', 'id', 'giangVien', 'sinhVien', 'khoaHoc', 'monHoc', 'lopHoc', 'title']));
+        return view('admin.LopHoc.addlophoc', compact(['sinhVienLopHoc', 'search', 'id', 'giangVien', 'sinhVien', 'khoaHoc', 'monHoc', 'lopHoc', 'title']));
     }
 
     /**

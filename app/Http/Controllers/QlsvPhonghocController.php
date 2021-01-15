@@ -42,6 +42,21 @@ class QlsvPhonghocController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate(
+            [
+                'tenphonghoc' => 'required',
+                'ghichu' => 'required',
+            ],
+
+            [
+                'required' => 'Không được để trống',
+                'min' => 'Không được nhỏ hơn :min',
+                'max' => 'Không được lớn hơn :max',
+                'integer' => 'Chỉ được nhập số'
+                // 'integer' => ':attribute Chỉ được nhập số'
+            ]
+        );
+
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $phongHoc = new qlsv_phonghoc();
         $phongHoc->tenphonghoc = $request->tenphonghoc;
@@ -50,7 +65,7 @@ class QlsvPhonghocController extends Controller
         $phongHoc->created_at = Carbon::now();
         
         $phongHoc->save();
-        return redirect()->route('qlsv_phonghoc.create');
+        return redirect()->route('qlsv_phonghoc.index')->with('message','Thêm thành công');
     }
 
     /**
@@ -85,12 +100,27 @@ class QlsvPhonghocController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate(
+            [
+                'tenphonghoc' => 'required',
+                'ghichu' => 'required',
+            ],
+
+            [
+                'required' => 'Không được để trống',
+                'min' => 'Không được nhỏ hơn :min',
+                'max' => 'Không được lớn hơn :max',
+                'integer' => 'Chỉ được nhập số'
+                // 'integer' => ':attribute Chỉ được nhập số'
+            ]
+        );
+
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $phongHoc = qlsv_phonghoc::find($id);
         $phongHocSua = $request->all();
         $phongHoc->update(["updated_at" => Carbon::now()]);
         $phongHoc->update($phongHocSua);
-        return redirect()->route('qlsv_phonghoc.index');
+        return redirect()->route('qlsv_phonghoc.index')->with('message','Cập nhập thành công');;
     }
 
     /**

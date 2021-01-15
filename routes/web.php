@@ -48,6 +48,7 @@ Route::group(['prefix' => 'lophoc'], function () {
     Route::get('/edit/{id}', 'QlsvLophocController@edit')->name('qlsvlophoc.edit');
     Route::post('/update/{id}', 'QlsvLophocController@update')->name('qlsvlophoc.update');
     Route::get('/delete/{id}', 'QlsvLophocController@destroy');
+    Route::get('/search', 'QlsvLophocController@search')->name('qlsvlophoc.search');
 
    
     Route::get('/diemdanh/{id}', 'QlsvDiemdanhController@diemdanh')->name('qlsvlophoc.diemdanh');

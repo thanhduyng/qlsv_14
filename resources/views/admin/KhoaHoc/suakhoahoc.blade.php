@@ -16,10 +16,12 @@
       <div class="form-group">
         <label>Tên khoá học :</label>
         <input class="form-control" type="text" name="tenkhoahoc" value="{{$khoaHoc->tenkhoahoc}}" />
+        <span style="color: red;">@error('tenkhoahoc'){{$message}}@enderror</span>
       </div>
       <div class="form-group">
         <label>Ghi chú:</label>
-        <input class="form-control" type="text" name="ghichu" value="{{$khoaHoc->ghichu}}" />
+        <textarea class="form-control" type="text" name="ghichu" value="">{{$khoaHoc->ghichu}}</textarea>
+        <span style="color: red;">@error('ghichu'){{$message}}@enderror</span>
       </div>
       <button type="submit" class="btn btn-primary px-4 float-right"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
     </form>

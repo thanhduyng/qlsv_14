@@ -8,11 +8,16 @@
     <a class="btn btn-success btn-sm" href="<?= route("qlsv_phonghoc.create") ?>">
         <i class="glyphicon glyphicon-plus"></i></a>
 </div>
+@if(Session::has('message'))
+<div class="alert alert-success text-center" role="alert">
+  <strong></strong> {{Session::get('message')}}
+</div>
+@endif
 <div id="searcharea" style="display:none; margin-top: 15px;">
     <form action="<?= route("qlsv_phonghoc.index") ?>" method="get" class="form-inline pull-">
         <div class="form-group row">
             <div class="col-sm-12 col-xs-7" style="margin-left: 30px;">
-                <input style="width: 220px; margin-left: -23px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="Tìm kiếm">
+                <input style="width: 220px; margin-left: -23px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="nhập tên phòng">
             </div>
             <div class="col-sm-4 col-xs-3">
                 <button style="margin-left: 9px;" type="submit" class="btn btn-primary btn-sm">Tìm kiếm</button>
@@ -37,8 +42,8 @@
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
                 <td width=100%>
-                    {{$cl->tenphonghoc}}<br>
-                    <i>{{$cl->ghichu}}</i>
+                    <i style="margin-left: 25px;">{{$cl->tenphonghoc}}</i><br>
+                    <i style="margin-left: 25px;">{{$cl->ghichu}}</i>
 
                 </td>
                 <td style="padding-left:0;line-height: 33px;">

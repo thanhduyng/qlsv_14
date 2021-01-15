@@ -84,16 +84,10 @@ class QlsvKhoahocController extends Controller
         $khoaHoc->deleted_at = "0";
         $khoaHoc->created_at = Carbon::now();
         $khoaHoc->save();
-        return redirect()->route('qlsv_khoahoc.index')->with('message', 'Thêm thành công');;
+        return redirect()->route('qlsv_khoahoc.index')->with('message', 'Thêm thành công');
     }
 
-    public function messages()
-    {
-        return [
-            'tenkhoahoc.required' => 'A title is required',
-            'body.required'  => 'A message is required',
-        ];
-    }
+   
 
     /**
      * Display the specified resource.
@@ -128,6 +122,21 @@ class QlsvKhoahocController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate(
+            [
+                'tenkhoahoc' => 'required',
+                'ghichu' => 'required',
+            ],
+
+            [
+                'required' => 'Không được để trống',
+                'min' => 'Không được nhỏ hơn :min',
+                'max' => 'Không được lớn hơn :max',
+                'integer' => 'Chỉ được nhập số'
+                // 'integer' => ':attribute Chỉ được nhập số'
+            ]
+        );
+
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $khoaHoc = qlsv_khoahoc::find($id);
         $khoaHocSua = $request->all();

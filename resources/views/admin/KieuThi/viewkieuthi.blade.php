@@ -1,25 +1,28 @@
 @extends('layouts.trangchu')
 
 @section('content')
-<div style="text-align:right;background-color:#f3ecec;padding: 4px;">
+<div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
     <a class="btn btn-primary btn-sm" href="#" onclick="$('#searcharea').toggle();return false;">
         <i class="glyphicon glyphicon-search"></i></a>
-    <a class="btn btn-success btn-sm" href="<?= route("qlsv_kieuthi.create")?>">
+    <a class="btn btn-success btn-sm" href="<?= route("qlsv_kieuthi.create") ?>">
         <i class="glyphicon glyphicon-plus"></i></a>
-
 </div>
-<div id="searcharea" style="display:none">
-    <form action="{{route('qlsv_kieuthi.index')}}" method="get" class="form-inline pull-right">
-        <div class="form-group">
-            <input id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="Tìm kiếm">
-            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+<div id="searcharea" style="display:none; margin-top: 15px;">
+    <form action="<?= route("qlsv_kieuthi.index") ?>" method="get">
+        <div class="form-group row">
+            <div class="col-sm-12 col-xs-7" style="margin-left: 30px;">
+                <input style="width: 220px; margin-left: -23px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="nhập tên kiểu thi">
+            </div>
+            <div class="col-sm-4 col-xs-3">
+                <button style="margin-left: 9px;" type="submit" class="btn btn-primary btn-sm">Tìm kiếm</button>
+            </div>
         </div>
     </form>
 </div>
 
 <form action="">
     <table>
-    <thead class="andi">
+        <thead class="andi">
             <tr>
                 <th>STT</th>
                 <th>HỌ VÀ TÊN</th>
@@ -31,11 +34,13 @@
         <tbody>
             @foreach($qlsv_kieuthi as $value)
             <tr>
-                <td><?= $stt++ ?></td>
-                <td width=100%>
-                    {{$value->kieuthi}}
+                <td>
+                    <a class="btn btn-default btn-circle">{{$stt++}}</a>
                 </td>
-                <td style="padding-left:0;line-height: 33px;">
+                <td width=100%>
+                <i style="margin-left: 25px;" >   {{$value->kieuthi}}</i><br>
+                </td>
+                <td style="padding-left:0;line-height: 33px; ">
                     <a class="btn-default btn-xs" href="edit/{{$value->id}}">
                         <i class="glyphicon glyphicon-pencil"></i></a>
                     <a class="btn-default btn-xs" href="delete/{{$value->id}}">

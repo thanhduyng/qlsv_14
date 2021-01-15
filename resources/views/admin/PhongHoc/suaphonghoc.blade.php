@@ -14,10 +14,12 @@
     <div class="form-group">
       <label>Tên phòng hoc</label>
       <input class="form-control" type="text" name="tenphonghoc" value="{{$phongHoc->tenphonghoc}}" />
+      <span style="color: red;">@error('tenphonghoc'){{$message}}@enderror</span>
     </div>
     <div class="form-group">
       <label>Ghi chú</label>
-      <input class="form-control" type="text" name="ghichu" value="{{$phongHoc->ghichu}}" />
+      <textarea class="form-control" type="text" name="ghichu">{{$phongHoc->ghichu}}</textarea>
+      <span style="color: red;">@error('ghichu'){{$message}}@enderror</span>
     </div>
     <button style="margin-bottom: 5px;" type="submit" class="btn btn-primary px-4 float-right"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
   </form>

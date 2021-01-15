@@ -55,66 +55,6 @@
             </div>
         </div>
     </div>
-
-    <div id="addsv" style="display:none">
-        <div style="text-align:right;padding-top: 20px">
-            <div class="form-group">
-                <div class="col-xs-5" style="margin-bottom: 5px;">
-                    <select name="searchkhoahoc" class="form-control">
-                        <option value="">-- Khoá --</option>
-                        @foreach($khoaHoc as $nd => $value)
-                        <option value="{{$nd}}">{{$value}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-xs-5">
-                    <input class="form-control" type="text" name="searchten" placeholder="nhập tên">
-                </div>
-                <div class="col-xs-2">
-                    <a class="btn btn-primary btn-sm">
-                        <i class="glyphicon glyphicon-search"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <br>
-        <table style="width: 93%; margin-left: 15px; margin-top: 6px;">
-            <thead>
-                <tr>
-                    <th style="height: 13px;">STT</th>
-                    <th style="height: 13px; width: 15%;">Khoá</th>
-                    <th style="height: 13px; width: 55%;">Tên sinh viên</th>
-                    <th style="height: 13px;">Chức năng</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @if($sinhVien->count())
-                @foreach($sinhVien as $i =>$cl )
-
-                @php
-                if(isset($sinhVienLopHoc[$cl->id])){
-                continue;
-                }
-                @endphp
-                <tr>
-                    <td>{{$i+1}}</td>
-                    <td><?php echo \App\qlsv_khoahoc::find($cl->id_khoahoc)->tenkhoahoc ?></td>
-                    <td>{{$cl->hovaten}}</td>
-                    <td style="padding-left:0;line-height: 33px;" class="add-row">
-                        <input type="hidden" class="id_sinhvien" value="{{$cl->id}}">
-                        <input type="hidden" class="tensinhvien" value="{{$cl->hovaten}}">
-                        <a onclick="addSinhVien(this)" class="btn btn-success btn-sm" style="margin-left:8px;">
-                            <i class="glyphicon glyphicon-plus"></i></a>
-                    </td>
-                </tr>
-                @endforeach
-                @endif
-            </tbody>
-        </table>
-    </div><br>
-
     <!-- Danh sách sinh viên -->
 
     <table style="width: 93%; margin-left: 15px; ">
@@ -143,6 +83,78 @@
     <br>
     <button style="margin-left: 15px;" type="submit" class="btn btn-success px-4 float-right"><i class="glyphicon glyphicon-plus"></i> Lưu</button>
 </form><br>
+
+<div id="addsv" style="display: none;">
+    <!-- <div style="text-align:right;padding-top: 20px">
+            <div class="form-group">
+                <div class="col-xs-5" style="margin-bottom: 5px;">
+                    <select name="searchkhoahoc" class="form-control">
+                        <option value="">-- Khoá --</option>
+                        @foreach($khoaHoc as $nd => $value)
+                        <option value="{{$nd}}">{{$value}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-xs-5">
+                    <input class="form-control" type="text" name="searchten" placeholder="nhập tên">
+                </div>
+                <div class="col-xs-2">
+                    <a class="btn btn-primary btn-sm">
+                        <i class="glyphicon glyphicon-search"></i></a>
+                </div>
+            </div>
+        </div> -->
+
+    <div id="searcharea" style="margin-top: 15px;">
+        <form action="<?= route("qlsvlophoc.create") ?>" method="get">
+            <div class="form-group row">
+                <div class="col-sm-12 col-xs-7" style="margin-left: 30px;">
+                    <input style="width: 220px; margin-left: -23px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="nhập tên sv">
+                </div>
+                <div class="col-sm-4 col-xs-3">
+                    <button style="margin-left: 9px;" type="submit" class="btn btn-primary btn-sm">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br>
+    <table style="width: 93%; margin-left: 15px; margin-top: 6px;">
+        <thead>
+            <tr>
+                <th style="height: 13px;">STT</th>
+                <th style="height: 13px; width: 15%;">Khoá</th>
+                <th style="height: 13px; width: 55%;">Tên sinh viên</th>
+                <th style="height: 13px;">Chức năng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if($sinhVien->count())
+            @foreach($sinhVien as $i =>$cl )
+
+            @php
+            if(isset($sinhVienLopHoc[$cl->id])){
+            continue;
+            }
+            @endphp
+            <tr>
+                <td>{{$i+1}}</td>
+                <td><?php echo \App\qlsv_khoahoc::find($cl->id_khoahoc)->tenkhoahoc ?></td>
+                <td>{{$cl->hovaten}}</td>
+                <td style="padding-left:0;line-height: 33px;" class="add-row">
+                    <input type="hidden" class="id_sinhvien" value="{{$cl->id}}">
+                    <input type="hidden" class="tensinhvien" value="{{$cl->hovaten}}">
+                    <a onclick="addSinhVien(this)" class="btn btn-success btn-sm" style="margin-left:8px;">
+                        <i class="glyphicon glyphicon-plus"></i></a>
+                </td>
+            </tr>
+            @endforeach
+            @endif
+        </tbody>
+    </table>
+</div><br>
 <script>
     function addSinhVien(a) {
         var p = $($(a).parent());
