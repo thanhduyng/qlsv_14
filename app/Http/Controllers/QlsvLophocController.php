@@ -70,9 +70,12 @@ class QlsvLophocController extends Controller
         }
 
         $search = $request->get('search') ?? "";
+
         DB::enableQueryLog();
+        $svlh = DB::table('qlsv_sinhvienlophocs')
+            ->where('id_sinhvien', 'like', '%' . $search . '%');
+
         $sinhVienLopHoc = DB::table('qlsv_sinhvienlophocs')
-            ->where('qlsv_sinhviens.hovaten', 'like', '%' . $search . '%')
             ->join('qlsv_sinhviens', 'qlsv_sinhviens.id', '=', 'qlsv_sinhvienlophocs.id_sinhvien')
             ->where('id_lophoc', $id)->select('qlsv_sinhviens.hovaten', 'qlsv_sinhviens.id')->pluck('hovaten', 'id');
         // dd(DB::getQueryLog());
@@ -80,7 +83,55 @@ class QlsvLophocController extends Controller
         $sinhVien = qlsv_sinhvien::all();
         $khoaHoc = DB::table('qlsv_khoahocs')->pluck('tenkhoahoc', 'id');
         $monHoc = DB::table('qlsv_monhocs')->pluck('tenmonhoc', 'id');
-        return view('admin.LopHoc.addlophoc', compact(['sinhVienLopHoc', 'search', 'id', 'giangVien', 'sinhVien', 'khoaHoc', 'monHoc', 'lopHoc', 'title']));
+        return view('admin.LopHoc.addlophoc', compact(['svlh', 'sinhVienLopHoc', 'search', 'id', 'giangVien', 'sinhVien', 'khoaHoc', 'monHoc', 'lopHoc', 'title']));
+    }
+
+    public function search(Request $request)
+    {
+        $id = $request->id;
+        if ($id > 0) {
+            $title = "Cập nhập lớp học";
+            $lopHoc = qlsv_lophoc::find($id);
+        } else {
+            $title = "Thêm lớp học";
+            $lopHoc = new qlsv_lophoc();
+        }
+        $khoaHoc = DB::table('qlsv_khoahocs')->pluck('tenkhoahoc', 'id');
+        $monHoc = DB::table('qlsv_monhocs')->pluck('tenmonhoc', 'id');
+        $giangVien = DB::table('qlsv_giangviens')->pluck('hovaten', 'id');
+        $sinhVienLopHoc = DB::table('qlsv_sinhvienlophocs')
+            ->join('qlsv_sinhviens', 'qlsv_sinhviens.id', '=', 'qlsv_sinhvienlophocs.id_sinhvien')
+            ->where('id_lophoc', $id)
+            ->select('qlsv_sinhviens.hovaten', 'qlsv_sinhviens.id')
+            ->pluck('hovaten', 'id');
+
+        $search = $request->input('search');
+        $searchkh = $request->input('searchkh');
+
+        if ($search == "" && $searchkh != "") {
+            $sinhVien = DB::table('qlsv_sinhviens')
+                ->where('id_khoahoc', 'like', '%' . $searchkh . '%')
+                ->get();
+                return view('admin.LopHoc.addlophoc', compact(['search', 'searchkh', 'lopHoc', 'monHoc', 'giangVien', 'khoaHoc', 'id', 'sinhVienLopHoc', 'sinhVien', 'title']));
+        } else {
+            if ($search != "" && $searchkh != "") {
+                $sinhVien = DB::table('qlsv_sinhviens')
+                    ->where('hovaten', 'like', '%' . $search . '%')
+                    ->where('id_khoahoc', 'like', '%' . $searchkh . '%')
+                    ->get();
+                return view('admin.LopHoc.addlophoc', compact(['search', 'searchkh', 'lopHoc', 'monHoc', 'giangVien', 'khoaHoc', 'id', 'sinhVienLopHoc', 'sinhVien', 'title']));
+            } else {
+                $sinhVien = DB::table('qlsv_sinhviens')
+                    ->where('hovaten', 'like', '%' . $search . '%')
+                    ->get();
+                return view('admin.LopHoc.addlophoc', compact(['search', 'searchkh', 'lopHoc', 'monHoc', 'giangVien', 'khoaHoc', 'id', 'sinhVienLopHoc', 'sinhVien', 'title']));
+            }
+        }
+
+        $sinhVien  = qlsv_sinhvien::where('hovaten', 'like', '%' . $search . '%')
+            ->orWhere('id_khoahoc', 'like', '%' . $searchkh . '%')
+            ->get();
+        return view('admin.LopHoc.addlophoc', compact(['search', 'searchkh', 'lopHoc', 'monHoc', 'giangVien', 'khoaHoc', 'id', 'sinhVienLopHoc', 'sinhVien', 'title']));
     }
 
     /**
@@ -181,10 +232,13 @@ class QlsvLophocController extends Controller
      * @param  \App\qlsv_lophoc  $qlsv_lophoc
      * @return \Illuminate\Http\Response
      */
+
+
     public function destroy($id)
     {
-        date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $lopHoc = DB::table('qlsv_lophocs')->where('id', $id)->update(["deleted_at" => "1", "updated_at" => Carbon::now()]);
-        return redirect()->route('qlsvlophoc.index');
+        qlsv_lophoc::find($id)->delete($id);
+        return response()->json([
+            'success' => 'Record deleted successfully!'
+        ]);
     }
 }

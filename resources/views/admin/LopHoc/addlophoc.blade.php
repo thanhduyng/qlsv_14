@@ -47,7 +47,7 @@
     <div style="text-align:right;padding-top: 80px;">
         <div class="form-group">
             <div class="col-xs-9">
-                <a style="color: black; font-size: 20px; margin-right: 90px;">Danh sách sinh viên</a> <a class="btn-default btn-xs" href=""></a>
+                <a style="color: black; font-size: 20px; margin-right: 0px; float: left;">Danh sách sinh viên</a> <a class="btn-default btn-xs" href=""></a>
             </div>
             <div class="col-xs-3">
                 <a class="btn btn-success btn-sm" onclick="$('#addsv').toggle();return false;">
@@ -57,7 +57,7 @@
     </div>
     <!-- Danh sách sinh viên -->
 
-    <table style="width: 93%; margin-left: 15px; ">
+    <table style="width: 93%; margin-left: 15px;">
         <thead>
             <tr>
                 <th style="height: 13px;">STT</th>
@@ -80,15 +80,15 @@
     </table>
     <!-- end danh sách sinh viên -->
 
-    <br>
-    <button style="margin-left: 15px;" type="submit" class="btn btn-success px-4 float-right"><i class="glyphicon glyphicon-plus"></i> Lưu</button>
+    <button style="margin-left: 15px; margin-top: 4px;" type="submit" class="btn btn-primary px-4 float-right"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
 </form><br>
 
 <div id="addsv" style="display: none;">
-    <!-- <div style="text-align:right;padding-top: 20px">
+    <form action="<?= route("qlsvlophoc.search") ?>" method="get">
+        <div style="text-align:right;padding-top: 20px">
             <div class="form-group">
                 <div class="col-xs-5" style="margin-bottom: 5px;">
-                    <select name="searchkhoahoc" class="form-control">
+                    <select name="searchkh" class="form-control">
                         <option value="">-- Khoá --</option>
                         @foreach($khoaHoc as $nd => $value)
                         <option value="{{$nd}}">{{$value}}</option>
@@ -97,30 +97,16 @@
                 </div>
 
                 <div class="col-xs-5">
-                    <input class="form-control" type="text" name="searchten" placeholder="nhập tên">
+                    <input style="width: 190px; margin-left: -13px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="nhập tên sinh viên">
                 </div>
                 <div class="col-xs-2">
-                    <a class="btn btn-primary btn-sm">
-                        <i class="glyphicon glyphicon-search"></i></a>
+                    <button style="margin-left: 9px;" type="submit" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
             </div>
-        </div> -->
+        </div>
+    </form>
 
-    <div id="searcharea" style="margin-top: 15px;">
-        <form action="<?= route("qlsvlophoc.create") ?>" method="get">
-            <div class="form-group row">
-                <div class="col-sm-12 col-xs-7" style="margin-left: 30px;">
-                    <input style="width: 220px; margin-left: -23px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="nhập tên sv">
-                </div>
-                <div class="col-sm-4 col-xs-3">
-                    <button style="margin-left: 9px;" type="submit" class="btn btn-primary btn-sm">Tìm kiếm</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <br>
-    <table style="width: 93%; margin-left: 15px; margin-top: 6px;">
+    <table style="width: 93%; margin-left: 15px; margin-top: -6px;">
         <thead>
             <tr>
                 <th style="height: 13px;">STT</th>

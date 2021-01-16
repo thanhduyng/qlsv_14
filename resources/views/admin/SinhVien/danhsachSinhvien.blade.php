@@ -13,7 +13,6 @@
         <div class="form-group row" style="margin: 25px;">
             <div class="col-sm-6 col-xs-6">
                 <label>Khóa học</label>
-
                 <select name="khoahoc" class="form-control">
                     <option value="">--Chọn khóa học--</option>
                     @foreach($khoaHoc as $i =>$cl )

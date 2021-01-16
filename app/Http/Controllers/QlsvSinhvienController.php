@@ -44,7 +44,8 @@ class QlsvSinhvienController extends Controller
             }
         }
 
-        $sinhVien = DB::table('qlsv_sinhviens')->where('hovaten', 'like', '%' . $search . '%')
+        $sinhVien = DB::table('qlsv_sinhviens')
+            ->where('hovaten', 'like', '%' . $search . '%')
             ->orWhere('id_khoahoc', 'like', '%' . $khoahoc . '%')
             ->where('deleted_at', 0)->paginate(10);
         return view('admin.SinhVien.danhsachSinhvien', compact(['sinhVien', 'title', 'search', 'khoaHoc']));
