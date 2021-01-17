@@ -16,6 +16,23 @@ use Illuminate\Support\Facades\DB;
 
 class ManhinhGiangvienController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();
+            $giangVien = DB::table('qlsv_giangviens')
+                ->where('id_user', $user->id)
+                ->get();
+
+            if (count($giangVien) == 0) {
+                exit;
+            }
+           
+            return $next($request);
+        });
+    }
+
     public function trangchu(Request $request)
     {
         $user = auth()->user();
@@ -24,8 +41,8 @@ class ManhinhGiangvienController extends Controller
             ->get()[0];
 
         // dd($giangVien);
-        $tenGv = explode(' ',$giangVien->hovaten);
-        $title = "Xin chào Thầy/Cô: " .$tenGv[count($tenGv)-1];
+        $tenGv = explode(' ', $giangVien->hovaten);
+        $title = "Xin chào Thầy/Cô: " . $tenGv[count($tenGv) - 1];
         DB::enableQueryLog();
         $lopHoc = DB::table('qlsv_lophocs')
             ->where('id_giangvien', $giangVien->id)
@@ -38,7 +55,7 @@ class ManhinhGiangvienController extends Controller
                     ' 23:59:59\' then 0 else 1 end desc, id limit 1) as id_thoikhoabieu ')
             )
             ->get();
-            // dd(DB::getQueryLog());
+        // dd(DB::getQueryLog());
 
         // dd($lopHoc);
 
@@ -147,7 +164,7 @@ class ManhinhGiangvienController extends Controller
             ->leftJoin('qlsv_diemthis', 'qlsv_diemthis.id_sinhvienlophoc', '=', 'qlsv_sinhvienlophocs.id')
             ->where('qlsv_sinhvienlophocs.id_lophoc', $idlop)
             ->where('qlsv_sinhviens.deleted_at', 0)
-            ->select('qlsv_sinhvienlophocs.*', 'qlsv_sinhviens.id', 'qlsv_sinhviens.hovaten', 'qlsv_diemthis.id_sinhvienlophoc', 'qlsv_diemthis.*')
+            ->select('qlsv_sinhviens.hovaten', 'qlsv_sinhvienlophocs.id', 'qlsv_diemthis.diemthuchanh', 'qlsv_diemthis.diemlythuyet')
             ->get();
         // dd($qlsv_sinhvienlophoc);
         // $qlsv_lophoc = qlsv_lophoc::find($idlop);
@@ -207,6 +224,7 @@ class ManhinhGiangvienController extends Controller
         $diemlythuyets =  $request['diemlythuyet'];
         $diemthuchanhs =  $request['diemthuchanh'];
         $idlop = $request['idlop'];
+
         for ($i = 0; $i < count($id_sinhvienlophocs); $i++) {
             $diemthi = DB::table('qlsv_diemthis')
                 ->where('id_sinhvienlophoc', '=', $id_sinhvienlophocs[$i])->get();

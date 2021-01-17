@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use Validator;
 use Carbon\Carbon;
+
 class QlsvMonhocController extends Controller
 {
     /**
@@ -21,7 +22,7 @@ class QlsvMonhocController extends Controller
         $monhoc = DB::table("qlsv_monhocs")->where('deleted_at', 0)->paginate(2);
         $monhoc1 = DB::table("qlsv_monhocs")->where('deleted_at', 0)->get();
         $title = "Danh Sách Môn Học";
-        return view("admin/MonHoc/dsmonhoc", ['monhoc' => $monhoc,'monhoc1' => $monhoc1, 'title' => $title]);
+        return view("admin/MonHoc/dsmonhoc", ['monhoc' => $monhoc, 'monhoc1' => $monhoc1, 'title' => $title]);
     }
 
     /**
@@ -44,12 +45,12 @@ class QlsvMonhocController extends Controller
      */
     public function store(Request $request)
     {
-		date_default_timezone_set("Asia/Ho_Chi_Minh");
-		$validatedData = $request->validate([
-        'tenmonhoc' => 'required',
-        'ghichu' => 'required',
-        
-    ]);
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
+        $validatedData = $request->validate([
+            'tenmonhoc' => 'required',
+            'ghichu' => 'required',
+
+        ]);
         $monhoc = new qlsv_monhoc();
 
         $monhoc->tenmonhoc = $request->request->get("tenmonhoc");
@@ -57,7 +58,7 @@ class QlsvMonhocController extends Controller
         $monhoc->nguoitao = "haubeo";
         $monhoc->nguoisua = "haubeo";
         $monhoc->deleted_at = 0;
-		$monhoc->created_at=Carbon::now();
+        $monhoc->created_at = Carbon::now();
         $monhoc->save();
 
         return redirect('/monhoc/create');
@@ -71,7 +72,7 @@ class QlsvMonhocController extends Controller
      */
     public function show(qlsv_monhoc $qlsv_monhoc, Request $request)
     {
-		$validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
@@ -82,26 +83,62 @@ class QlsvMonhocController extends Controller
         if ($validator->passes()) {
 
 
-			return response()->json(['success'=>'Added new records.']);
+            return response()->json(['success' => 'Added new records.']);
         }
 
 
-    	return response()->json(['error'=>$validator->errors()->all()]);
+        return response()->json(['error' => $validator->errors()->all()]);
     }
-	
-    
+
+
 
 
 
     public function search(qlsv_monhoc $qlsv_monhoc, Request $request)
     {
+        $id = $request->request->get("id");
         $term = $request->request->get("tenmonhoc");
-        $monhoc = DB::table('qlsv_monhocs')->where('tenmonhoc', 'LIKE', '%' . $term . '%')
-            ->paginate(2);
-        $title = "Danh Sách Môn Học Tìm Được";
-        $monhoc->withPath('/find?tenmonhoc=' . $term);
-        return view("admin/MonHoc/dsmonhoc", ['monhoc' => $monhoc, 'title' => $title]);
-		
+        $title = " Môn Học Tìm Được";
+        if (isset($id) && !isset($term)) {
+            $monhoc = DB::table('qlsv_monhocs')
+                ->where('id', $id)
+                ->where('deleted_at', '=', 0)
+                ->paginate(2);
+            $title = "Môn Học " . $monhoc[0]->tenmonhoc;
+            $monhoc1 = DB::table("qlsv_monhocs")->where('deleted_at', 0)->get();
+            $monhoc->withPath('/find?id=' . $id . '&tenmonhoc=');
+            return view("admin/MonHoc/dsmonhoc", ['monhoc' => $monhoc, 'monhoc1' => $monhoc1, 'title' => $title]);
+        } else {
+            if (isset($id) && isset($term)) {
+                $monhoc = DB::table('qlsv_monhocs')
+                    ->where('id', $id)
+                    ->orWhere('tenmonhoc', 'LIKE', '%' . $term . '%')
+                    ->where('deleted_at', '=', 0)
+                    ->paginate(2);
+
+                $monhoc1 = DB::table("qlsv_monhocs")->where('deleted_at', 0)->get();
+                $monhoc->withPath('/find?id=' . $id . '&tenmonhoc=' . $term);
+                return view("admin/MonHoc/dsmonhoc", ['monhoc' => $monhoc, 'monhoc1' => $monhoc1, 'title' => $title]);
+            } else {
+                if (!isset($id) && isset($term)) {
+                    $monhoc = DB::table('qlsv_monhocs')
+                        ->where('tenmonhoc', 'LIKE', '%' . $term . '%')
+                        ->where('deleted_at', '=', 0)
+                        ->paginate(2);
+                    $title = " Môn Học theo tên ";
+                    $monhoc1 = DB::table("qlsv_monhocs")->where('deleted_at', 0)->get();
+                    $monhoc->withPath('/find?id=&tenmonhoc=' . $term);
+                    return view("admin/MonHoc/dsmonhoc", ['monhoc' => $monhoc, 'monhoc1' => $monhoc1, 'title' => $title]);
+                } else {
+                    $monhoc = DB::table('qlsv_monhocs')
+                        ->where('deleted_at', '=', 0)
+                        ->paginate(2);
+                    $monhoc1 = DB::table("qlsv_monhocs")->where('deleted_at', 0)->get();
+                   // $monhoc->withPath('/find?id=&tenmonhoc=');
+                    return view("admin/MonHoc/dsmonhoc", ['monhoc' => $monhoc, 'monhoc1' => $monhoc1, 'title' => $title]);
+                }
+            }
+        }
     }
     /**
      * Show the form for editing the specified resource.
@@ -125,13 +162,13 @@ class QlsvMonhocController extends Controller
      */
     public function update(Request $request, qlsv_monhoc $qlsv_monhoc, $id)
     {
-           date_default_timezone_set("Asia/Ho_Chi_Minh");
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
         //date_default_timezone_set("Asia/Ho_Chi_Minh");
         $monhoc = qlsv_monhoc::find($id);
 
         $monhoc->tenmonhoc = $request->request->get("tenmonhoc");
         $monhoc->ghichu = $request->request->get("ghichu");
-		$monhoc->updated_at=Carbon::now();
+        $monhoc->updated_at = Carbon::now();
         $monhoc->save();
 
         return redirect('/monhoc/index');

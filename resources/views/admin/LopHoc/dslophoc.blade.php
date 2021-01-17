@@ -1,14 +1,13 @@
 @extends('layouts.trangchu')
 
 @section('content')
-<div style="text-align:right;background-color:#f3ecec;padding: 4px;">
+
+<div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
     <a class="btn btn-primary btn-sm" href="#" onclick="$('#searcharea').toggle();return false;">
         <i class="glyphicon glyphicon-search"></i></a>
     <a class="btn btn-success btn-sm" href="<?= route("qlsvlophoc.create") ?>">
         <i class="glyphicon glyphicon-plus"></i></a>
-
 </div>
-
 <div id="searcharea" style="display:none; margin-top: 15px;">
     <form action="<?= route("qlsvlophoc.index") ?>" method="get">
         <div class="form-group row">

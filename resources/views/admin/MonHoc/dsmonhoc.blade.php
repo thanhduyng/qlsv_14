@@ -53,7 +53,7 @@
             @foreach($monhoc as $i =>$mh )
             <tr>
                 <td>
-                    {{$i+1}}
+                    <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
                 <td>
                     {{$mh->tenmonhoc}}<br>
@@ -66,7 +66,7 @@
                     <a class="btn-default btn-xs" href="{{route('qlsv_monhoc.destroy',$mh->id)}}">
                         <i class="glyphicon glyphicon-trash"></i></a>
                 </td>
-               
+
             </tr>
             @endforeach
             @endif

@@ -34,7 +34,7 @@
 
                     <td>
                         <?= $stt++ ?>
-                        <input type="hidden" name="id_sinhvienlophoc[]" value="{{$values->id_sinhvien}}">
+                        <input type="hidden" name="id_sinhvienlophoc[]" value="{{$values->id}}">
                     </td>
                     <td>{{$values->hovaten}}</td>
                     <td>

@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect('home');
+})->middleware('auth');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
@@ -50,7 +50,7 @@ Route::group(['prefix' => 'lophoc'], function () {
     Route::get('/delete/{id}', 'QlsvLophocController@destroy');
     Route::get('/search', 'QlsvLophocController@search')->name('qlsvlophoc.search');
 
-   
+
     Route::get('/diemdanh/{id}', 'QlsvDiemdanhController@diemdanh')->name('qlsvlophoc.diemdanh');
 });
 
@@ -142,8 +142,8 @@ Route::group(['prefix' => 'monhoc'], function () {
 //-------------------- worktask  ------------------------
 Route::group(['prefix' => 'worktask'], function () {
     Route::get('index', 'QlsvWorktaskController@index')->name('qlsv_worktask.index');
-	Route::get('/chonmon', 'QlsvWorktaskController@chonmon')->name('qlsv_worktask.chonmon');
-	Route::get('/mon/{id}', 'QlsvWorktaskController@mon')->name('qlsv_worktask.mon');
+    Route::get('/chonmon', 'QlsvWorktaskController@chonmon')->name('qlsv_worktask.chonmon');
+    Route::get('/mon/{id}', 'QlsvWorktaskController@mon')->name('qlsv_worktask.mon');
     Route::get('/create', 'QlsvWorktaskController@create')->name('qlsv_worktask.create');
     Route::post('/store', 'QlsvWorktaskController@store')->name('qlsv_worktask.store');
     Route::get('/edit/{id}', 'QlsvWorktaskController@edit')->name('qlsv_worktask.edit');
@@ -152,10 +152,10 @@ Route::group(['prefix' => 'worktask'], function () {
     Route::get('/find', 'QlsvWorktaskController@search')->name('qlsv_worktask.search');
     Route::get('/worktaskfind', 'QlsvWorktaskController@worktaskfind')->name('qlsv_worktask.worktaskfind');
     Route::get('/findmon1', 'QlsvWorktaskController@searchmon1')->name('qlsv_worktask.searchmon1');
-	Route::get('/findmon', 'QlsvWorktaskController@searchmon')->name('qlsv_worktask.searchmon');
-	Route::get('/chonmonhoc', 'QlsvWorktaskController@chonmonhoc')->name('qlsv_worktask.chonmonhoc');
-	Route::get('/show', 'QlsvWorktaskController@show')->name('qlsv_worktask.show');
-	Route::get('/worktaskmon/{id}', 'QlsvWorktaskController@worktaskmon')->name('qlsv_worktask.worktaskmon');
+    Route::get('/findmon', 'QlsvWorktaskController@searchmon')->name('qlsv_worktask.searchmon');
+    Route::get('/chonmonhoc', 'QlsvWorktaskController@chonmonhoc')->name('qlsv_worktask.chonmonhoc');
+    Route::get('/show', 'QlsvWorktaskController@show')->name('qlsv_worktask.show');
+    Route::get('/worktaskmon/{id}', 'QlsvWorktaskController@worktaskmon')->name('qlsv_worktask.worktaskmon');
 });
 
 //-------------------- worktaskdetail  ------------------------
@@ -196,5 +196,4 @@ Route::group(['prefix' => 'sinh_vien'], function () {
     Route::get("/trangchu", 'SinhVien\ManhinhSinhvienController@trangchu')->name("sinh_vien.trangchu");
     Route::get("/viewdiemthi", 'SinhVien\ManhinhSinhvienController@viewdiemthi')->name("sinh_vien.viewdiemthi");
     Route::post("/storediemthi", 'SinhVien\ManhinhSinhvienController@storediemthi')->name("sinh_vien.storediemthi");
-   
 });
