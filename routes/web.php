@@ -65,6 +65,17 @@ Route::group(['prefix' => 'giangvien'], function () {
 });
 
 
+//-------------------- Quản Trị ------------------------
+Route::group(['prefix' => 'quantri'], function () {
+    Route::get("/index", 'QlsvNguoidungquantriController@index')->name("qlsv_quantri.index");
+    Route::get('/create', 'QlsvNguoidungquantriController@create')->name('qlsv_quantri.create');
+    Route::post('/store', 'QlsvNguoidungquantriController@store')->name('qlsv_quantri.store');
+    Route::get('/edit/{id}', 'QlsvNguoidungquantriController@edit')->name('qlsv_quantri.edit');
+    Route::post('/update/{id}', 'QlsvNguoidungquantriController@update')->name('qlsv_quantri.update');
+    Route::get('/delete/{id}', 'QlsvNguoidungquantriController@destroy');
+});
+
+
 //-------------------- Thời khoá biểu  ------------------------
 Route::group(['prefix' => 'thoikhoabieu'], function () {
     Route::get("/index", 'QlsvThoikhoabieuController@index')->name("qlsv_thoikhoabieu.index");
@@ -196,4 +207,10 @@ Route::group(['prefix' => 'sinh_vien'], function () {
     Route::get("/trangchu", 'SinhVien\ManhinhSinhvienController@trangchu')->name("sinh_vien.trangchu");
     Route::get("/viewdiemthi", 'SinhVien\ManhinhSinhvienController@viewdiemthi')->name("sinh_vien.viewdiemthi");
     Route::post("/storediemthi", 'SinhVien\ManhinhSinhvienController@storediemthi')->name("sinh_vien.storediemthi");
+});
+
+//-------------------- Màn hình người dùng quản trị  ------------------------
+Route::group(['prefix' => 'quan_tri'], function () {
+    Route::get("/trangchu", 'QuanTri\ManhinhQuantriController@trangchu')->name("quan_tri.trangchu");
+   
 });

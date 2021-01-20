@@ -26,6 +26,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navbar (sit on top) -->
     <div class="w3-top">
@@ -41,12 +42,7 @@
     <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none; top: 0;" id="mySidebar">
         <!-- <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16" style="margin-left: 140px;">
             ×</a> -->
-        <a><img src="/images/logo.png" class="logotruong" style="  width: 100%; background-color: #fff;
-            margin-top: 0;
-            margin-left: 0px;
-            padding: 12px;
-            /* margin-right: -10px; */
-            margin-bottom: 20px;"></a>
+        <a><img src="/images/logo1.png" class="logotruong" style="width: 100%; background-color: #fff; margin-top: 0;margin-left: 0px;padding: 7px;margin-bottom: 15px;"></a>
         <a href="" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý sinh viên</a>
         <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý giảng viên</a>
         <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">Quảng lý khoá học</a>
@@ -59,6 +55,7 @@
                 <li class="active" href="#"><a>Text</a></li>
             </ul>
         </div>
+        
         <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý môn học</a>
 
     </nav>

@@ -71,7 +71,7 @@ class QlsvWorktaskController extends Controller
         $worktask->save();
         $worktaskdetail = new qlsv_worktaskdetail();
         $ten = $request->request->get("ten");
-        //dd($ten);
+        // dd($ten);
 
         for ($i = 0; $i < count($ten); $i++) {
             $worktaskdetail = new qlsv_worktaskdetail();

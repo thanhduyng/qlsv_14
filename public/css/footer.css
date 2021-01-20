@@ -177,6 +177,11 @@
 
   .footer-distributed{
     padding: 38px 11px;
+    height: 130px;
+  }
+
+  .row{
+    margin-top: -12px;
   }
 
 }

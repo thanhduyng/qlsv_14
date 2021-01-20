@@ -128,6 +128,6 @@ class QlsvGiangvienController extends Controller
 	{
 		date_default_timezone_set("Asia/Ho_Chi_Minh");
 		$giangVien = DB::table('qlsv_giangviens')->where('id', $id)->update(["deleted_at" => "1", "updated_at" => Carbon::now()]);
-		return response()->json(['_typeMessage' => 'deleteSuccess']);;
+		return response()->json(['_typeMessage' => 'deleteSuccess']);
 	}
 }
