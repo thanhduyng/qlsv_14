@@ -41,7 +41,7 @@ class QlsvVaitroController extends Controller
         $chucNang = $this->qlsv_chucnang->all();
        
 
-        dd($chucNang);
+        // dd($chucNang);
         return view('admin.VaiTro.themvaitro',compact(['title','chucNang']));
     }
 
