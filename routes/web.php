@@ -31,9 +31,16 @@ Route::middleware(['auth'])->group(function () {
             'as' => 'qlsv_khoahoc.index', 'uses' => 'QlsvKhoahocController@index',
             'middleware' => 'checkquyen:list-khoahoc'
         ]);
-        Route::get('/create', 'QlsvKhoahocController@create')->name('qlsv_khoahoc.create');
+        Route::get('/create', [
+            'as' => 'qlsv_khoahoc.create', 'uses' => 'QlsvKhoahocController@create',
+            'middleware' => 'checkquyen:add-khoahoc'
+        ]);
+
         Route::post('/store', 'QlsvKhoahocController@store')->name('qlsv_khoahoc.store');
-        Route::get('/edit/{id}', 'QlsvKhoahocController@edit')->name('qlsv_khoahoc.edit');
+        Route::get('/edit/{id}', [
+            'as' => 'qlsv_khoahoc.edit', 'uses' => 'QlsvKhoahocController@edit',
+            'middleware' => 'checkquyen:edit-khoahoc'
+        ]);
         Route::post('/update/{id}', 'QlsvKhoahocController@update')->name('qlsv_khoahoc.update');
 
         Route::get('/delete/{id}', 'QlsvKhoahocController@destroy');
@@ -94,13 +101,18 @@ Route::group(['prefix' => 'thoikhoabieu'], function () {
 
 
 //-------------------- Phòng học  ------------------------
-Route::group(['prefix' => 'phonghoc'], function () {
-    Route::get("/index", 'QlsvPhonghocController@index')->name("qlsv_phonghoc.index");
-    Route::get('/create', 'QlsvPhonghocController@create')->name('qlsv_phonghoc.create');
-    Route::post('/store', 'QlsvPhonghocController@store')->name('qlsv_phonghoc.store');
-    Route::get('/edit/{id}', 'QlsvPhonghocController@edit')->name('qlsv_phonghoc.edit');
-    Route::post('/update/{id}', 'QlsvPhonghocController@update')->name('qlsv_phonghoc.update');
-    Route::get('/delete/{id}', 'QlsvPhonghocController@destroy');
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'phonghoc'], function () {
+        Route::get("/index", 'QlsvPhonghocController@index')->name("qlsv_phonghoc.index");
+        Route::get('/create', 'QlsvPhonghocController@create')->name('qlsv_phonghoc.create');
+        Route::post('/store', 'QlsvPhonghocController@store')->name('qlsv_phonghoc.store');
+        Route::get('/edit/{id}', 'QlsvPhonghocController@edit')->name('qlsv_phonghoc.edit');
+        Route::post('/update/{id}', 'QlsvPhonghocController@update')->name('qlsv_phonghoc.update');
+        Route::get('/delete/{id}', [
+            'as' => 'qlsv_khoahoc.edit', 'uses' => 'QlsvPhonghocController@destroy',
+            'middleware' => 'checkquyen:delete-phonghoc'
+        ]);
+    });
 });
 
 //-------------------- diemthi  ------------------------
@@ -231,6 +243,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get("/index", 'QlsvVaitroController@index')->name("qlsv_vaitro.index");
         Route::get('/create', 'QlsvVaitroController@create')->name('qlsv_vaitro.create');
         Route::post('/store', 'QlsvVaitroController@store')->name('qlsv_vaitro.store');
+        Route::get('/edit/{id}', 'QlsvVaitroController@edit')->name('qlsv_vaitro.edit');
+        Route::post('/edit/{id}', 'QlsvVaitroController@update')->name('qlsv_vaitro.update');
+        Route::get('/delete/{id}', 'QlsvVaitroController@destroy');
     });
 });
 
@@ -240,8 +255,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get("/index", 'UserController@index')->name("user.index");
         Route::get('/create', 'UserController@create')->name('user.create');
         Route::post('/store', 'UserController@store')->name('user.store');
-
         Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
         Route::post('/edit/{id}', 'UserController@update')->name('user.update');
+        Route::get('/delete/{id}', 'UserController@destroy');
     });
 });

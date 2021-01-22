@@ -1,11 +1,6 @@
 @extends('layouts.trangchu')
 
 @section('content')
-<div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
-
-    <a class="btn btn-success btn-sm" href="<?= route("user.create") ?>">
-        <i class="glyphicon glyphicon-plus"></i></a>
-</div>
 <form method=get action="<?= route("user.index") ?>">
     <table>
         <thead class="andi">
@@ -23,15 +18,14 @@
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
                 <td width=100%>
-                    <i style="margin-left: 25px;">{{$cl->name}}</i><br>
-                    <i style="margin-left: 25px;">{{$cl->email}}</i>
-
+                    <i style="margin-left: 25px;">{{$cl->email}}</i><br>
+                    <i style="margin-left: 25px;">{{$cl->name}}</i>
                 </td>
-                <td>
-                    <a class="btn-sm-primary" style="color: black;" href="/users/edit/{{$cl->id}}">
-                        Edit</a>
-                    <a class="btn-sm-danger" style="color: black;" href="/users/delete/{{$cl->id}}">
-                        Delete</a>
+                <td style="padding-left:0;line-height: 33px;">
+                    <a class="btn-default btn-xs" href="/users/edit/{{$cl->id}}">
+                        <i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn-default btn-xs" href="/users/delete/{{$cl->id}}">
+                        <i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
             @endforeach

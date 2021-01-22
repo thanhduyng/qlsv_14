@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\qlsv_vaitro;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -21,7 +22,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $title = "Danh sách user";
-        $users = $this->user->all();
+        $users = $this->user->select('id','name','email')->where('deleted_at',0)->get();
         return view('admin.dsuser', compact(['users', 'title']));
     }
 
@@ -62,5 +63,12 @@ class UserController extends Controller
             DB::rollBack();
             Log::error('Loi:'.$exception->getMessage() . $exception->getLine());
         }
+    }
+
+    public function destroy($id)
+    {
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
+        $users = DB::table('users')->where('id', $id)->update(["deleted_at" => "1", "updated_at" => Carbon::now()]);
+        return redirect()->route('user.index');
     }
 }

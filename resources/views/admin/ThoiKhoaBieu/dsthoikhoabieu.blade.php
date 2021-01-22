@@ -25,7 +25,9 @@
                 <td width=100%>
                     {{--<i><?php echo \App\qlsv_worktask::find($cl->id_worktask)->tenworktask ?></i><br>--}}
                     <i>{{$cl->ngayhoc}}</i><br>
+                    @if($cl->id_phonghoc != null)
                     <i><?php echo \App\qlsv_phonghoc::find($cl->id_phonghoc)->tenphonghoc ?></i><br>
+                    @endif
                     <i><?php echo \App\qlsv_lophoc::find($cl->id_lophoc)->tenlophoc ?></i><br>
                     <!-- <a class="btn-success btn-xs" href="">điểm danh</i></a>
                     <a class="btn-primary btn-xs" href="">nhật ký</i></a>

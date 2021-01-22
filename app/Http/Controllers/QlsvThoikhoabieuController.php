@@ -23,9 +23,9 @@ class QlsvThoikhoabieuController extends Controller
 
         $title = "Danh sách thời khoá biểu";
         $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')
-        ->where('deleted_at', 0)
-        ->orderBy('ngayhoc', 'desc')
-        ->paginate(10);
+            ->where('deleted_at', 0)
+            ->orderBy('ngayhoc', 'desc')
+            ->paginate(10);
         return view('admin.ThoiKhoaBieu.dsthoikhoabieu', compact(['thoiKhoaBieu', 'title']));
     }
 
@@ -39,23 +39,21 @@ class QlsvThoikhoabieuController extends Controller
         $title = "Thêm thời khoá biểu giáo vụ";
         $phongHoc = DB::table('qlsv_phonghocs')->pluck('tenphonghoc', 'id');
         $lopHoc = DB::table('qlsv_lophocs')->pluck('tenlophoc', 'id');
-        return view('admin.ThoiKhoaBieu.themthoikhoabieugiaovu', compact(['title', 'phongHoc','lopHoc']));
+        return view('admin.ThoiKhoaBieu.themthoikhoabieugiaovu', compact(['title', 'phongHoc', 'lopHoc']));
     }
 
     public function storegiaovu(Request $request)
     {
-        $thoiKhoaBieu = new qlsv_thoikhoabieu();
-        $thoiKhoaBieu->ngayhoc = $request->ngayhoc;
-        $thoiKhoaBieu->id_lophoc = $request->id_lophoc;
-        $thoiKhoaBieu->id_phonghoc = $request->id_phonghoc;
-        $thoiKhoaBieu->cahoc = $request->cahoc;
-        $thoiKhoaBieu->diadiemhoc = $request->diadiemhoc;
-        $thoiKhoaBieu->loinhanphongdaotao = $request->loinhanphongdaotao;
-        $thoiKhoaBieu->nguoitao = "ad";
-        $thoiKhoaBieu->nguoisua = "ad";
-        $thoiKhoaBieu->deleted_at = "0";
-        $thoiKhoaBieu->created_at = Carbon::now('Asia/Ho_Chi_Minh');
-        $thoiKhoaBieu->save();
+        $ngayhoc = $request->request->get("ngayhoc");
+        $cahoc = $request->request->get("cahoc");
+        for ($i = 0; $i < count($ngayhoc); $i++) {
+            $thoiKhoaBieu = new qlsv_thoikhoabieu();
+            $thoiKhoaBieu->id_lophoc = $request->id_lophoc;
+            $thoiKhoaBieu->deleted_at = "0";
+            $thoiKhoaBieu->ngayhoc = $ngayhoc[$i];
+            $thoiKhoaBieu->cahoc = $cahoc[$i];
+            $thoiKhoaBieu->save();
+        }
         return redirect()->route('qlsv_thoikhoabieu.creategiaovu');
     }
 
@@ -64,7 +62,7 @@ class QlsvThoikhoabieuController extends Controller
         $title = "Thêm thời khoá biểu";
         $phongHoc = DB::table('qlsv_phonghocs')->pluck('tenphonghoc', 'id');
         $workTask = DB::table('qlsv_worktasks')->pluck('tenworktask', 'id');
-        return view('admin.ThoiKhoaBieu.themthoikhoabieu', compact(['title', 'phongHoc','workTask']));
+        return view('admin.ThoiKhoaBieu.themthoikhoabieu', compact(['title', 'phongHoc', 'workTask']));
     }
 
     /**
@@ -133,7 +131,7 @@ class QlsvThoikhoabieuController extends Controller
         $workTask = qlsv_worktask::pluck('tenworktask', 'id');
         $phongHoc = qlsv_phonghoc::pluck('tenphonghoc', 'id');
         $lopHoc = qlsv_lophoc::pluck('tenlophoc', 'id');
-        return view('admin.ThoiKhoaBieu.suathoikhoabieu', compact(['thoiKhoaBieu', 'sinhVien','lopHoc', 'workTask','phongHoc','title']));
+        return view('admin.ThoiKhoaBieu.suathoikhoabieu', compact(['thoiKhoaBieu', 'sinhVien', 'lopHoc', 'workTask', 'phongHoc', 'title']));
     }
 
     /**
@@ -162,7 +160,7 @@ class QlsvThoikhoabieuController extends Controller
     public function destroy($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')->where('id',$id)->update(["deleted_at" => "1","updated_at" => Carbon::now()]);
+        $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')->where('id', $id)->update(["deleted_at" => "1", "updated_at" => Carbon::now()]);
         return redirect()->route('qlsv_thoikhoabieu.index');
     }
 }

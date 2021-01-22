@@ -24,21 +24,12 @@
                             <option value="1" id="gioitinh2" name="gioitinh">Nữ</option>
                             <option value="2" id="gioitinh3" name="gioitinh">Khác</option>
                         </select>
-                        <!-- <label class="checkbox-inline"> <input type="radio" name="gioitinh" checked="checked" value="0"
-                                id="gioitinh1" />Nam
-                        </label> <label class="checkbox-inline"> <input type="radio" name="gioitinh" value="1"
-                                id="gioitinh2" /> Nữ
-                        </label>
-                        </label> <label class="checkbox-inline"> <input type="radio" name="gioitinh" value="2"
-                                id="gioitinh3" /> Khác
-                        </label> -->
-
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label for="">Ngày sinh:</label>
-                        <input type="date" value="2020-12-12" class="form-control" name="ngaysinh"
+                        <input type="date" value="" class="form-control" name="ngaysinh"
                             placeholder="nhập ngày sinh" />
 
                     </div>
