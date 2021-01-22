@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\qlsv_chucnang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QlsvChucnangController extends Controller
 {
@@ -12,9 +13,11 @@ class QlsvChucnangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $title = "Danh sách chức năng";
+        $chucNang = DB::table('qlsv_chucnangs')->where('deleted_at',0)->paginate(10);
+        return view('admin.ChucNang.dschucnang', compact(['chucNang','title']));
     }
 
     /**
@@ -24,7 +27,8 @@ class QlsvChucnangController extends Controller
      */
     public function create()
     {
-        //
+        $title = "Thêm chuc năng";
+        return view('admin.ChucNang.themchucnang',compact(['title']));
     }
 
     /**
@@ -35,7 +39,13 @@ class QlsvChucnangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+     
+        $chucNang = new qlsv_chucnang();
+        $chucNang->ma = $request->ma;
+        $chucNang->ten = $request->ten;
+        $chucNang->deleted_at = "0";
+        $chucNang->save();
+        return redirect()->route('qlsv_chucnang.index')->with('message','Thêm thành công');
     }
 
     /**

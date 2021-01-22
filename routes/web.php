@@ -25,20 +25,24 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //-------------------- Khoá học ------------------------
-Route::group(['prefix' => 'khoahoc'], function () {
-    Route::get("/index", 'QlsvKhoahocController@index')->name("qlsv_khoahoc.index");
-    Route::get('/create', 'QlsvKhoahocController@create')->name('qlsv_khoahoc.create');
-    Route::post('/store', 'QlsvKhoahocController@store')->name('qlsv_khoahoc.store');
-    Route::get('/edit/{id}', 'QlsvKhoahocController@edit')->name('qlsv_khoahoc.edit');
-    Route::post('/update/{id}', 'QlsvKhoahocController@update')->name('qlsv_khoahoc.update');
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'khoahoc'], function () {
+        Route::get('/index', [
+            'as' => 'qlsv_khoahoc.index', 'uses' => 'QlsvKhoahocController@index',
+            'middleware' => 'checkquyen:list-khoahoc'
+        ]);
+        Route::get('/create', 'QlsvKhoahocController@create')->name('qlsv_khoahoc.create');
+        Route::post('/store', 'QlsvKhoahocController@store')->name('qlsv_khoahoc.store');
+        Route::get('/edit/{id}', 'QlsvKhoahocController@edit')->name('qlsv_khoahoc.edit');
+        Route::post('/update/{id}', 'QlsvKhoahocController@update')->name('qlsv_khoahoc.update');
 
-    Route::get('/delete/{id}', 'QlsvKhoahocController@destroy');
-    Route::get('/delete_id/{id}', 'QlsvKhoahocController@destroy');
+        Route::get('/delete/{id}', 'QlsvKhoahocController@destroy');
+        Route::get('/delete_id/{id}', 'QlsvKhoahocController@destroy');
 
-    Route::delete('deleteCheckbox', 'QlsvKhoahocController@deleteAll');
-    Route::get('/search', 'QlsvKhoahocController@search');
+        Route::delete('deleteCheckbox', 'QlsvKhoahocController@deleteAll');
+        Route::get('/search', 'QlsvKhoahocController@search');
+    });
 });
-
 //-------------------- Lớp học  ------------------------
 Route::group(['prefix' => 'lophoc'], function () {
     Route::get("/index", 'QlsvLophocController@index')->name("qlsvlophoc.index");
@@ -212,5 +216,32 @@ Route::group(['prefix' => 'sinh_vien'], function () {
 //-------------------- Màn hình người dùng quản trị  ------------------------
 Route::group(['prefix' => 'quan_tri'], function () {
     Route::get("/trangchu", 'QuanTri\ManhinhQuantriController@trangchu')->name("quan_tri.trangchu");
-   
+});
+
+//-------------------- Chức năng  ------------------------
+Route::group(['prefix' => 'chucnang'], function () {
+    Route::get("/index", 'QlsvChucnangController@index')->name("qlsv_chucnang.index");
+    Route::get('/create', 'QlsvChucnangController@create')->name('qlsv_chucnang.create');
+    Route::post('/store', 'QlsvChucnangController@store')->name('qlsv_chucnang.store');
+});
+
+//-------------------- Vai trò  ------------------------
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('vaitro')->group(function () {
+        Route::get("/index", 'QlsvVaitroController@index')->name("qlsv_vaitro.index");
+        Route::get('/create', 'QlsvVaitroController@create')->name('qlsv_vaitro.create');
+        Route::post('/store', 'QlsvVaitroController@store')->name('qlsv_vaitro.store');
+    });
+});
+
+//-------------------- users  ------------------------
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('users')->group(function () {
+        Route::get("/index", 'UserController@index')->name("user.index");
+        Route::get('/create', 'UserController@create')->name('user.create');
+        Route::post('/store', 'UserController@store')->name('user.store');
+
+        Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
+        Route::post('/edit/{id}', 'UserController@update')->name('user.update');
+    });
 });

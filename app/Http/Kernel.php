@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'Ghilog' => \Illuminate\Auth\Middleware\Ghilog::class,
+        'checkquyen' => \App\Http\Middleware\CheckQuyenAcl::class
  
     ];
 }
