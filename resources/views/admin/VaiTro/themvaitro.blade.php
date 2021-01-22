@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div style="margin-left: 228px; margin-bottom: 10px;">
+            <div style="">
                 @foreach($chucNang as $chucNang)
                 <div class="form-check">
                     <div class="col-md-6">

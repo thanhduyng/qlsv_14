@@ -39,8 +39,13 @@ class QlsvVaitroController extends Controller
     {
         $title = "Thêm vai trò";
         $chucNang = $this->qlsv_chucnang->all();
-       
 
+        // $chucNang = DB::table('qlsv_chucnangs as r')
+        // ->select('r.id', 'r.id_cha', 'r.ma', 'r.ten')
+        // ->join('qlsv_chucnangs as rp', 'r.id_cha', '=', 'rp.id')
+        // ->where('r.id_cha', '!=', '-1')
+        // ->orderBy('rp.ten', 'asc')
+        // ->get();
         // dd($chucNang);
         return view('admin.VaiTro.themvaitro',compact(['title','chucNang']));
     }
