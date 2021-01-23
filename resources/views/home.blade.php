@@ -16,7 +16,7 @@
                 @endif
                 @if($phongDaoTao==1)
                 <div class="card" style="margin-top: 15px;background-color: #ddd;">
-                    <div class="card-header">{{ __('Phòng Đào Tạo') }}</div>
+                    <a class="card-header" href="{{route('quan_tri.trangchu')}}">{{ __('Phòng Đào Tạo') }}</a>
                 </div>
                 @endif
             </div>

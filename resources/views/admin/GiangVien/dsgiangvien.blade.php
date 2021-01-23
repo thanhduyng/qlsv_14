@@ -54,7 +54,7 @@
         </tbody>
     </table>
     <div class="text-center">
-        {{ $giangVien->appends(['sort' => 'id'])->links() }}
+        {{-- $giangVien->appends(['sort' => 'id'])->links() --}}
     </div>
 </form>
 <script>

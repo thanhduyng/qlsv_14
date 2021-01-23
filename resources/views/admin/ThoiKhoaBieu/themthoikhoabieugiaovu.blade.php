@@ -13,7 +13,7 @@
                 <div class="form-group row">
                     <div class="col-sm-6 col-xs-6">
                         <label for="">Ngày học</label>
-                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value='<?php echo date('Y-m-d'); ?>'>
+                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''>
                     </div>
                     <div class="col-sm-6 col-xs-6">
                         <label for="">Ca học</label>
@@ -28,7 +28,7 @@
                 <div class="form-group row">
                     <div class="col-sm-6 col-xs-6">
                         <label for="">Ngày học</label>
-                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value='<?php echo date('Y-m-d'); ?>'>
+                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''>
                     </div>
                     <div class="col-sm-6 col-xs-6">
                         <label for="">Ca học</label>
@@ -43,7 +43,7 @@
                 <div class="form-group row">
                     <div class="col-sm-6 col-xs-6">
                         <label for="">Ngày học</label>
-                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value='<?php echo date('Y-m-d'); ?>'>
+                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''>
                     </div>
                     <div class="col-sm-6 col-xs-6">
                         <label for="">Ca học</label>

@@ -25,14 +25,14 @@ class QlsvSinhvienController extends Controller
         $khoaHoc = qlsv_khoahoc::pluck('tenkhoahoc', 'id');
         if ($search == "" && $khoahoc != "") {
             $sinhVien = DB::table('qlsv_sinhviens')
-                //->where('hovaten','like','%'.$search.'%')
                 ->where('id_khoahoc', 'like', '%' . $khoahoc . '%')
-                ->where('deleted_at', 0)->paginate(10);
+                ->where('deleted_at', 0)
+                ->paginate(10);
             return view('admin.SinhVien.danhsachSinhvien', compact(['sinhVien', 'title', 'search', 'khoaHoc']));
         } else {
             if ($search != "" && $khoahoc != "") {
                 $sinhVien = DB::table('qlsv_sinhviens')->where('hovaten', 'like', '%' . $search . '%')
-                    ->orWhere('id_khoahoc', 'like', '%' . $khoahoc . '%')
+                    ->Where('id_khoahoc', 'like', '%' . $khoahoc . '%')
                     ->where('deleted_at', 0)->paginate(10);
                 return view('admin.SinhVien.danhsachSinhvien', compact(['sinhVien', 'title', 'search', 'khoaHoc']));
             } else {
@@ -46,8 +46,9 @@ class QlsvSinhvienController extends Controller
 
         $sinhVien = DB::table('qlsv_sinhviens')
             ->where('hovaten', 'like', '%' . $search . '%')
-            ->orWhere('id_khoahoc', 'like', '%' . $khoahoc . '%')
-            ->where('deleted_at', 0)->paginate(10);
+            ->Where('id_khoahoc', 'like', '%' . $khoahoc . '%')
+            ->where('deleted_at', 0)
+            ->get();
         return view('admin.SinhVien.danhsachSinhvien', compact(['sinhVien', 'title', 'search', 'khoaHoc']));
     }
 

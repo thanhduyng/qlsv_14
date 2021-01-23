@@ -65,9 +65,6 @@
             @endif
         </tbody>
     </table>
-    <div class="text-center">
-        {{ $sinhVien->appends(['sort' => 'id'])->links() }}
-    </div>
 </form>
 
 

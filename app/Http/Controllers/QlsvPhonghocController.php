@@ -19,7 +19,11 @@ class QlsvPhonghocController extends Controller
        
         $title = "Danh sách phòng học";
         $search = $request->get('search')??"";
-        $phongHoc = DB::table('qlsv_phonghocs')->where('tenphonghoc','like','%'.$search.'%')->where('deleted_at',0)->paginate(10);
+        $phongHoc = DB::table('qlsv_phonghocs')
+        ->where('tenphonghoc','like','%'.$search.'%')
+        ->where('deleted_at',0)
+        ->orderBy('created_at', 'asc')
+        ->paginate(10);
         return view('admin.PhongHoc.dsphonghoc', compact(['phongHoc','title','search']));
     }
 

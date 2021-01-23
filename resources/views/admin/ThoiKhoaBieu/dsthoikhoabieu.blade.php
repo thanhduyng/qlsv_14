@@ -44,8 +44,5 @@
             @endif
         </tbody>
     </table>
-    <!-- <div class="text-center">
-        {{ $thoiKhoaBieu->appends(['sort' => 'id'])->links() }}
-    </div> -->
 </form>
 @endsection

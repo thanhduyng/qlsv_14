@@ -54,21 +54,12 @@ class QlsvDiemdanhController extends Controller
         return view('diemdanh', compact('lopHoc', 'title', 'sinhVien'));
     }
 
-    // public function create(Request $request)
-    // {
-    //     $title = "Thêm điểm danh";
-    //     $idlop = $request->get('id_lophoc');
-    //     $qlsv_lophoc = qlsv_lophoc::find($idlop);
-
-    //     return view('admin.DiemDanh.themdiemdanh', compact(['idlop','qlsv_lophoc','title']));
-    // }
-
     public function add(Request $request)
     {
         $title = "Thêm điểm danh";
         $idlop = $request->get('id_lophoc');
         $id_thoikhoabieu = $request->get('id_thoikhoabieu');
-  DB::enableQueryLog(); 
+        DB::enableQueryLog();
         $qlsv_sinhvienlophoc = DB::table('qlsv_sinhvienlophocs')
             ->join('qlsv_sinhviens', 'qlsv_sinhviens.id', '=', 'qlsv_sinhvienlophocs.id_sinhvien')
             ->leftJoin('qlsv_diemdanhs', function ($join) use ($id_thoikhoabieu) {
@@ -76,15 +67,11 @@ class QlsvDiemdanhController extends Controller
             })
             ->where('qlsv_sinhvienlophocs.id_lophoc', $idlop)
             ->where('qlsv_sinhviens.deleted_at', 0)
-            ->select('qlsv_sinhvienlophocs.id as id_svlh',  'qlsv_sinhviens.hovaten','qlsv_diemdanhs.*')
+            ->select('qlsv_sinhvienlophocs.id as id_svlh',  'qlsv_sinhviens.hovaten', 'qlsv_diemdanhs.*')
             ->get();
 
         // dd($qlsv_sinhvienlophoc);
-
-      
-
         // dd(DB::getQueryLog());
-
         $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')->pluck('ngayhoc', 'id');
         $qlsv_lophoc = qlsv_lophoc::find($idlop);
         // dd($qlsv_lophoc);

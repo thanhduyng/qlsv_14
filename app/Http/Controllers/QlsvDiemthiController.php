@@ -142,17 +142,6 @@ class QlsvDiemthiController extends Controller
 
     public function update(Request $request, qlsv_diemthi $qlsv_diemthi)
     {
-        // date_default_timezone_set("Asia/Ho_Chi_Minh");
-
-        // $qlsv_lophoc = $request->input('id_lophoc');
-        // $qlsv_sinhvien = $request->input('id_sinhvien');
-        // foreach ($qlsv_sinhvien as $key) {
-        //     $qlsv_sinhvienlophoc =  qlsv_sinhvienlophoc::find($request->id);
-        //     $qlsv_sinhvienlophoc->id_lophoc = $qlsv_lophoc;
-        //     $qlsv_sinhvienlophoc->id_sinhvien = $key;
-        //     $qlsv_sinhvienlophoc->save();
-
-        // }
         $data = qlsv_diemthi::find($request->id);
         $data->diemlythuyet = $request->diemlythuyet;
         $data->diemthuchanh = $request->diemthuchanh;

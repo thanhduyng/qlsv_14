@@ -37,6 +37,15 @@
             <input class="form-control" type="text" name="email" value="{{$users->email}}" />
         </div>
         <div class="form-group">
+            <label>Nhóm</label>
+            <select class="form-control" id="edit-nhom" name="nhoms[]" multiple="mutiple">
+                @foreach($nhoms as $nd => $value)
+                <option value="{{$nd}}">{{$value}}</option>
+                <option value="{{$nd}}" {{($nd == $lopHoc->id_giangvien) ? 'selected' : ''}}>{{$value}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
             <label>Tên vai trò</label>
             <select class="form-control" id="edit-user" name="vaitros[]" multiple="mutiple">
                 @foreach($qlsv_vaitros as $qlsv_vaitro)
@@ -52,6 +61,12 @@
     $(document).ready(function() {
         $('#edit-user').multiselect({
             nonSelectedText: '-- Chọn vai trò --',
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '291px'
+        });
+        $('#edit-nhom').multiselect({
+            nonSelectedText: '-- Chọn nhóm --',
             enableFiltering: true,
             enableCaseInsensitiveFiltering: true,
             buttonWidth: '291px'

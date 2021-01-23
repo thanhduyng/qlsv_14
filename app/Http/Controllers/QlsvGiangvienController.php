@@ -20,7 +20,11 @@ class QlsvGiangvienController extends Controller
 	{
 		$title = "Danh sách giảng viên";
 		$search = $request->get('search') ?? "";
-		$giangVien = DB::table('qlsv_giangviens')->where('hovaten', 'like', '%' . $search . '%')->where("deleted_at", 0)->paginate(10);
+		$giangVien = DB::table('qlsv_giangviens')
+		->where('hovaten', 'like', '%' . $search . '%')
+		->where("deleted_at", 0)
+		->orderBy('created_at', 'DESC')
+		->get();
 		return view('admin.GiangVien.dsgiangvien', compact(['giangVien', 'title', 'search']));
 	}
 

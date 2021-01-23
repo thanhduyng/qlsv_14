@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\qlsv_nhom;
 use App\qlsv_vaitro;
 use App\User;
 use Carbon\Carbon;
@@ -30,10 +31,13 @@ class UserController extends Controller
     {
         $title = "Danh sách user";
         $users = User::find($id);
+        $nhoms = DB::table('qlsv_nhoms')->pluck('ten', 'id');
+        $lopHoc = qlsv_nhom::find($id);
         $listRowOfUser = DB::table('qlsv_uservavaitros')->where('id_user',  $id)->pluck('id_vaitro');
+        $listRowOfNhom = DB::table('qlsv_nhomvausers')->where('iduser',  $id)->pluck('idnhom');
         // dd($listRowOfUser);
         $qlsv_vaitros = $this->qlsv_vaitro->all();
-        return view('admin.edituser', compact(['qlsv_vaitros', 'users', 'listRowOfUser','title']));
+        return view('admin.edituser', compact(['qlsv_vaitros','nhoms', 'users', 'listRowOfUser','listRowOfNhom','title']));
     }
 
     public function update(Request $request, $id)
@@ -55,6 +59,14 @@ class UserController extends Controller
                 DB::table('qlsv_uservavaitros')->insert([
                     'id_user' => $userCreate->id,
                     'id_vaitro' => $vaitroId
+                ]);
+            }
+
+            $nhoms = $request->nhoms;
+            foreach($nhoms as $nhomId){
+                DB::table('qlsv_nhomvausers')->insert([
+                    'iduser' =>$userCreate->id,
+                    'idnhom' => $nhomId
                 ]);
             }
             DB::commit();

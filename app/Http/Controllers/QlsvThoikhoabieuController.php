@@ -25,7 +25,7 @@ class QlsvThoikhoabieuController extends Controller
         $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')
             ->where('deleted_at', 0)
             ->orderBy('ngayhoc', 'desc')
-            ->paginate(10);
+            ->get();
         return view('admin.ThoiKhoaBieu.dsthoikhoabieu', compact(['thoiKhoaBieu', 'title']));
     }
 
@@ -48,11 +48,13 @@ class QlsvThoikhoabieuController extends Controller
         $cahoc = $request->request->get("cahoc");
         for ($i = 0; $i < count($ngayhoc); $i++) {
             $thoiKhoaBieu = new qlsv_thoikhoabieu();
-            $thoiKhoaBieu->id_lophoc = $request->id_lophoc;
-            $thoiKhoaBieu->deleted_at = "0";
-            $thoiKhoaBieu->ngayhoc = $ngayhoc[$i];
-            $thoiKhoaBieu->cahoc = $cahoc[$i];
-            $thoiKhoaBieu->save();
+            if ($ngayhoc[$i] != null) {
+                $thoiKhoaBieu->ngayhoc = $ngayhoc[$i];
+                $thoiKhoaBieu->cahoc = $cahoc[$i];
+                $thoiKhoaBieu->id_lophoc = $request->id_lophoc;
+                $thoiKhoaBieu->deleted_at = "0";
+                $thoiKhoaBieu->save();
+            }
         }
         return redirect()->route('qlsv_thoikhoabieu.creategiaovu');
     }
