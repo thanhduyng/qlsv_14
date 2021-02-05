@@ -46,11 +46,15 @@ class QlsvThoikhoabieuController extends Controller
     {
         $ngayhoc = $request->request->get("ngayhoc");
         $cahoc = $request->request->get("cahoc");
+        $diadiemhoc = $request->request->get("diadiemhoc");
+        $loinhanphongdaotao = $request->request->get("loinhanphongdaotao");
         for ($i = 0; $i < count($ngayhoc); $i++) {
             $thoiKhoaBieu = new qlsv_thoikhoabieu();
             if ($ngayhoc[$i] != null) {
                 $thoiKhoaBieu->ngayhoc = $ngayhoc[$i];
                 $thoiKhoaBieu->cahoc = $cahoc[$i];
+                $thoiKhoaBieu->diadiemhoc = $diadiemhoc[$i];
+                $thoiKhoaBieu->loinhanphongdaotao = $loinhanphongdaotao[$i];
                 $thoiKhoaBieu->id_lophoc = $request->id_lophoc;
                 $thoiKhoaBieu->deleted_at = "0";
                 $thoiKhoaBieu->save();

@@ -28,8 +28,8 @@
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <label for="">Lời nhắn P.Đào tạo</label>
-                    <input disabled type="hidden" class="form-control" id="" name="loinhanphongdaotao" value="{{$thoiKhoaBieu->loinhanphongdaotao}}" />
-                    <div>{{$thoiKhoaBieu->loinhanphongdaotao}}</div>
+                    <input disabled type="hidden" class="form-control" name="loinhanphongdaotao" value="{{$thoiKhoaBieu->loinhanphongdaotao}}" />
+                    <div style="color: red;">{{$thoiKhoaBieu->loinhanphongdaotao}}</div>
                 </div>
 
                 <div class="col-sm-6 col-xs-12">
@@ -104,9 +104,9 @@
                     <label for="">Lý do</label>
                     <select name="lydogiovao" class="form-control">
                         <option value="0">--Chọn--</option>
-                        <option value="1" {{$thoiKhoaBieu->lydogiovao == 1 ? 'selected' : ''}} name="lydogiovao">Xong bài</option>
-                        <option value="2" {{$thoiKhoaBieu->lydogiovao == 2 ? 'selected' : ''}} name="lydogiovao">Lớp đề nghị</option>
-                        <option value="3" {{$thoiKhoaBieu->lydogiovao == 3 ? 'selected' : ''}} name="lydogiovao">Khác</option>
+                        <option value="1" {{$thoiKhoaBieu->lydogiovao == 1 ? 'selected' : ''}} name="lydogiovao">SV đến lớp trễ</option>
+                        <option value="2" {{$thoiKhoaBieu->lydogiovao == 2 ? 'selected' : ''}} name="lydogiovao">GV đến lớp trễ</option>
+                        <option value="3" {{$thoiKhoaBieu->lydogiovao == 3 ? 'selected' : ''}} name="lydogiovao">Chuẩn bị trễ</option>
                     </select>
                 </div>
             </div>

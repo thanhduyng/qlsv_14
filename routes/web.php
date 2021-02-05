@@ -35,34 +35,28 @@ Route::middleware(['auth'])->group(function () {
             'as' => 'qlsv_khoahoc.create', 'uses' => 'QlsvKhoahocController@create',
             'middleware' => 'checkquyen:add-khoahoc'
         ]);
-
         Route::post('/store', 'QlsvKhoahocController@store')->name('qlsv_khoahoc.store');
         Route::get('/edit/{id}', [
             'as' => 'qlsv_khoahoc.edit', 'uses' => 'QlsvKhoahocController@edit',
             'middleware' => 'checkquyen:edit-khoahoc'
         ]);
         Route::post('/update/{id}', 'QlsvKhoahocController@update')->name('qlsv_khoahoc.update');
-
         Route::get('/delete/{id}', 'QlsvKhoahocController@destroy');
         Route::get('/delete_id/{id}', 'QlsvKhoahocController@destroy');
-
         Route::delete('deleteCheckbox', 'QlsvKhoahocController@deleteAll');
         Route::get('/search', 'QlsvKhoahocController@search');
     });
 });
+
 //-------------------- Lớp học  ------------------------
 Route::group(['prefix' => 'lophoc'], function () {
     Route::get("/index", 'QlsvLophocController@index')->name("qlsvlophoc.index");
-    // Route::get('/create', 'QlsvLophocController@create')->name('qlsvlophoc.create');
     Route::get('/create', 'QlsvLophocController@create')->name('qlsvlophoc.create');
     Route::post('/store', 'QlsvLophocController@store')->name('qlsvlophoc.store');
     Route::get('/edit/{id}', 'QlsvLophocController@edit')->name('qlsvlophoc.edit');
     Route::post('/update/{id}', 'QlsvLophocController@update')->name('qlsvlophoc.update');
     Route::get('/delete/{id}', 'QlsvLophocController@destroy');
     Route::get('/search', 'QlsvLophocController@search')->name('qlsvlophoc.search');
-
-
-    Route::get('/diemdanh/{id}', 'QlsvDiemdanhController@diemdanh')->name('qlsvlophoc.diemdanh');
 });
 
 //-------------------- Giảng viên ------------------------
@@ -115,25 +109,13 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-//-------------------- diemthi  ------------------------
-Route::group(['prefix' => 'diemthi'], function () {
-    Route::get('/index', 'QlsvDiemthiController@index')->name('qlsv_diemthi.index');
-    Route::get('create', 'QlsvDiemthiController@create')->name('qlsv_diemthi.create');
-    Route::post('store', 'QlsvDiemthiController@store')->name('qlsv_diemthi.store');
-    Route::get('/edit/{id}', 'QlsvDiemthiController@edit')->name('qlsv_diemthi.edit');
-    Route::post('/update/{id}', 'QlsvDiemthiController@update')->name('qlsv_diemthi.update');
-    Route::post('/delete/{id}', 'QlsvDiemthiController@destroy')->name('qlsv_diemthi.delete');
-});
-
-
-
 Route::get('/diemdanhs', 'QlsvDiemdanhController@showForm');
 Route::post('/showCitiesInCountry', 'QlsvSinhvienController@showCitiesInCountry');
 
 Route::get('/form', 'QlsvLophocController@showForm');
 
 
-//-------------------- sinhvien  ------------------------
+//-------------------- Sinh Viên  ------------------------
 Route::group(['prefix' => 'sinhvien'], function () {
     Route::get('index', 'QlsvSinhVienController@index')->name('qlsv_sinhvien.index');
     Route::get('/create', 'QlsvSinhVienController@create')->name('qlsv_sinhvien.create');
@@ -143,7 +125,7 @@ Route::group(['prefix' => 'sinhvien'], function () {
     Route::get('/delete/{id}', 'QlsvSinhVienController@destroy');
 });
 
-//-------------------- kieuthi  ------------------------
+//-------------------- Kiểu thi  ------------------------
 Route::group(['prefix' => 'kieuthi'], function () {
     Route::get('/index', 'QlsvKieuthiController@index')->name('qlsv_kieuthi.index');
     Route::get('/create', 'QlsvKieuthiController@create')->name('qlsv_kieuthi.create');
@@ -153,9 +135,7 @@ Route::group(['prefix' => 'kieuthi'], function () {
     Route::get('/delete/{id}', 'QlsvKieuthiController@destroy');
 });
 
-
-
-//-------------------- monhoc  ------------------------
+//-------------------- Môn học  ------------------------
 Route::group(['prefix' => 'monhoc'], function () {
     Route::get('index', 'QlsvMonhocController@index')->name('qlsv_monhoc.index');
     Route::get('/create', 'QlsvMonhocController@create')->name('qlsv_monhoc.create');
@@ -166,37 +146,7 @@ Route::group(['prefix' => 'monhoc'], function () {
     Route::get('/find', 'QlsvMonhocController@search')->name('qlsv_monhoc.search');
 });
 
-//-------------------- worktask  ------------------------
-Route::group(['prefix' => 'worktask'], function () {
-    Route::get('index', 'QlsvWorktaskController@index')->name('qlsv_worktask.index');
-    Route::get('/chonmon', 'QlsvWorktaskController@chonmon')->name('qlsv_worktask.chonmon');
-    Route::get('/mon/{id}', 'QlsvWorktaskController@mon')->name('qlsv_worktask.mon');
-    Route::get('/create', 'QlsvWorktaskController@create')->name('qlsv_worktask.create');
-    Route::post('/store', 'QlsvWorktaskController@store')->name('qlsv_worktask.store');
-    Route::get('/edit/{id}', 'QlsvWorktaskController@edit')->name('qlsv_worktask.edit');
-    Route::post('/update/{id}', 'QlsvWorktaskController@update')->name('qlsv_worktask.update');
-    Route::get('/delete/{id}', 'QlsvWorktaskController@destroy')->name('qlsv_worktask.destroy');
-    Route::get('/find', 'QlsvWorktaskController@search')->name('qlsv_worktask.search');
-    Route::get('/worktaskfind', 'QlsvWorktaskController@worktaskfind')->name('qlsv_worktask.worktaskfind');
-    Route::get('/findmon1', 'QlsvWorktaskController@searchmon1')->name('qlsv_worktask.searchmon1');
-    Route::get('/findmon', 'QlsvWorktaskController@searchmon')->name('qlsv_worktask.searchmon');
-    Route::get('/chonmonhoc', 'QlsvWorktaskController@chonmonhoc')->name('qlsv_worktask.chonmonhoc');
-    Route::get('/show', 'QlsvWorktaskController@show')->name('qlsv_worktask.show');
-    Route::get('/worktaskmon/{id}', 'QlsvWorktaskController@worktaskmon')->name('qlsv_worktask.worktaskmon');
-});
-
-//-------------------- worktaskdetail  ------------------------
-Route::group(['prefix' => 'worktaskdetail'], function () {
-    Route::get('index', 'QlsvWorktaskdetailController@index')->name('qlsv_worktaskdetail.index');
-    Route::get('/create', 'QlsvWorktaskdetailController@create')->name('qlsv_worktaskdetail.create');
-    Route::post('/store', 'QlsvWorktaskdetailController@store')->name('qlsv_worktaskdetail.store');
-    Route::get('/edit/{id}', 'QlsvWorktaskdetailController@edit')->name('qlsv_worktaskdetail.edit');
-    Route::post('/update/{id}', 'QlsvWorktaskdetailController@update')->name('qlsv_worktaskdetail.update');
-    Route::get('/delete/{id}', 'QlsvWorktaskdetailController@destroy')->name('qlsv_worktaskdetail.destroy');
-    Route::get('/find', 'QlsvWorktaskdetailController@search')->name('qlsv_worktaskdetail.search');
-});
-
-//----------------TuDanhGia------------------
+//----------------Tự đánh giá sinh viên------------------
 Route::group(['prefix' => 'tudanhgia'], function () {
     Route::get('/index', 'QlsvTudanhgiaController@index')->name('qlsv_tudanhgia.index');
     Route::get('/create', 'QlsvTudanhgiaController@create')->name('qlsv_tudanhgia.create');
@@ -218,11 +168,12 @@ Route::group(['prefix' => 'giang_vien'], function () {
     Route::post("/storediemthi", 'GiangVien\ManhinhGiangvienController@storediemthi')->name("giang_vien.storediemthi");
 });
 
-//-------------------- Màn hình sjnh viên  ------------------------
+//-------------------- Màn hình sinh viên  ------------------------
 Route::group(['prefix' => 'sinh_vien'], function () {
     Route::get("/trangchu", 'SinhVien\ManhinhSinhvienController@trangchu')->name("sinh_vien.trangchu");
     Route::get("/viewdiemthi", 'SinhVien\ManhinhSinhvienController@viewdiemthi')->name("sinh_vien.viewdiemthi");
     Route::post("/storediemthi", 'SinhVien\ManhinhSinhvienController@storediemthi')->name("sinh_vien.storediemthi");
+    Route::get("/viewdiemdanh", 'SinhVien\ManhinhSinhvienController@viewdiemdanh')->name("sinh_vien.viewdiemdanh");
 });
 
 //-------------------- Màn hình người dùng quản trị  ------------------------
@@ -235,6 +186,18 @@ Route::group(['prefix' => 'chucnang'], function () {
     Route::get("/index", 'QlsvChucnangController@index')->name("qlsv_chucnang.index");
     Route::get('/create', 'QlsvChucnangController@create')->name('qlsv_chucnang.create');
     Route::post('/store', 'QlsvChucnangController@store')->name('qlsv_chucnang.store');
+    Route::get('/edit/{id}', 'QlsvChucnangController@edit')->name('qlsv_chucnang.edit');
+    Route::post('/update/{id}', 'QlsvChucnangController@update')->name('qlsv_chucnang.update');
+    Route::get('/delete/{id}', 'QlsvChucnangController@destroy');
+});
+//-------------------- Nhóm  ------------------------
+Route::group(['prefix' => 'nhom'], function () {
+    Route::get("/index", 'QlsvNhomController@index')->name("qlsv_nhom.index");
+    Route::get('/create', 'QlsvNhomController@create')->name('qlsv_nhom.create');
+    Route::post('/store', 'QlsvNhomController@store')->name('qlsv_nhom.store');
+    Route::get('/edit/{id}', 'QlsvNhomController@edit')->name('qlsv_nhom.edit');
+    Route::post('/update/{id}', 'QlsvNhomController@update')->name('qlsv_nhom.update');
+    Route::get('/delete/{id}', 'QlsvNhomController@destroy');
 });
 
 //-------------------- Vai trò  ------------------------
@@ -260,3 +223,36 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/delete/{id}', 'UserController@destroy');
     });
 });
+
+//-------------------- worktask  ------------------------
+Route::group(['prefix' => 'worktask'], function () {
+    // Route::get('index', 'QlsvWorktaskController@index')->name('qlsv_worktask.index');
+    //Route::get('/chonmon', 'QlsvWorktaskController@chonmon')->name('qlsv_worktask.chonmon');
+    Route::get('/mon/{id}', 'QlsvWorktaskController@mon')->name('qlsv_worktask.mon');
+    Route::get('/create/{id}', 'QlsvWorktaskController@create')->name('qlsv_worktask.create');
+    Route::post('/store', 'QlsvWorktaskController@store')->name('qlsv_worktask.store');
+    Route::get('/edit/{id}', 'QlsvWorktaskController@edit')->name('qlsv_worktask.edit');
+    Route::post('/update/{id}', 'QlsvWorktaskController@update')->name('qlsv_worktask.update');
+    Route::get('/delete/{id}', 'QlsvWorktaskController@destroy')->name('qlsv_worktask.destroy');
+    //Route::get('/find', 'QlsvWorktaskController@search')->name('qlsv_worktask.search');
+    Route::get('/worktaskfind', 'QlsvWorktaskController@worktaskfind')->name('qlsv_worktask.worktaskfind');
+    // Route::get('/findmon1', 'QlsvWorktaskController@searchmon1')->name('qlsv_worktask.searchmon1');
+    //Route::get('/findmon', 'QlsvWorktaskController@searchmon')->name('qlsv_worktask.searchmon');
+    //	Route::get('/chonmonhoc', 'QlsvWorktaskController@chonmonhoc')->name('qlsv_worktask.chonmonhoc');
+    //Route::get('/show', 'QlsvWorktaskController@show')->name('qlsv_worktask.show');
+    //	Route::get('/worktaskmon/{id}', 'QlsvWorktaskController@worktaskmon')->name('qlsv_worktask.worktaskmon');
+});
+
+//-------------------- worktaskdetail  ------------------------
+Route::group(['prefix' => 'worktaskdetail'], function () {
+    Route::get('index', 'QlsvWorktaskdetailController@index')->name('qlsv_worktaskdetail.index');
+    Route::get('/create', 'QlsvWorktaskdetailController@create')->name('qlsv_worktaskdetail.create');
+    Route::post('/store', 'QlsvWorktaskdetailController@store')->name('qlsv_worktaskdetail.store');
+    Route::get('/edit/{id}', 'QlsvWorktaskdetailController@edit')->name('qlsv_worktaskdetail.edit');
+    Route::post('/update/{id}', 'QlsvWorktaskdetailController@update')->name('qlsv_worktaskdetail.update');
+    Route::get('/delete/{id}', 'QlsvWorktaskdetailController@destroy')->name('qlsv_worktaskdetail.destroy');
+    Route::get('/find', 'QlsvWorktaskdetailController@search')->name('qlsv_worktaskdetail.search');
+});
+
+Route::get('/export_excel', 'ExportExcelController@index');
+Route::get('/export_excel/excel', 'ExportExcelController@excel')->name('export_excel.excel');

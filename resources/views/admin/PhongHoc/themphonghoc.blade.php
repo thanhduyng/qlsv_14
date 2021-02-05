@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-6" style="margin-top: 6px;">
           <label>Ghi chú</label>
-          <textarea type="text" class="form-control" id="" name="ghichu" placeholder="nhập ghi chú"></textarea>
+          <textarea type="text" class="form-control" rows="3" name="ghichu" placeholder="nhập ghi chú"></textarea>
           <span style="color: red;">@error('ghichu'){{$message}}@enderror</span>
         </div>
       </div>

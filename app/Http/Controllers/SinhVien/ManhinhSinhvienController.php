@@ -23,7 +23,7 @@ class ManhinhSinhvienController extends Controller
             if (count($sinhVien) == 0) {
                 exit;
             }
-           
+
             return $next($request);
         });
     }
@@ -89,5 +89,38 @@ class ManhinhSinhvienController extends Controller
         return view('ManHinhSinhVien.viewdiemthi', compact(
             ['title', 'idlop', 'qlsv_lophoc', 'thoiKhoaBieu', 'id_thoikhoabieu', 'findThoiKhoaBieu', 'qlsv_sinhvienlophoc']
         ));
+    }
+
+    public function viewdiemdanh(Request $request)
+    {
+        $user = auth()->user();
+        $title = "Nhật ký điểm danh";
+        $idlop = $request->get('id_lophoc');
+        $idsinhvien = $request->get('id_sinhvien');
+        $id_thoikhoabieu = $request->get('id_thoikhoabieu');
+        $findThoiKhoaBieu = qlsv_thoikhoabieu::find($id_thoikhoabieu);
+        $qlsv_lophoc = qlsv_lophoc::find($idlop);
+
+        DB::enableQueryLog();
+        $qlsv_sinhvienlophoc = DB::table('qlsv_diemdanhs')
+            ->select('qlsv_sinhvienlophocs.id_sinhvien', 'qlsv_diemdanhs.denlop', 'qlsv_thoikhoabieus.id_Lophoc', 'qlsv_thoikhoabieus.id', 'qlsv_thoikhoabieus.ngayhoc')
+            ->join('qlsv_thoikhoabieus', 'qlsv_thoikhoabieus.id', '=', 'qlsv_diemdanhs.id_thoikhoabieu')
+            ->leftJoin('qlsv_sinhvienlophocs', 'qlsv_sinhvienlophocs.id', '=', 'qlsv_diemdanhs.id_sinhvienlophoc')
+            ->where('qlsv_sinhvienlophocs.id_sinhvien', $idsinhvien)
+            ->where('qlsv_sinhvienlophocs.id_lophoc', $idlop)
+            ->get();
+        // dd(DB::getQueryLog());
+       
+        $vang = DB::table('qlsv_diemdanhs')
+        ->selectRaw('count(qlsv_thoikhoabieus.ngayhoc) as vang')
+            ->join('qlsv_thoikhoabieus', 'qlsv_thoikhoabieus.id', '=', 'qlsv_diemdanhs.id_thoikhoabieu')
+            ->leftJoin('qlsv_sinhvienlophocs', 'qlsv_sinhvienlophocs.id', '=', 'qlsv_diemdanhs.id_sinhvienlophoc')
+            ->where('qlsv_sinhvienlophocs.id_sinhvien', $idsinhvien)
+            ->where('qlsv_sinhvienlophocs.id_lophoc', $idlop)
+            ->where('qlsv_diemdanhs.denlop','>',1)
+            ->get();
+
+        // dd(DB::getQueryLog());
+        return view('ManHinhSinhVien.viewdiemdanh', compact(['vang', 'findThoiKhoaBieu', 'id_thoikhoabieu', 'title', 'idlop', 'qlsv_lophoc', 'qlsv_sinhvienlophoc']));
     }
 }

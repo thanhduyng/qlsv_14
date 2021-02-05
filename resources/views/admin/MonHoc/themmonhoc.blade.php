@@ -7,8 +7,9 @@
 </div>
 
 <body>
-  <div class="container-fuild py-5" style="margin-top: 0px; margin-bottom: 1px;">
+<div class="container-fuild py-5" style="margin-top: 0px; margin-bottom: 1px;">
     <div class="row" style="padding: 20px;">
+
       <div class="col-md-10 mx-auto">
         <form method="post" action="{{route('qlsv_monhoc.store')}}" id="monhoc">
           @csrf
@@ -16,14 +17,17 @@
             <div class="col-sm-6">
               <label for="">Tên môn học</label>
               <input type="text" class="form-control" id="" name="tenmonhoc" placeholder="nhập tên môn học" />
+              <span style="color: red;">@error('tenmonhoc'){{$message}}@enderror</span>
             </div>
             <div class="col-sm-6">
-              <label>Ghi chú </label>
-              <textarea rows="4" class="form-control" name="ghichu" form="monhoc" placeholder="nhập ghi chú"></textarea>
-						
+
+              <label>Ghi chú </label></br>
+              <textarea rows="4" class="form-control" name="ghichu" form="monhoc" placeholder="nhập ghi chú">
+							</textarea>
+              <span style="color: red;">@error('ghichu'){{$message}}@enderror</span>
             </div>
           </div>
-          <input type="submit" value="+ Lưu" class=" btn btn-success px-4 float-right " />
+          <input type="submit" value="+ Lưu"  class=" btn btn-success px-4 float-right "/>
 
         </form>
       </div>

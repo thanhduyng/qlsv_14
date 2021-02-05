@@ -67,7 +67,6 @@ class ManhinhGiangvienController extends Controller
         $title = "Điểm Danh";
         $idlop = $request->get('id_lophoc');
         $id_thoikhoabieu = $request->get('id_thoikhoabieu');
-
         $findThoiKhoaBieu = qlsv_thoikhoabieu::find($id_thoikhoabieu);
         if ($idlop != $findThoiKhoaBieu->id_lophoc) {
             exit;
@@ -164,7 +163,7 @@ class ManhinhGiangvienController extends Controller
             ->leftJoin('qlsv_diemthis', 'qlsv_diemthis.id_sinhvienlophoc', '=', 'qlsv_sinhvienlophocs.id')
             ->where('qlsv_sinhvienlophocs.id_lophoc', $idlop)
             ->where('qlsv_sinhviens.deleted_at', 0)
-            ->select('qlsv_sinhviens.hovaten', 'qlsv_sinhvienlophocs.id', 'qlsv_diemthis.diemthuchanh', 'qlsv_diemthis.diemlythuyet')
+            ->select('qlsv_sinhviens.hovaten', 'qlsv_sinhvienlophocs.id','qlsv_diemthis.ghichu', 'qlsv_diemthis.diemthuchanh', 'qlsv_diemthis.diemlythuyet')
             ->get();
         // dd($qlsv_sinhvienlophoc);
         // $qlsv_lophoc = qlsv_lophoc::find($idlop);
@@ -223,6 +222,7 @@ class ManhinhGiangvienController extends Controller
         //  dd($id_sinhvienlophocs);
         $diemlythuyets =  $request['diemlythuyet'];
         $diemthuchanhs =  $request['diemthuchanh'];
+        $ghichu =  $request['ghichu'];
         $idlop = $request['idlop'];
 
         for ($i = 0; $i < count($id_sinhvienlophocs); $i++) {
@@ -234,12 +234,14 @@ class ManhinhGiangvienController extends Controller
                 $data->diemlythuyet = $diemlythuyets[$i];
                 $data->diemthuchanh = $diemthuchanhs[$i];
                 $data->ngaychodiem = Carbon::now("Asia/Ho_Chi_Minh");
+                $data->ghichu = $ghichu[$i];
                 $data->save();
             } else {
                 $data = new qlsv_diemthi();
                 $data->id_sinhvienlophoc = $id_sinhvienlophocs[$i];
                 $data->diemlythuyet = $diemlythuyets[$i];
                 $data->diemthuchanh = $diemthuchanhs[$i];
+                $data->ghichu = $ghichu[$i];
                 $data->ngaychodiem = Carbon::now("Asia/Ho_Chi_Minh");
                 $data->id_kieuthi = 1;
                 $data->deleted_at = 0;

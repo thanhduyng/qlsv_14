@@ -13,7 +13,7 @@
             <input type="hidden" class="form-control" value="{{$qlsv_kieuthi->id}}" name="id">
         </div>
         <div class="form-group">
-            <label for="ten">Tên Kiểu Thi:</label>
+            <label for="ten">Tên kiểu thi:</label>
             <input type="text" class="form-control" name="kieuthi" value="{{$qlsv_kieuthi->kieuthi}}" placeholder="nhập tên Kiểu Thi" />
         </div>
         <button style="margin-bottom: 5px;" type="submit" class="btn btn-primary px-4 float-right"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>

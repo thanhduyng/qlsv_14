@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\thongbao;
 use App\qlsv_monhoc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class QlsvMonhocController extends Controller
 {
@@ -18,10 +21,19 @@ class QlsvMonhocController extends Controller
      */
     public function index()
     {
-
+        Auth::routes();
+        $user = Auth::user();
+       
+        //dd($us);
         $monhoc = DB::table("qlsv_monhocs")->where('deleted_at', 0)->paginate(2);
         $monhoc1 = DB::table("qlsv_monhocs")->where('deleted_at', 0)->get();
         $title = "Danh Sách Môn Học";
+        if (Auth::check()) {
+            // The user is logged in...
+           // dd($monhoc);
+        }else{
+          
+        }
         return view("admin/MonHoc/dsmonhoc", ['monhoc' => $monhoc, 'monhoc1' => $monhoc1, 'title' => $title]);
     }
 
@@ -43,14 +55,26 @@ class QlsvMonhocController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,thongbao $th)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $validatedData = $request->validate([
-            'tenmonhoc' => 'required',
-            'ghichu' => 'required',
+        $validatedData = $th->validate();
+       // $validatedData = $request->validate();
+		//[
+         //   'tenmonhoc' => 'required',
+       //     'ghichu' => 'required',
 
-        ]);
+       // ]
+      //  ,
+
+       // [
+      //      'required' => 'Không được để trống',
+      //      'min' => 'Không được nhỏ hơn :min',
+      //      'max' => 'Không được lớn hơn :max',
+      //      'integer' => 'Chỉ được nhập số'
+            // 'integer' => ':attribute Chỉ được nhập số'
+      //  ]
+    //);
         $monhoc = new qlsv_monhoc();
 
         $monhoc->tenmonhoc = $request->request->get("tenmonhoc");
@@ -163,7 +187,22 @@ class QlsvMonhocController extends Controller
     public function update(Request $request, qlsv_monhoc $qlsv_monhoc, $id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        //date_default_timezone_set("Asia/Ho_Chi_Minh");
+       
+        $validatedData = $request->validate([
+            'tenmonhoc' => 'required',
+            'ghichu' => 'required',
+
+        ]
+        ,
+
+        [
+            'required' => 'Không được để trống',
+            'min' => 'Không được nhỏ hơn :min',
+            'max' => 'Không được lớn hơn :max',
+            'integer' => 'Chỉ được nhập số'
+            // 'integer' => ':attribute Chỉ được nhập số'
+        ]
+    );
         $monhoc = qlsv_monhoc::find($id);
 
         $monhoc->tenmonhoc = $request->request->get("tenmonhoc");
@@ -187,6 +226,6 @@ class QlsvMonhocController extends Controller
         $monhoc->deleted_at = 1;
         $monhoc->save();
 
-        return redirect('/monhoc/index');
+        return response()->json(['_typeMessage' => 'deleteSuccess']);
     }
 }

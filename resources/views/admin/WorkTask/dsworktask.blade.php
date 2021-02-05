@@ -17,10 +17,10 @@
 
 </head>
 
-<div style="text-align:right;background-color:#f3ecec;padding: 4px;">
+<div style="text-align:right;padding: 4px;">
     <!-- <a class="btn btn-primary btn-sm" href="#searcharea" data-toggle="collapse">
         <i class="glyphicon glyphicon-search"></i></a> -->
-    <a class="btn btn-success btn-sm" href="{{route('qlsv_worktask.create')}}">
+    <a class="btn btn-success btn-sm" href="{{route('qlsv_worktask.create',$idd)}}">
         <i class="glyphicon glyphicon-plus"></i></a>
 
 </div>
@@ -52,7 +52,7 @@
     </form>
 </div> -->
 
-<form method=get action="{{route('qlsv_worktask.index')}}">
+<form method=get >
     <table id="demo">
         <thead class="andi">
             <tr>
@@ -68,17 +68,22 @@
             <tr>
                 <input type="hidden" class="serdelete_val_id" value="{{$wt->id}}">
                 <td>
-                    <a class="btn btn-default btn-circle">{{$i+1}}</a>
+                    <?php static $k = 0;
+                    echo $k = $k + 1; ?>
                 </td>
                 <td>
-
+                  <?php  $kk = 0;?>
                     {{$wt->tenworktask}}<br>
                     @if($worktaskdetail->count())
                     @foreach($worktaskdetail as $ii =>$value )
-                    @if($value->id_worktask==$i)
-
-                    <i>--{{$value->ten}}</i><br>
-                    @endif
+				
+                  @if($value->id_worktask==$wt->id)
+                 <?php  $kk = $kk + 1;
+                  echo "  <i>".$kk."--{$value->ten}</i><br>";
+				 
+				 ?>
+                 @endif
+					
                     @endforeach
                     @endif
                 </td>
@@ -198,7 +203,7 @@
                             var name = response.response[i]['value'];
                             var ghichu = response.response[i]['ghichu'];
                              
-                     $("#table").append("<tr><td>"+name+"</td><td>"+ghichu+"</td><td><form action='{{route('qlsv_worktask.chonmonhoc') }}' method='get' ><input type='hidden' name='id' value="+id+"> <button type='submit' class='btn btn-success px-4 float-right'><i class='glyphicon glyphicon-plus'></i>Chọn Môn</button></form></td></tr>");
+                     $("#table").append("<tr><td>"+name+"</td><td>"+ghichu+"</td><td><form method='get' ><input type='hidden' name='id' value="+id+"> <button type='submit' class='btn btn-success px-4 float-right'><i class='glyphicon glyphicon-plus'></i>Chọn Môn</button></form></td></tr>");
 
                         }
                        

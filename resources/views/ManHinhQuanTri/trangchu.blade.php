@@ -1,4 +1,4 @@
-@extends('ManHinhGiangVien.layout')
+@extends('layouts.trangchu')
 
 @section('content')
 

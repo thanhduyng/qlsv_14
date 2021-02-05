@@ -1,6 +1,7 @@
 @extends('layouts.trangchu')
 
 @section('content')
+
 <div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
     <a class="btn btn-primary btn-sm" href="#searcharea" data-toggle="collapse">
         <i class="glyphicon glyphicon-search"></i></a>
@@ -12,7 +13,7 @@
     <form action="<?= route("qlsv_monhoc.search") ?>" method="get" class="row p-3">
         <div class="form-group row" style="margin: 25px;">
             <div class="col-sm-6 col-xs-6">
-                <label>Môn học</label>
+                <!-- <label>Môn học</label>
 
                 <select name="id" id="monhoc" class="form-control">
                     <option value="">--Chọn môn học--</option>
@@ -23,7 +24,7 @@
                     <option value="{{$cl->id}}">{{$cl->tenmonhoc}}</option>
                     @endforeach
                     @endif
-                </select>
+                </select> -->
             </div>
             <div class="col-sm-6 col-xs-6">
                 <label>Tên Môn Học</label>
@@ -32,7 +33,8 @@
             <div class="tab" id="searchResult">
             </div>
             <div class="col-sm-12">
-                <button type="submit" id="timkiem" class="btn btn-primary btn-sm" style="float: right;margin-top: 10px; margin-bottom: -17px;">Tìm kiếm</button>
+                <button type="submit" id="timkiem" class="btn btn-primary btn-sm" style="float: right;
+    margin-top: 10px;">Tìm kiếm</button>
             </div>
         </div>
     </form>
@@ -42,7 +44,7 @@
         <thead>
             <tr>
                 <th>STT</th>
-                <th>Tên Môn Học Ghi Chú </th>
+                <th> Môn Học </th>
 
                 <th>Xóa Sửa</th>
 
@@ -52,18 +54,19 @@
             @if($monhoc->count())
             @foreach($monhoc as $i =>$mh )
             <tr>
+                <input type="hidden" class="serdelete_val_id" value="{{$mh->id}}">
                 <td>
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
                 <td>
                     {{$mh->tenmonhoc}}<br>
                     <i>{{$mh->ghichu}}</i><br>
-                    <i><a class="btn btn-primary px-4 float-right" href="{{route('qlsv_worktask.mon',$mh->id)}}">worktask</a></i>
+                    <i><a class="btn btn-primary px-4 float-right" href="{{route('qlsv_worktask.mon',$mh->id)}}">work task</a></i>
                 </td>
                 <td style="padding-left:0;line-height: 33px;">
                     <a class="btn-default btn-xs" href="{{route('qlsv_monhoc.edit',$mh->id)}}"">
                         <i class=" glyphicon glyphicon-pencil"></i></a>
-                    <a class="btn-default btn-xs" href="{{route('qlsv_monhoc.destroy',$mh->id)}}">
+                    <a class="btn-default btn-xs servicedeletebtn" href="{{route('qlsv_monhoc.destroy',$mh->id)}}">
                         <i class="glyphicon glyphicon-trash"></i></a>
                 </td>
 
@@ -77,6 +80,38 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function() {
+        $('.servicedeletebtn').click(async function(e) {
+            e.preventDefault();
+
+            var delete_id = $(this).closest("tr").find('.serdelete_val_id').val();
+
+
+
+            const isDelete = await swal(_swalConfig.deleteConfirm)
+
+
+
+            //await swal(_swalConfig.deleteSuccess)
+            if (!isDelete) return
+            $.ajax(this.href)
+                .done((resp) => {
+                    $(this).closest('tr').remove()
+                }).then((result) => {
+
+                    const message1 = JSON.parse(result)
+                    alert(message1._typeMessage);
+                    if (message1._typeMessage == "deleteSuccess") {
+                        swal(_swalConfig.deleteSuccess)
+                    } else {
+                        swal(_swalConfig.deleteFailed)
+                    };
+                });
+
+        })
+    });
+</script>
 <script>
     /*  $(function(e) {
         $("#chkCheckAll").click(function() {

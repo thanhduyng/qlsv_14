@@ -26,6 +26,19 @@
             text-decoration: none;
             font-size: 16px;
         }
+
+        .glyphicon-log-out:before {
+            content: "\e163";
+            size: 110px;
+            font-size: 22px;
+        }
+
+        @media only screen and (max-width: 760px),
+        (min-device-width: 768px) and (max-device-width: 1024px) {
+            .glyphicon {
+                margin-top: 4px;
+            }
+        }
     </style>
 </head>
 
@@ -36,12 +49,16 @@
 
     <div class="w3-top">
         <div class="w3-bar w3-white w3-card" id="myNavbar">
-
             <span style="font-size: 17px; font-weight: bold;" class="plus-index">{{$title}}</span>
             <!-- Hide right-floated links on small screens and replace them with a menu icon -->
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-                <i class="" style="margin-right: 14px; font-size: 0px;"></i>
+                <i style="margin-right: 14px; font-size: 0px;"></i>
             </a>
+            <a style="margin-right: -50px;font-size: 17px; font-weight: bold;margin-top: -7px;" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">{{ __('') }}<i class="glyphicon glyphicon-log-out"></i></a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </div>
     </div>
 
@@ -51,6 +68,7 @@
 
     <!--  content  -->
     <main style="padding-top: 0px; margin-top: 70px;">
+
         @yield('content')
     </main>
     <!-- end content -->

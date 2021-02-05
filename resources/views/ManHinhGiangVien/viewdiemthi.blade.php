@@ -22,9 +22,10 @@
             <thead>
                 <tr>
                     <th style="height: 13px;">STT</th>
-                    <th style="height: 13px; width: 70%;">Tên sinh viên</th>
+                    <th style="height: 13px; width: 50%;">Tên sinh viên</th>
                     <th style="height: 13px; width: 15%;">LT</th>
                     <th style="height: 13px; width: 15%;">TH</th>
+                    <th style="height: 13px; width: 20%;">Lý do</th>
 
                 </tr>
             </thead>
@@ -44,6 +45,9 @@
                     <td>
                         <input type="number" style="width:30px; text-align: right;" max="10" min="0" name="diemthuchanh[]"
                             value="{{$values->diemthuchanh}}">
+                    </td>
+                    <td>
+                        <input type="text" style="width:50px; text-align: right;"  name="ghichu[]" value="{{$values->ghichu}}">
                     </td>
                 </tr>
                 @endforeach

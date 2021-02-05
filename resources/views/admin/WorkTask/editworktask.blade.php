@@ -29,13 +29,9 @@
                             <input type="text"   class="form-control" name="tenworktask" value="{{$worktask->tenworktask}}" placeholder="Enter Tên worktask">
                         </div>
                         <div class="form-group">
-                <h4><label class="label label-primary" for="">Tên môn học</label></h4>
+                        <input type="hidden" name="id_monhoc" value="{{$monhoc2[0]->id}}" id="monhoc1" class="form-control" />
 
-               <select class="form-control" name="id_monhoc">
-                  @foreach($monhoc as $key=>$mh)
-                 <option  value={{$key}} {{$key==$worktask->id_monhoc?"selected":""}}  > {{$mh}} </option>
-                  @endforeach
-               </select>
+              
             </div>
                          <div class="form-group">
                       
@@ -107,8 +103,7 @@
 			
 			
           </div>
-          <button type="submit" class="btn btn-success px-4 float-right"><i class="glyphicon glyphicon-plus"></i>Sửa worktask</button>
-          <a type="button" href="{{route('qlsv_worktask.index')}}" class="btn btn-primary px-4 float-right"> Danh sách</a>
+          <input type="submit" value="+ Lưu" class=" btn btn-success px-4 float-right " />
         </form>
       </div>
     </div>

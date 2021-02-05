@@ -1,7 +1,7 @@
 @extends('layouts.trangchu')
 
 @section('content')
-<div style="text-align:right;background-color:#f3ecec;padding: 4px;">
+<div style="text-align:right;padding: 4px;">
     <a class="btn btn-success btn-sm" href="<?= route("qlsv_thoikhoabieu.creategiaovu") ?>">
         <i class="glyphicon glyphicon-plus"></i></a>
 

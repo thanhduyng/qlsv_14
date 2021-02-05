@@ -3,21 +3,21 @@
 @section('content')
 <div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
   
-    <a class="btn btn-success btn-sm" href="<?= route("qlsv_chucnang.create") ?>">
+    <a class="btn btn-success btn-sm" href="<?= route("qlsv_nhom.create") ?>">
         <i class="glyphicon glyphicon-plus"></i></a>
 </div>
-<form method=get action="<?= route("qlsv_chucnang.index") ?>">
+<form method=get action="<?= route("qlsv_nhom.index") ?>">
     <table>
         <thead class="andi">
             <tr>
                 <th>STT</th>
                 <th width=100%>Nội dung</th>
-                <th>Chức năng</th>
+                <th>Nhóm</th>
             </tr>
         </thead>
         <tbody>
-            @if($chucNang->count())
-            @foreach($chucNang as $i =>$cl )
+            @if($nhom->count())
+            @foreach($nhom as $i =>$cl )
             <tr>
                 <td>
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
@@ -39,7 +39,7 @@
         </tbody>
     </table>
     <div class="text-center">
-        {{ $chucNang->appends(['sort' => 'id'])->links() }}
+        {{ $nhom->appends(['sort' => 'id'])->links() }}
     </div>
 </form>
 @endsection

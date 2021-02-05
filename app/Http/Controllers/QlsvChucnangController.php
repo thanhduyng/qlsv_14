@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\qlsv_chucnang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 class QlsvChucnangController extends Controller
 {
     /**
@@ -43,6 +42,8 @@ class QlsvChucnangController extends Controller
         $chucNang = new qlsv_chucnang();
         $chucNang->ma = $request->ma;
         $chucNang->ten = $request->ten;
+        $chucNang->url = $request->url;
+        $chucNang->id_cha = $request->id_cha;
         $chucNang->deleted_at = "0";
         $chucNang->save();
         return redirect()->route('qlsv_chucnang.index')->with('message','Thêm thành công');
@@ -65,9 +66,11 @@ class QlsvChucnangController extends Controller
      * @param  \App\qlsv_chucnang  $qlsv_chucnang
      * @return \Illuminate\Http\Response
      */
-    public function edit(qlsv_chucnang $qlsv_chucnang)
+    public function edit(qlsv_chucnang $qlsv_chucnang,$id)
     {
-        //
+        $title = "Sửa chức năng";
+        $chucNang = qlsv_chucnang::find($id);
+        return view('admin.ChucNang.updatechucnang', compact(['chucNang','title']));
     }
 
     /**
@@ -77,9 +80,15 @@ class QlsvChucnangController extends Controller
      * @param  \App\qlsv_chucnang  $qlsv_chucnang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, qlsv_chucnang $qlsv_chucnang)
+    public function update(Request $request, qlsv_chucnang $qlsv_chucnang,$id)
     {
-        //
+        $chucNang= qlsv_chucnang::find($id);
+        $chucNang->ma = $request->ma;
+        $chucNang->ten = $request->ten;
+        $chucNang->url = $request->url;
+        $chucNang->id_cha = $request->id_cha;
+        $chucNang->save();
+        return redirect('/chucnang/index');
     }
 
     /**
@@ -88,8 +97,10 @@ class QlsvChucnangController extends Controller
      * @param  \App\qlsv_chucnang  $qlsv_chucnang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(qlsv_chucnang $qlsv_chucnang)
+    public function destroy(qlsv_chucnang $qlsv_chucnang,$id)
     {
-        //
+        $chucNang= qlsv_chucnang::find($id);
+        $chucNang->delete();
+        return redirect('/chucnang/index');
     }
 }

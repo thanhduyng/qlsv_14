@@ -35,29 +35,6 @@ class QlsvLophocController extends Controller
         return view('admin.LopHoc.dslophoc', compact(['lopHoc', 'title', 'search']));
     }
 
-    // ->where('qlsv_khoahocs.tenkhoahoc', 'like', '%' . $search . '%')
-    // ->where('qlsv_khoahocs.deleted_at', 0)
-    // ->selectRaw('qlsv_khoahocs.id, qlsv_khoahocs.tenkhoahoc, qlsv_khoahocs.ghichu, count(qlsv_sinhviens.id_khoahoc) as soluongsv')
-    // ->leftJoin('qlsv_sinhviens', 'qlsv_khoahocs.id', '=', 'qlsv_sinhviens.id_khoahoc')
-    // ->groupBy('qlsv_khoahocs.id')
-    // ->orderBy('qlsv_khoahocs.created_at', 'DESC')
-    // ->paginate(10);
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function create()
-    // {
-    //     $title = "Thêm lớp học";
-    //     $giangVien = DB::table('qlsv_giangviens')->pluck('hovaten', 'id');
-    //     $sinhVien = DB::table('qlsv_sinhviens')->pluck('hovaten', 'id');
-    //     $khoaHoc = DB::table('qlsv_khoahocs')->pluck('tenkhoahoc', 'id');
-    //     $monHoc = DB::table('qlsv_monhocs')->pluck('tenmonhoc', 'id');
-    //     return view('admin.LopHoc.themlophoc', compact(['giangVien', 'sinhVien', 'khoaHoc', 'monHoc', 'title']));
-    // }
-
     public function create(Request $request)
     {
         $id = $request->id;

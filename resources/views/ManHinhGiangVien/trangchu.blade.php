@@ -15,7 +15,7 @@
                 <td>
                     <a class="btn btn-default btn-circle">{{$key+1}}</a>
                 </td>
-                <td width=100% >
+                <td width=100%>
                     <p style="margin-left: 23px;">Lớp: {{$value->tenlophoc}}</p>
                     <ul style="list-style: none; margin-top: 16px; margin-left: -17px; ">
                         <li style="float: left; margin-right: 3px;  "><a class="btn-sm btn-success" href="/giang_vien/viewdiemdanh/?id_lophoc={{$value->id}}&id_thoikhoabieu={{$value->id_thoikhoabieu}}">Điểm danh</a></li>

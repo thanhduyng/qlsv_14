@@ -60,6 +60,7 @@ class QlsvKhoahocController extends Controller
      */
     public function store(Request $request)
     {
+     
         $validatedData = $request->validate(
             [
                 'tenkhoahoc' => 'required',
@@ -79,10 +80,10 @@ class QlsvKhoahocController extends Controller
         $khoaHoc = new qlsv_khoahoc();
         $khoaHoc->tenkhoahoc = $request->tenkhoahoc;
         $khoaHoc->ghichu = $request->ghichu;
-        $khoaHoc->nguoitao = "thanhduy";
-        $khoaHoc->nguoisua = "thanhduy";
-        $khoaHoc->deleted_at = "0";
+        $user = auth()->user();
+        $khoaHoc->nguoitao = $user->name;
         $khoaHoc->created_at = Carbon::now();
+        $khoaHoc->deleted_at = "0";
         $khoaHoc->save();
         return redirect()->route('qlsv_khoahoc.index')->with('message', 'Thêm thành công');
     }
@@ -122,6 +123,7 @@ class QlsvKhoahocController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $validatedData = $request->validate(
             [
                 'tenkhoahoc' => 'required',
@@ -140,7 +142,9 @@ class QlsvKhoahocController extends Controller
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $khoaHoc = qlsv_khoahoc::find($id);
         $khoaHocSua = $request->all();
-        $khoaHoc->update(["updated_at" => Carbon::now()]);
+        $user = auth()->user();
+        $khoaHoc->nguoisua = $user->name;
+        $khoaHoc->update(["updated_at" => Carbon::now()]);  
         $khoaHoc->update($khoaHocSua);
         return redirect()->route('qlsv_khoahoc.index')->with('message', 'Cập nhập thành công');
     }

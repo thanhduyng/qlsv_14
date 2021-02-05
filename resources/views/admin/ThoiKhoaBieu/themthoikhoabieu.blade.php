@@ -1,12 +1,12 @@
 @extends('layouts.trangchu')
 
 @section('content')
-<div style="text-align:right;background-color:#ddd;padding: 4px;">
+<div style="text-align:right;padding: 4px;">
     <a class="btn btn-primary btn-sm" href="<?= route("qlsv_thoikhoabieu.index") ?>">
         <i class="glyphicon glyphicon-list-alt"></i></a>
 </div>
 <div class="container-fluid py-5">
-    <div class="row" style="background-color:#ddd; padding: 20px; padding-bottom: 50px;">
+    <div class="row" style="padding: 20px; padding-bottom: 50px;">
         <div class="col-md-10 mx-auto">
             <form method="post" action="{{route('qlsv_thoikhoabieu.store')}}">
                 @csrf

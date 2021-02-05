@@ -71,7 +71,7 @@ class QlsvDiemdanhController extends Controller
             ->get();
 
         // dd($qlsv_sinhvienlophoc);
-        // dd(DB::getQueryLog());
+        dd(DB::getQueryLog());
         $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')->pluck('ngayhoc', 'id');
         $qlsv_lophoc = qlsv_lophoc::find($idlop);
         // dd($qlsv_lophoc);
@@ -136,15 +136,6 @@ class QlsvDiemdanhController extends Controller
     {
         //
     }
-
-    public function diemdanh(Request $request)
-    {
-        $diemDanh = DB::table('qlsv_lophocs')->where('id', $request->id)->get();
-        dd('$diemDanh');
-        return redirect()->route('qlsv_diemdanh.index');
-    }
-
-
     /**
      * Show the form for editing the specified resource.
      *

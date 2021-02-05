@@ -12,7 +12,7 @@
                 @csrf
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label for="kieuthi">Tên Kiểu Thi:</label>
+                        <label for="kieuthi">Tên kiểu thi:</label>
                         <input type="text" class="form-control" name="kieuthi" placeholder="nhập tên kiểu thi" />
                     </div>
 

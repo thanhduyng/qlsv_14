@@ -28,16 +28,25 @@ class HomeController extends Controller
         $user = auth()->user();
         $giangVien = DB::table('qlsv_giangviens')
             ->where('id_user', $user->id)
-            ->where('deleted_at',0)
+            ->where('deleted_at', 0)
             ->get();
         $sinhVien = DB::table('qlsv_sinhviens')
             ->where('id_user', $user->id)
-            ->where('deleted_at',0)
+            ->where('deleted_at', 0)
             ->get();
         $phongDaoTao = DB::table('qlsv_nguoidungquantris')
             ->where('id_user', $user->id)
-            ->where('deleted_at',0)
+            ->where('deleted_at', 0)
             ->get();
-        return view('home',['giangVien'=>count($giangVien),'sinhVien'=>count($sinhVien),'phongDaoTao'=>count($phongDaoTao)]);
+        if (count($giangVien) > 0) {
+            return redirect()->route('giang_vien.trangchu');
+        }
+        if (count($sinhVien) > 0) {
+            return redirect()->route('sinh_vien.trangchu');
+        } else {
+            return redirect()->route('quan_tri.trangchu');
+        }
+
+        // return view('home', ['giangVien' => count($giangVien), 'sinhVien' => count($sinhVien), 'phongDaoTao' => count($phongDaoTao)]);
     }
 }

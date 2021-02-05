@@ -93,9 +93,9 @@
                     <label for="">Lý do</label>
                     <select name="lydogiovao" class="form-control">
                         <option value="0">--Chọn--</option>
-                        <option value="1" {{$thoiKhoaBieu->lydogiovao == 1 ? 'selected' : ''}} name="lydogiovao">Xong bài</option>
-                        <option value="2" {{$thoiKhoaBieu->lydogiovao == 2 ? 'selected' : ''}} name="lydogiovao">Lớp đề nghị</option>
-                        <option value="3" {{$thoiKhoaBieu->lydogiovao == 3 ? 'selected' : ''}} name="lydogiovao">Khác</option>
+                        <option value="1" {{$thoiKhoaBieu->lydogiovao == 1 ? 'selected' : ''}} name="lydogiovao">SV đến lớp trễ</option>
+                        <option value="2" {{$thoiKhoaBieu->lydogiovao == 2 ? 'selected' : ''}} name="lydogiovao">GV đến lớp trễ</option>
+                        <option value="3" {{$thoiKhoaBieu->lydogiovao == 3 ? 'selected' : ''}} name="lydogiovao">Chuẩn bị trễ</option>
                     </select>
                 </div>
             </div>
