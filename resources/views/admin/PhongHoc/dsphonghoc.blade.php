@@ -1,7 +1,15 @@
 @extends('layouts.trangchu')
 
 @section('content')
-
+<head>
+<style>
+    @media (max-width: 880px) {
+        .width{
+            width: 100%;
+        }
+    }
+</style>
+</head>
 <div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
     <a class="btn btn-primary btn-sm" href="#" onclick="$('#searcharea').toggle();return false;">
         <i class="glyphicon glyphicon-search"></i></a>
@@ -30,7 +38,7 @@
         <thead class="andi">
             <tr>
                 <th>STT</th>
-                <th width=100%>Nội dung</th>
+                <th class="width" >Tên phòng học</th>
                 <th>Chức năng</th>
             </tr>
         </thead>
@@ -41,7 +49,7 @@
                 <td>
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
-                <td width=100%>
+                <td class="width">
                     <i style="margin-left: 25px;">{{$cl->tenphonghoc}}</i><br>
                     <i style="margin-left: 25px;">{{$cl->ghichu}}</i>
 

@@ -7,7 +7,6 @@
     <a class="btn btn-success btn-sm" href="<?= route("qlsv_sinhvien.create") ?>">
         <i class="glyphicon glyphicon-plus"></i></a>
 </div>
-
 <div id="searcharea" class="collapse">
     <form action="{{route('qlsv_sinhvien.index')}}" method="get" class="row p-3">
         <div class="form-group row" style="margin: 25px;">
@@ -26,19 +25,17 @@
             </div>
 
             <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary btn-sm" style="float: right;
-    margin-top: 10px;">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary btn-sm" style="float: right; margin-top: 10px;">Tìm kiếm</button>
             </div>
         </div>
     </form>
 </div>
-
 <form method=get action="{{route('qlsv_sinhvien.index')}}">
     <table>
         <thead class="andi">
             <tr>
                 <th>STT</th>
-                <th width=100%>Nội dung</th>
+                <th class="width">Nội dung</th>
                 <th>Chức năng</th>
             </tr>
         </thead>
@@ -49,7 +46,7 @@
                 <td>
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
-                <td width=100%>
+                <td class="width">
                    <i style="margin-left: 25px;">{{$cl->hovaten}}</i><br>
                     <i style="margin-left: 25px;">{{$cl->sodienthoaisinhvien}}</i><br>
                     <i style="margin-left: 25px;"><?php echo \App\qlsv_khoahoc::find($cl->id_khoahoc)->tenkhoahoc ?></i><br>

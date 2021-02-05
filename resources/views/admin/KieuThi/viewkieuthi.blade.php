@@ -37,7 +37,7 @@
                 <td>
                     <a class="btn btn-default btn-circle">{{$stt++}}</a>
                 </td>
-                <td width=100%>
+                <td class="width">
                 <i style="margin-left: 25px;" >   {{$value->kieuthi}}</i><br>
                 </td>
                 <td style="padding-left:0;line-height: 33px; ">

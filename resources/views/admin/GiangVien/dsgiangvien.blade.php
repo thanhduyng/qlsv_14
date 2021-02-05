@@ -1,7 +1,6 @@
 @extends('layouts.trangchu')
 
 @section('content')
-
 <div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
     <a class="btn btn-primary btn-sm" href="#" onclick="$('#searcharea').toggle();return false;">
         <i class="glyphicon glyphicon-search"></i></a>
@@ -26,7 +25,7 @@
         <thead class="andi">
             <tr>
                 <th>STT</th>
-                <th width=100%>Nội dung</th>
+                <th class="width">Nội dung</th>
                 <th>Chức năng</th>
             </tr>
         </thead>
@@ -38,7 +37,7 @@
                 <td>
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
-                <td width=100% >
+                <td class="width">
                     <i style="margin-left: 25px;">{{$cl->hovaten}}</i><br>
                     <i style="margin-left: 25px;">{{$cl->gioithieu}}</i><br>
                 </td>
@@ -58,18 +57,18 @@
     </div>
 </form>
 <script>
-$(document).ready(function() {
-    $('.servicedeletebtn').click(async function(e) {
-        e.preventDefault();
-        var delete_id = $(this).closest("tr").find('.serdelete_val_id').val();
-        const isDelete = await swal(_swalConfig.deleteConfirm)
-        if (!isDelete) return
-        $.ajax(this.href)
-            .done((resp) => {
-                $(this).closest('tr').remove()
-            });
-    })
-});
+    $(document).ready(function() {
+        $('.servicedeletebtn').click(async function(e) {
+            e.preventDefault();
+            var delete_id = $(this).closest("tr").find('.serdelete_val_id').val();
+            const isDelete = await swal(_swalConfig.deleteConfirm)
+            if (!isDelete) return
+            $.ajax(this.href)
+                .done((resp) => {
+                    $(this).closest('tr').remove()
+                });
+        })
+    });
 </script>
 
 @endsection

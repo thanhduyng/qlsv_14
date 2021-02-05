@@ -45,9 +45,7 @@
             <tr>
                 <th>STT</th>
                 <th> Môn Học </th>
-
                 <th>Xóa Sửa</th>
-
             </tr>
         </thead>
         <tbody>
@@ -84,15 +82,8 @@
     $(document).ready(function() {
         $('.servicedeletebtn').click(async function(e) {
             e.preventDefault();
-
             var delete_id = $(this).closest("tr").find('.serdelete_val_id').val();
-
-
-
             const isDelete = await swal(_swalConfig.deleteConfirm)
-
-
-
             //await swal(_swalConfig.deleteSuccess)
             if (!isDelete) return
             $.ajax(this.href)

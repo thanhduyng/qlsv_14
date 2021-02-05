@@ -11,12 +11,12 @@
     <form method="post" action="{{route('qlsv_phonghoc.store')}}">
       @csrf
       <div class="form-group row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <label>Tên phòng học</label>
           <input type="text" class="form-control" id="" name="tenphonghoc" placeholder="nhập tên phòng học" />
           <span style="color: red;">@error('tenphonghoc'){{$message}}@enderror</span>
         </div>
-        <div class="col-sm-6" style="margin-top: 6px;">
+        <div class="col-sm-12">
           <label>Ghi chú</label>
           <textarea type="text" class="form-control" rows="3" name="ghichu" placeholder="nhập ghi chú"></textarea>
           <span style="color: red;">@error('ghichu'){{$message}}@enderror</span>

@@ -13,12 +13,12 @@
         <form method="post" action="{{route('qlsv_monhoc.update',$monhoc->id)}}" id="monhoc">
           @csrf
           <div class="form-group row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
               <label for="">Tên môn học</label>
               <input type="text" class="form-control" id="" value="{{$monhoc->tenmonhoc}}" name="tenmonhoc" placeholder="nhập tên môn học" />
             </div>
-            <div class="col-sm-6">
-              <label>ghi chú </label></br>
+            <div class="col-sm-12">
+              <label>Ghi chú </label></br>
               <textarea rows="4" class="form-control" name="ghichu" form="monhoc" placeholder="nhập ghi chú">{{$monhoc->ghichu}}</textarea>
 
             </div>

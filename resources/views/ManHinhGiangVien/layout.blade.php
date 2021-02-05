@@ -19,8 +19,12 @@
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/mobile.css" />
     <link rel="stylesheet" href="/css/dsresponsive.css" />
-
     <style>
+        .logo {
+            height: 130px;
+            background-image: url(/images/aspace.jpg);
+        }
+
         a {
             color: #fff;
             text-decoration: none;
@@ -41,7 +45,16 @@
         }
     </style>
 </head>
+<header class="row logo">
+    <div class="col-sm-4">
+        <img src="/images/logo1.png" style="width: 47%; margin-left: 90px; margin-top: 15px;">
 
+    </div>
+    <div class="col-sm-8 shopping-mall">
+        <h2 style="margin-top: 48px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: #fff;">
+            CỔNG THÔNG TIN ĐIỆN TỬ TRƯỜNG KỸ THUẬT <a style="color: #D90000; font-size: 29px;">@</a>SPACE</h2>
+    </div>
+</header>
 
 <body>
 
@@ -50,7 +63,23 @@
     <div class="w3-top">
         <div class="w3-bar w3-white w3-card" id="myNavbar">
             <span style="font-size: 17px; font-weight: bold;" class="plus-index">{{$title}}</span>
-            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+            <!-- navbar pc -->
+            <div class="w3-right w3-hide-small" style="float: right;">
+                <a style="float: right;" class="w3-bar-item w3-button" href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();"><i class="glyphicon glyphicon-log-in"></i> Đăng xuất</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </div>
+            <div class="andi">
+                <a href="#about" class="w3-bar-item w3-button">Trang chủ</a>
+                <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Giới thiệu</a>
+                <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> Tin tức</a>
+                <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> Liên hệ</a>
+                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> Đăng nhập</a>
+            </div>
+            <!-- navbar pc -->
+
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
                 <i style="margin-right: 14px; font-size: 0px;"></i>
             </a>

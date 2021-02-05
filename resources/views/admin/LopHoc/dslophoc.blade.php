@@ -25,7 +25,7 @@
         <thead class="andi">
             <tr>
                 <th>STT</th>
-                <th width=100%>Nội dung</th>
+                <th class="width">Nội dung</th>
                 <th>Chức năng</th>
             </tr>
         </thead>
@@ -36,7 +36,7 @@
                  <td>
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
-                <td width=100%>
+                <td>
                     <i style="margin-left: 15px;">Lớp: {{$cl->tenlophoc}}</i><br>
                     <!-- <i>Khoá: <?php echo \App\qlsv_khoahoc::find($cl->id_khoahoc)->tenkhoahoc ?></i><br> -->
                     <i style="margin-left: 15px;">GV: <?php echo \App\qlsv_giangvien::find($cl->id_giangvien)->hovaten ?></i><br>

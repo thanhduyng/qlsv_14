@@ -99,6 +99,10 @@ html {
 
 
 @media (max-width: 880px) {
+    .width {
+        width: 100%;
+    }
+    
     img {
         margin-top: 11px;
         width: 19%;

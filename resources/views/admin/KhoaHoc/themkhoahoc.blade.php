@@ -10,12 +10,12 @@
       <form method="post" action="{{route('qlsv_khoahoc.store')}}">
         @csrf
         <div class="form-group row">
-          <div class="col-sm-6">
+          <div class="col-sm-12">
             <label for="inputFirstname">Tên khoá học</label>
             <input type="text" class="form-control" id="" name="tenkhoahoc" placeholder="nhập tên khoá học" />
             <span style="color: red;">@error('tenkhoahoc'){{$message}}@enderror</span>
           </div>
-          <div class="col-sm-6" style="margin-top: 6px;">
+          <div class="col-sm-12" style="margin-top: 6px;">
             <label for="inputFirstname">Ghi chú</label>
             <input type="text" class="form-control" id="" name="ghichu" placeholder="nhập ghi chú" />
             <span style="color: red;">@error('ghichu'){{$message}}@enderror</span>

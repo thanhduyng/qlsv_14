@@ -1,7 +1,6 @@
 @extends('layouts.trangchu')
 
 @section('content')
-
 <div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
     <a class="btn btn-primary btn-sm" href="#" onclick="$('#searcharea').toggle();return false;">
         <i class="glyphicon glyphicon-search"></i></a>
@@ -26,7 +25,7 @@
         <thead class="andi">
             <tr>
                 <th>STT</th>
-                <th width=100%>Nội dung</th>
+                <th class="width">Nội dung</th>
                 <th>Chức năng</th>
             </tr>
         </thead>
@@ -38,7 +37,7 @@
                 <td>
                     <a class="btn btn-default btn-circle">{{$i+1}}</a>
                 </td>
-                <td width=100% >
+                <td>
                     <i style="margin-left: 25px;">{{$cl->ten}}</i><br>
                     <i style="margin-left: 25px;">{{$cl->sodienthoai}}</i><br>
                 </td>

@@ -6,8 +6,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
 </head>
-<div style="text-align:right;">
-    <a  style="margin-right: 15px;" class="btn btn-primary btn-sm" href="<?= route("qlsv_thoikhoabieu.index") ?>">
+<div style="text-align:right;padding: 4px;">
+    <a style="margin-right: 15px; margin-top: 5px;" class="btn btn-primary btn-sm" href="<?= route("qlsv_thoikhoabieu.index") ?>">
         <i class="glyphicon glyphicon-list-alt"></i></a>
 </div>
 <div class="container-fluid py-5">
@@ -16,11 +16,7 @@
         <input class="form-control" type="hidden" name="id" value="{{$thoiKhoaBieu->id}}" /><br>
         <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px;">
             <div class="form-group row">
-                <div class="col-sm-6 col-xs-6">
-                    <label for="">Ngày học</label>
-                    <input type="date" class="form-control" id="" name="ngayhoc" value="{{$thoiKhoaBieu->ngayhoc}}" />
-                </div>
-                <div class="col-sm-6 col-xs-6">
+                <div class="col-sm-6 col-xs-12">
                     <label for="">Tên lớp học</label>
                     <select class="form-control" name="id_lophoc">
                         @foreach($lopHoc as $key=>$ph)
@@ -28,19 +24,20 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-6 col-xs-6">
-                    <label for="">Tên phòng học</label>
-                    <select class="form-control" name="id_phonghoc">
-                        @foreach($phongHoc as $key=>$ph)
-                        <option value={{$key}} {{$key==$thoiKhoaBieu->id_phonghoc?"selected":""}}> {{$ph}} </option>
-                        @endforeach
-                    </select>
+                <div class="col-sm-6 col-xs-12">
+                    <label for="">Ngày học</label>
+                    <input type="date" class="form-control" id="" name="ngayhoc" value="{{$thoiKhoaBieu->ngayhoc}}" />
                 </div>
-                <div class="col-sm-6 col-xs-6">
+                <div class="col-sm-6 col-xs-12">
+                    <label for="">Lời nhắn P.Đào tạo</label>
+                    <textarea type="text" class="form-control" id="" rows="3" name="loinhanphongdaotao" value="{{$thoiKhoaBieu->loinhanphongdaotao}}"></textarea>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label for="">Buổi thứ</label>
+                    <input type="number" class="form-control" id="" name="buoithu" value="{{$thoiKhoaBieu->buoithu}}" />
+                </div>
+                <div class="col-sm-6 col-xs-12">
                     <label for="">Số worktask</label></label>
-
                     <select class="form-control" name="id_worktask">
                         @foreach($workTask as $key=>$tkb)
                         <option value={{$key}} {{$key==$thoiKhoaBieu->id_worktask?"selected":""}}> {{$tkb}} </option>
@@ -48,7 +45,19 @@
                     </select>
                 </div>
             </div>
+        </div>
+        <br>
+
+        <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px;">
             <div class="form-group row">
+                <div class="col-sm-6 col-xs-12">
+                    <label for="">Tên phòng học</label>
+                    <select class="form-control" name="id_phonghoc">
+                        @foreach($phongHoc as $key=>$ph)
+                        <option value={{$key}} {{$key==$thoiKhoaBieu->id_phonghoc?"selected":""}}> {{$ph}} </option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="col-sm-6 col-xs-6">
                     <label for="">Ca học</label>
                     <select name="cahoc" class="form-control">
@@ -134,47 +143,35 @@
         <br>
         <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px;">
             <div class="form-group row">
-                <div class="col-sm-6 col-xs-6">
+                <div class="col-sm-6 col-xs-12">
+                    <label for="">Sĩ số</label>
+                    <input type="number" class="form-control" id="" name="siso" value="{{$thoiKhoaBieu->siso}}" />
+                </div>
+                <div class="col-sm-6 col-xs-12">
                     <label>Thực hiện tốt hoặc hiểu bài</label>
                     <input type="number" class="form-control" name="thuchientot" value="{{$thoiKhoaBieu->thuchientot}}" />
                 </div>
-                <div class="col-sm-6 col-xs-6">
+                <div class="col-sm-6 col-xs-12">
                     <label>Không làm được/không hiểu</label>
                     <input type="number" class="form-control" name="khonglamduoc" value="{{$thoiKhoaBieu->khonglamduoc}}" />
                 </div>
             </div>
         </div><br>
-
         <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px;">
             <div class="form-group row">
-                <div class="col-sm-6 col-xs-6">
-                    <label for="">Lời nhắn P.Đào tạo</label>
-                    <input type="text" class="form-control" id="" name="loinhanphongdaotao" value="{{$thoiKhoaBieu->loinhanphongdaotao}}" />
-                </div>
-                <div class="col-sm-6 col-xs-6">
+                <div class="col-sm-6 col-xs-12">
                     <label for="">Đánh giá của GV</label></label>
-                    <input type="text" class="form-control" id="" name="danhgiacuagiangvien" value="{{$thoiKhoaBieu->danhgiacuagiangvien}}" />
+                    <textarea rows="3" type="text" class="form-control" id="" name="danhgiacuagiangvien" value="{{$thoiKhoaBieu->danhgiacuagiangvien}}"></textarea>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-6 col-xs-6">
+                <div class="col-sm-6 col-xs-12">
                     <label for="">Lời nhắn của GV</label></label>
-                    <input type="text" class="form-control" id="" name="loinhancuagiangvien" value="{{$thoiKhoaBieu->loinhancuagiangvien}}" />
+                    <textarea rows="3" type="text" class="form-control" id="" name="loinhancuagiangvien" value="{{$thoiKhoaBieu->loinhancuagiangvien}}"></textarea>
                 </div>
-                <div class="col-sm-6 col-xs-6">
-                    <label for="">Sĩ số</label>
-                    <input type="number" class="form-control" id="" name="siso" value="{{$thoiKhoaBieu->siso}}" />
-                </div>
-
             </div>
             <div class="form-group row">
-                <div class="col-sm-6 col-xs-6">
-                    <label for="">Buổi thứ</label>
-                    <input type="number" class="form-control" id="" name="buoithu" value="{{$thoiKhoaBieu->buoithu}}" />
-                </div>
-                <div class="col-sm-6 col-xs-6">
+                <div class="col-sm-6 col-xs-12">
                     <label for="">Ghi chú</label></label>
-                    <input type="text" class="form-control" id="" name="ghichu" value="{{$thoiKhoaBieu->ghichu}}" />
+                    <textarea rows="3" type="text" class="form-control" id="" name="ghichu" value="{{$thoiKhoaBieu->ghichu}}"></textarea>
                 </div>
             </div>
         </div>

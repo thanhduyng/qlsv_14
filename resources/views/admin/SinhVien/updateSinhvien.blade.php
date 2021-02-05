@@ -9,7 +9,6 @@
     <form method="post" action="{{ route('qlsv_sinhvien.update', [$sinhVien->id]) }} ">
         @csrf
         <div iv class="form-group">
-
             <input type="hidden" class="form-control" value="{{ $sinhVien->id }}" name="id">
         </div>
         <div class="form-group">

@@ -11,7 +11,7 @@
         <form method="post" action="{{route('qlsv_thoikhoabieu.storegiaovu')}}">
             @csrf
             <div class="form-group row">
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-12 col-xs-12">
                     <label for="">Tên lớp học</label>
                     <select name="id_lophoc" class="form-control">
                         <option>-- Chọn --</option>

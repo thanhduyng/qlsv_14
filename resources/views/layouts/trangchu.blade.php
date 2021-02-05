@@ -25,6 +25,11 @@
             font-size: 16px;
         }
 
+        .logo {
+            height: 130px;
+            background-image: url(/images/aspace.jpg);
+        }
+
         .w3-sidebar {
             height: 118%;
             width: 280px;
@@ -35,13 +40,33 @@
         }
     </style>
 </head>
+<header class="row logo">
+    <div class="col-sm-4">
+        <img src="/images/logo1.png" style="width: 47%; margin-left: 90px; margin-top: 15px;">
+
+    </div>
+    <div class="col-sm-8 shopping-mall">
+        <h2 style="margin-top: 48px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: #fff;">
+            CỔNG THÔNG TIN ĐIỆN TỬ TRƯỜNG KỸ THUẬT <a style="color: #D90000; font-size: 29px;">@</a>SPACE</h2>
+    </div>
+</header>
 
 <body>
     <!-- Navbar (sit on top) -->
     <div class="w3-top">
         <div class="w3-bar w3-white w3-card" id="myNavbar">
             <span style="font-size: 17px; font-weight: bold;" class="plus-index">{{$title}}</span>
-            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+            <!-- navbar pc -->
+            <div class="w3-right w3-hide-small" style="margin-right: 700px;">
+                <a href="#about" class="w3-bar-item w3-button">Trang chủ</a>
+                <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Giới thiệu</a>
+                <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> Tin tức</a>
+                <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> Liên hệ</a>
+                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> Đăng nhập</a>
+            </div>
+            <!-- navbar pc -->
+
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
                 <i class="fa fa-bars" style="margin-right: 14px; font-size: 23px;"></i>
             </a>
@@ -52,10 +77,17 @@
         <!-- <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16" style="margin-left: 140px;">
             ×</a> -->
         <a><img src="/images/logo1.png" class="logotruong" style="width: 100%; height: 140px; background-color: #fff; margin-top: 0;margin-left: 0px;padding: 7px;margin-bottom: 15px;"></a>
-        <a href="" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý sinh viên</a>
-        <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý giảng viên</a>
-        <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">Quảng lý khoá học</a>
-        <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý điểm</a>
+        <a href="{{route('qlsv_sinhvien.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý sinh viên</a>
+        <a href="{{route('qlsv_giangvien.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý giảng viên</a>
+        <a href="{{route('qlsvlophoc.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý lớp học</a>
+        <a href="{{route('qlsv_thoikhoabieu.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý thời khoá biểu</a>
+        <a href="/worktask/mon/1" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý worktask</a>
+        <a href="{{route('qlsv_khoahoc.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý khoá học</a>
+        <a href="{{route('qlsv_monhoc.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý môn học</a>
+        <a href="{{route('qlsv_phonghoc.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý phòng học</a>
+        <a href="{{route('qlsv_kieuthi.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý kiểu thi</a>
+        <a href="{{route('qlsv_kieuthi.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý kiểu thi</a>
+
         <div class="dropdown">
             <a class="w3-bar-item w3-button" data-toggle="dropdown">Quản trị hệ thống<span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -64,8 +96,6 @@
                 <li class="active" href="#"><a>Text</a></li>
             </ul>
         </div>
-
-        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý môn học</a>
         <a class="w3-bar-item w3-button" href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -16,7 +16,7 @@
                         <input type="text" class="form-control" value="{{ old('ten') }}" id="ten" name="ten" placeholder="nhập họ và tên" />
 
                     </div>
-                    <div class="col-sm-6" style="margin-top: 10px;">
+                    <div class="col-sm-6" >
                         <label>Giới tính:</label>
                         <select name="gioitinh" class="form-control">
                             <option value="0" id="gioitinh1" name="gioitinh"> Nam </option>

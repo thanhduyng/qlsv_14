@@ -33,7 +33,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-6 ">
-                                <label style="margin-top: 7px;">Giới tính</label>
+                                <label style="">Giới tính</label>
                                 <select name="gioitinh" class="form-control">
                                     <option value="1">Nam</option>
                                     <option value="2">Nữ</option>
@@ -47,7 +47,7 @@
                                 <input type="text" class="form-control" id="" name="sodienthoaisinhvien" placeholder="nhập số điện thoại sinh viên" />
                             </div>
                             <div class="col-sm-6">
-                                <label style="margin-top: 7px;">Số điện thoại gia đình</label>
+                                <label style="">Số điện thoại gia đình</label>
                                 <input type="text" class="form-control" id="" name="sodienthoaigiadinh" placeholder="nhập số điện thoại gia đình" />
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                 <input type="text" class="form-control" id="" name="name" placeholder="nhập username" />
                             </div>
                             <div class="col-sm-6">
-                                <label style="margin-top: 7px;">Mật khẩu</label>
+                                <label style="">Mật khẩu</label>
                                 <input type="password" class="form-control" id="" name="password" placeholder="nhập mật khẩu" />
                             </div>
                         </div>

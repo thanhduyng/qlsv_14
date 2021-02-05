@@ -15,7 +15,6 @@
                 </p>
             </div>
         </div>
-
         <div class="form-group row">
             <label style="margin-left: 20px;" class="col-sm-2 col-xs-2">Ngày:</label>
             <div class="col-sm-10" style="width: 59%; float: left; margin-left: -5px;">
