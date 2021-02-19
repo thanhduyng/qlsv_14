@@ -170,6 +170,7 @@ Route::group(['prefix' => 'giang_vien'], function () {
 
 //-------------------- Màn hình sinh viên  ------------------------
 Route::group(['prefix' => 'sinh_vien'], function () {
+    Route::get("/index", 'SinhVien\ManhinhSinhvienController@index')->name("sinh_vien.index");
     Route::get("/trangchu", 'SinhVien\ManhinhSinhvienController@trangchu')->name("sinh_vien.trangchu");
     Route::get("/viewdiemthi", 'SinhVien\ManhinhSinhvienController@viewdiemthi')->name("sinh_vien.viewdiemthi");
     Route::post("/storediemthi", 'SinhVien\ManhinhSinhvienController@storediemthi')->name("sinh_vien.storediemthi");

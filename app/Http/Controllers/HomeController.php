@@ -42,7 +42,7 @@ class HomeController extends Controller
             return redirect()->route('giang_vien.trangchu');
         }
         if (count($sinhVien) > 0) {
-            return redirect()->route('sinh_vien.trangchu');
+            return redirect()->route('sinh_vien.index');
         } else {
             return redirect()->route('quan_tri.trangchu');
         }

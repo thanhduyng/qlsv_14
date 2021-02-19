@@ -28,6 +28,11 @@ class ManhinhSinhvienController extends Controller
         });
     }
 
+    public function index(Request $request)
+    {
+        $title = "Trang chủ của Sinh viên";
+         return view('ManHinhSinhVien.index', compact(['title']));
+    }
     public function trangchu(Request $request)
     {
         $user = auth()->user();
@@ -110,14 +115,14 @@ class ManhinhSinhvienController extends Controller
             ->where('qlsv_sinhvienlophocs.id_lophoc', $idlop)
             ->get();
         // dd(DB::getQueryLog());
-       
+
         $vang = DB::table('qlsv_diemdanhs')
-        ->selectRaw('count(qlsv_thoikhoabieus.ngayhoc) as vang')
+            ->selectRaw('count(qlsv_thoikhoabieus.ngayhoc) as vang')
             ->join('qlsv_thoikhoabieus', 'qlsv_thoikhoabieus.id', '=', 'qlsv_diemdanhs.id_thoikhoabieu')
             ->leftJoin('qlsv_sinhvienlophocs', 'qlsv_sinhvienlophocs.id', '=', 'qlsv_diemdanhs.id_sinhvienlophoc')
             ->where('qlsv_sinhvienlophocs.id_sinhvien', $idsinhvien)
             ->where('qlsv_sinhvienlophocs.id_lophoc', $idlop)
-            ->where('qlsv_diemdanhs.denlop','>',1)
+            ->where('qlsv_diemdanhs.denlop', '>', 1)
             ->get();
 
         // dd(DB::getQueryLog());
