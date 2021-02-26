@@ -175,6 +175,10 @@ Route::group(['prefix' => 'sinh_vien'], function () {
     Route::get("/viewdiemthi", 'SinhVien\ManhinhSinhvienController@viewdiemthi')->name("sinh_vien.viewdiemthi");
     Route::post("/storediemthi", 'SinhVien\ManhinhSinhvienController@storediemthi')->name("sinh_vien.storediemthi");
     Route::get("/viewdiemdanh", 'SinhVien\ManhinhSinhvienController@viewdiemdanh')->name("sinh_vien.viewdiemdanh");
+
+    Route::get("/chonlop", 'SinhVien\ManhinhSinhvienController@chonlop')->name("sinh_vien.chonlop");
+    Route::get("/viewxinnghi", 'SinhVien\ManhinhSinhvienController@viewxinnghi')->name("sinh_vien.viewxinnghi");
+    Route::post("/storexinnghi", 'SinhVien\ManhinhSinhvienController@storexinnghi')->name("sinh_vien.storexinnghi");
 });
 
 //-------------------- Màn hình người dùng quản trị  ------------------------
@@ -257,3 +261,4 @@ Route::group(['prefix' => 'worktaskdetail'], function () {
 
 Route::get('/export_excel', 'ExportExcelController@index');
 Route::get('/export_excel/excel', 'ExportExcelController@excel')->name('export_excel.excel');
+

@@ -10,7 +10,15 @@
         <div class="form-group row">
             <label style="margin-left: 20px;" class="col-sm-2 col-xs-2">Lớp:</label>
             <div class="col-sm-10" style="width: 75%; float: left; margin-left: -15px;">
-              <p>{{$qlsv_lophoc->tenlophoc}}
+                <p>{{$qlsv_lophoc->tenlophoc}}
+                    <input type="hidden" name="idlop" value="{{$qlsv_lophoc->id}}">
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-xs-2">Lớp:</label>
+            <div class="col-sm-10" style="width: 75%; float: left; margin-left: -15px;">
+                <p>{{$qlsv_lophoc->tenlophoc}}
                     <input type="hidden" name="idlop" value="{{$qlsv_lophoc->id}}">
                 </p>
             </div>
@@ -27,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-             @foreach($qlsv_sinhvienlophoc as $values)
+                @foreach($qlsv_sinhvienlophoc as $values)
                 <tr>
 
                     <td>
@@ -36,12 +44,10 @@
                     </td>
                     <td>{{$values->hovaten}}</td>
                     <td>
-                        <input disabled type="number" style="width:30px; text-align: right;" max="10" min="0" name="diemlythuyet[]"
-                            value="{{$values->diemlythuyet}}">
+                        <input disabled type="number" style="width:30px; text-align: right;" max="10" min="0" name="diemlythuyet[]" value="{{$values->diemlythuyet}}">
                     </td>
                     <td>
-                        <input disabled type="number" style="width:30px; text-align: right;" max="10" min="0" name="diemthuchanh[]"
-                            value="{{$values->diemthuchanh}}">
+                        <input disabled type="number" style="width:30px; text-align: right;" max="10" min="0" name="diemthuchanh[]" value="{{$values->diemthuchanh}}">
                     </td>
                 </tr>
                 @endforeach
@@ -50,8 +56,8 @@
     </form>
 </main>
 <script>
-    $(function(){
-        $('input').focus(function(){
+    $(function() {
+        $('input').focus(function() {
             $(this).select();
         });
     });

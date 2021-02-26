@@ -4,7 +4,10 @@ namespace App\Http\Controllers\SinhVien;
 
 use App\Http\Controllers\Controller;
 use App\qlsv_lophoc;
+use App\qlsv_sinhvien;
+use App\qlsv_sinhvienlophoc;
 use App\qlsv_thoikhoabieu;
+use App\qlsv_xinnghi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,10 +31,11 @@ class ManhinhSinhvienController extends Controller
         });
     }
 
+
     public function index(Request $request)
     {
         $title = "Trang chủ của Sinh viên";
-         return view('ManHinhSinhVien.index', compact(['title']));
+        return view('ManHinhSinhVien.index', compact(['title']));
     }
     public function trangchu(Request $request)
     {
@@ -127,5 +131,64 @@ class ManhinhSinhvienController extends Controller
 
         // dd(DB::getQueryLog());
         return view('ManHinhSinhVien.viewdiemdanh', compact(['vang', 'findThoiKhoaBieu', 'id_thoikhoabieu', 'title', 'idlop', 'qlsv_lophoc', 'qlsv_sinhvienlophoc']));
+    }
+
+    public function chonlop(Request $request)
+    {
+        $title = "Xin nghỉ theo lớp";
+        $user = auth()->user();
+        $sinhVien = DB::table('qlsv_sinhviens')
+            ->where('id_user', $user->id)
+            ->get()[0];
+        DB::enableQueryLog();
+        $lopHoc = DB::table('qlsv_sinhvienlophocs')
+            ->where('id_sinhvien', $sinhVien->id)
+            ->orderByDesc('id')
+            ->select(
+                'qlsv_sinhvienlophocs.*'
+            )
+            ->get();
+        // dd(DB::getQueryLog());
+        return view('ManHinhSinhVien.chonlop', compact(['title', 'user', 'sinhVien', 'lopHoc']));
+    }
+
+    public function viewxinnghi(Request $request)
+    {
+        $user = auth()->user();
+        $title = "Xin nghỉ theo lớp";
+        $idlop = $request->get('id_lophoc');
+        $idsinhvien = $request->get('id_sinhvien');
+        $qlsv_lophoc = qlsv_lophoc::find($idlop);
+        $qlsv_sinhvien = qlsv_sinhvien::find($idsinhvien);
+
+        DB::enableQueryLog();
+        $qlsv_sinhvienlophoc = DB::table('qlsv_xinnghis')
+            ->select('qlsv_sinhvienlophocs.id_sinhvien', 'qlsv_sinhvienlophocs.id_Lophoc', 'qlsv_xinnghis.id_sinhvienlophoc')
+            ->join('qlsv_sinhvienlophocs', 'qlsv_sinhvienlophocs.id', '=', 'qlsv_xinnghis.id_sinhvienlophoc')
+            ->where('qlsv_sinhvienlophocs.id_sinhvien', $idsinhvien)
+            ->where('qlsv_sinhvienlophocs.id_lophoc', $idlop)
+            ->get();
+        // dd(DB::getQueryLog());
+        return view('ManHinhSinhVien.viewxinnghi', compact(['qlsv_sinhvien','title', 'idlop', 'qlsv_lophoc', 'qlsv_sinhvienlophoc']));
+    }
+
+    public function storexinnghi(Request $request)
+    {
+        $sinhVienLopHoc = new qlsv_sinhvienlophoc();
+        $sinhVienLopHoc->id_lophoc = $request->id_lophoc;
+        $sinhVienLopHoc->id_sinhvien = $request->id_sinhvien;
+        $sinhVienLopHoc->save();
+
+        $xinNghi = new qlsv_xinnghi();
+        $xinNghi->ngaynghi = $request->ngaynghi;
+        $xinNghi->noidung = $request->noidung;
+        $xinNghi->lydo = $request->lydo;
+        $xinNghi->id_sinhvienlophoc = $sinhVienLopHoc->id;
+        $user = auth()->user();
+        $xinNghi->nguoitao = $user->name;
+        $xinNghi->created_at = Carbon::now();
+        $xinNghi->deleted_at = "0";
+        $xinNghi->save();
+        return redirect()->route('sinh_vien.index');
     }
 }

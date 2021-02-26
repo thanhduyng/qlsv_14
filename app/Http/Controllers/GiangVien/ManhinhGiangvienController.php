@@ -56,9 +56,7 @@ class ManhinhGiangvienController extends Controller
             )
             ->get();
         // dd(DB::getQueryLog());
-
         // dd($lopHoc);
-
         return view('ManHinhGiangVien.trangchu', compact(['title', 'lopHoc']));
     }
 

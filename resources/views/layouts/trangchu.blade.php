@@ -86,7 +86,7 @@
         <a href="{{route('qlsv_monhoc.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý môn học</a>
         <a href="{{route('qlsv_phonghoc.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý phòng học</a>
         <a href="{{route('qlsv_kieuthi.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý kiểu thi</a>
-        <a href="{{route('qlsv_kieuthi.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý kiểu thi</a>
+       
 
         <div class="dropdown">
             <a class="w3-bar-item w3-button" data-toggle="dropdown">Quản trị hệ thống<span class="caret"></span></a>
