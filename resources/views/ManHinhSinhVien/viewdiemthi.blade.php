@@ -1,4 +1,4 @@
-@extends('ManHinhGiangVien.layout')
+@extends('layouts.layout')
 
 @section('content')
 
@@ -9,14 +9,6 @@
         @csrf
         <div class="form-group row">
             <label style="margin-left: 20px;" class="col-sm-2 col-xs-2">Lớp:</label>
-            <div class="col-sm-10" style="width: 75%; float: left; margin-left: -15px;">
-                <p>{{$qlsv_lophoc->tenlophoc}}
-                    <input type="hidden" name="idlop" value="{{$qlsv_lophoc->id}}">
-                </p>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 col-xs-2">Lớp:</label>
             <div class="col-sm-10" style="width: 75%; float: left; margin-left: -15px;">
                 <p>{{$qlsv_lophoc->tenlophoc}}
                     <input type="hidden" name="idlop" value="{{$qlsv_lophoc->id}}">

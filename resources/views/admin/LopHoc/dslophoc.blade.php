@@ -43,7 +43,9 @@
                     <i style="margin-left: 15px;">Tổng SV: {{$cl->soluongsv}}</i><br>
                     <i style="margin-left: 15px;">Môn: <?php echo \App\qlsv_monhoc::find($cl->id_monhoc)->tenmonhoc ?></i><br>
                     <!-- <a style="margin-left: 15px;" href="/" type="submit" class="btn-sm btn-success px-4 float-right">
-                        <i class="glyphicon glyphicon-user"></i> sinh viên</a> -->            
+                        <i class="glyphicon glyphicon-user"></i> sinh viên</a> -->      
+                    <i><a class="btn btn-success px-4 float-right" href="{{route('qlsv_thoikhoabieu.index')}}">Thời Khoá Biểu</a></i>
+
                 </td>
                 <td style="padding-left:0;line-height: 33px;">
                     <a class="btn-default btn-xs" href="{{route('qlsvlophoc.create')}}?id={{$cl->id}}">

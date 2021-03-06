@@ -1,4 +1,4 @@
-@extends('ManHinhGiangVien.layout')
+@extends('layouts.layout')
 
 @section('content')
 <form method=get action="">

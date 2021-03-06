@@ -1,4 +1,4 @@
-@extends('ManHinhGiangVien.layout')
+@extends('layouts.layout')
 
 @section('content')
 <div style="text-align:right;padding: 4px;">
@@ -40,8 +40,7 @@
                             <textarea rows="2" class="form-control" name="lydo" placeholder="nhập lý do"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success px-4 float-right"><i class="glyphicon glyphicon-plus"></i> Thêm
-                        mới</button>
+                    <button type="submit" class="btn btn-success px-4 float-right"> Gửi</button>
                 </form>
             </div>
         </div>

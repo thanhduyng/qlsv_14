@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable = no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="/images/logo1.png" type="image/x-icon">
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -58,7 +59,14 @@
             <span style="font-size: 17px; font-weight: bold;" class="plus-index">{{$title}}</span>
 
             <!-- navbar pc -->
-            <div class="w3-right w3-hide-small" style="margin-right: 700px;">
+            <div class="w3-right w3-hide-small" style="float: right;">
+                <a style="float: right;" class="w3-bar-item w3-button" href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();"><i class="glyphicon glyphicon-log-in"></i> Đăng xuất</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </div>
+            <div class="andi">
                 <a href="#about" class="w3-bar-item w3-button">Trang chủ</a>
                 <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Giới thiệu</a>
                 <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> Tin tức</a>
@@ -86,7 +94,7 @@
         <a href="{{route('qlsv_monhoc.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý môn học</a>
         <a href="{{route('qlsv_phonghoc.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý phòng học</a>
         <a href="{{route('qlsv_kieuthi.index')}}" onclick="w3_close()" class="w3-bar-item w3-button">Quản lý kiểu thi</a>
-       
+
 
         <div class="dropdown">
             <a class="w3-bar-item w3-button" data-toggle="dropdown">Quản trị hệ thống<span class="caret"></span></a>

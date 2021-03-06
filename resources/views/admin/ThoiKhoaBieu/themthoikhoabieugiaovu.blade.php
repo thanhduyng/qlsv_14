@@ -21,161 +21,43 @@
                     </select>
                 </div>
             </div>
-            <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px;">
-                <div class="form-group row">
-                    <div class="col-sm-6 col-xs-6">
-                        <label>Ngày học</label>
-                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''>
-                    </div>
-                    <div class="col-sm-6 col-xs-6">
-                        <label>Ca học</label>
-                        <select name="cahoc[]" class="form-control">
-                            <option value="0">-- Chọn --</option>
-                            <option value="1">Sáng</option>
-                            <option value="2">Chiều</option>
-                            <option value="3">Tối</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <label>Địa điểm học</label>
-                        <select name="diadiemhoc[]" class="form-control">
-                            <option value="1">Trường</option>
-                            <option value="2">Xưởng Ô tô</option>
-                            <option value="3">Khác</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <label for="">Lời nhắn PĐT</label>
-                        <textarea type="text" class="form-control" rows="3" name="loinhanphongdaotao[]" placeholder="nhập lời nhắn"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px; margin-top: 15px;">
-                <div class="form-group row">
-                    <div class="col-sm-6 col-xs-6">
-                        <label>Ngày học</label>
-                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''>
-                    </div>
-                    <div class="col-sm-6 col-xs-6">
-                        <label>Ca học</label>
-                        <select name="cahoc[]" class="form-control">
-                            <option value="0">-- Chọn --</option>
-                            <option value="1">Sáng</option>
-                            <option value="2">Chiều</option>
-                            <option value="3">Tối</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <label>Địa điểm học</label>
-                        <select name="diadiemhoc[]" class="form-control">
-                            <option value="1">Trường</option>
-                            <option value="2">Xưởng Ô tô</option>
-                            <option value="3">Khác</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <label for="">Lời nhắn PĐT</label>
-                        <textarea type="text" class="form-control" rows="3" name="loinhanphongdaotao[]" placeholder="nhập lời nhắn"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px; margin-top: 15px;">
-                <div class="form-group row">
-                    <div class="col-sm-6 col-xs-6">
-                        <label>Ngày học</label>
-                        <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''>
-                    </div>
-                    <div class="col-sm-6 col-xs-6">
-                        <label>Ca học</label>
-                        <select name="cahoc[]" class="form-control">
-                            <option value="0">-- Chọn --</option>
-                            <option value="1">Sáng</option>
-                            <option value="2">Chiều</option>
-                            <option value="3">Tối</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <label>Địa điểm học</label>
-                        <select name="diadiemhoc[]" class="form-control">
-                            <option value="1">Trường</option>
-                            <option value="2">Xưởng Ô tô</option>
-                            <option value="3">Khác</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <label for="">Lời nhắn PĐT</label>
-                        <textarea type="text" class="form-control" rows="3" name="loinhanphongdaotao[]" placeholder="nhập lời nhắn"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
-                <a class="btn btn-primary btn-sm" href="#" onclick="$('#addthem').toggle();return false;">
-                    <i class="glyphicon glyphicon-plus"></i></a>
-            </div>
 
-            <div id="addthem" style="display:none; margin-top: 10px;">
-                <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px; margin-top: 0px;">
-                    <div class="form-group row">
-                        <div class="col-sm-6 col-xs-6">
-                            <label>Ngày học</label>
-                            <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''>
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <label>Ca học</label>
-                            <select name="cahoc[]" class="form-control">
+            <table>
+                <thead>
+                    <th>Ngày học</th>
+                    <th >Ca học</th>
+                    <th >Địa điểm học</th>
+                    <th width=100%>Lời nhắn PĐT</th>
+                </thead>
+                <tbody>
+                    @for($i=1; $i<=10; $i++) <tr>
+                        <td> <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''></td>
+                        <td>
+                            <select style="width: 120px;" name="cahoc[]" class="form-control">
                                 <option value="0">-- Chọn --</option>
                                 <option value="1">Sáng</option>
                                 <option value="2">Chiều</option>
                                 <option value="3">Tối</option>
                             </select>
-                        </div>
-                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                            <label>Địa điểm học</label>
-                            <select name="diadiemhoc[]" class="form-control">
+                        </td>
+                        <td>
+                            <select style="width: 120px;" name="diadiemhoc[]" class="form-control">
                                 <option value="1">Trường</option>
                                 <option value="2">Xưởng Ô tô</option>
                                 <option value="3">Khác</option>
                             </select>
-                        </div>
-                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                            <label for="">Lời nhắn PĐT</label>
-                            <textarea type="text" class="form-control" rows="3" name="loinhanphongdaotao[]" placeholder="nhập lời nhắn"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div style="border: 2px solid #CCCCCC; border-radius: 7px; padding: 10px; margin-top: 15px;">
-                    <div class="form-group row">
-                        <div class="col-sm-6 col-xs-6">
-                            <label>Ngày học</label>
-                            <input type='date' id='hasta' class="form-control" name="ngayhoc[]" value=''>
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <label>Ca học</label>
-                            <select name="cahoc[]" class="form-control">
-                                <option value="0">-- Chọn --</option>
-                                <option value="1">Sáng</option>
-                                <option value="2">Chiều</option>
-                                <option value="3">Tối</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                            <label>Địa điểm học</label>
-                            <select name="diadiemhoc[]" class="form-control">
-                                <option value="1">Trường</option>
-                                <option value="2">Xưởng Ô tô</option>
-                                <option value="3">Khác</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                            <label for="">Lời nhắn PĐT</label>
-                            <textarea type="text" class="form-control" rows="3" name="loinhanphongdaotao[]" placeholder="nhập lời nhắn"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button style="margin-top: 9px;" type="submit" class="btn btn-success px-4 float-right"><i class="glyphicon glyphicon-plus"></i> Thêm mới</button>
-        </form>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" rows="3" name="loinhanphongdaotao[]" placeholder="nhập lời nhắn">
+                        </td>
+                        </tr>
+                        @endfor
+                </tbody>
+            </table>
     </div>
+    <button style="margin-top: 9px;" type="submit" class="btn btn-success px-4 float-right"><i class="glyphicon glyphicon-plus"></i> Thêm mới</button>
+    </form>
+</div>
 
 </div>
 @endsection

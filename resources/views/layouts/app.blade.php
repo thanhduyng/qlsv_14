@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/images/logo1.png" type="image/x-icon">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Đăng nhập</title>
@@ -76,7 +77,7 @@
                     <a style=" color: #fff; font-size: 14px;" href="https://aspace.edu.vn/">aspace.edu.vn</a>
                 </div>
                 <div class="col-xs-5">
-                    <p style="color: #fff; font-size: 14px;">Liên hệ :</p><a style="font-size: 14px;">0774 955 635</a>
+                    <p style="color: #fff; font-size: 14px;">Liên hệ :</p><a style="font-size: 14px;color: white;">0774 955 635</a>
                 </div>
             </div>
         </footer>
