@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/mobile.css" />
     <link rel="stylesheet" href="/css/dsresponsive.css" />
+    <link rel="stylesheet" href="/css/trangchusv.css" />
     <style>
         .logo {
             height: 130px;

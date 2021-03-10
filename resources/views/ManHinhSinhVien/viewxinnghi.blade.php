@@ -29,8 +29,18 @@
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <label for="">Ngày xin nghỉ</label>
-                            <input type="date" class="form-control" name="ngaynghi" />
+                            <input type="date" class="form-control" value="" name="ngaynghi" />
                         </div>
+                        <div class="col-sm-12">
+                            <label for="">Ca nghỉ</label>
+                            <select name="canghi" class="form-control">
+                                <option value="0">--Chọn ca--</option>
+                                <option value="1">Sáng</option>
+                                <option value="2">Chiều</option>
+                                <option value="3">Tối</option>
+                            </select>
+                        </div>
+                     
                         <div class="col-sm-12">
                             <label>Nội dung </label></br>
                             <textarea rows="4" class="form-control" name="noidung" placeholder="nhập nội dung"></textarea>

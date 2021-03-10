@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\DB;
 
 class QlsvLophocController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();
+            $quanTri = DB::table('qlsv_nguoidungquantris')
+                ->where('id_user', $user->id)
+                ->get();
+
+            if (count($quanTri) == 0) {
+                exit;
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +46,6 @@ class QlsvLophocController extends Controller
             ->groupBy('qlsv_lophocs.id')
             ->orderBy('qlsv_lophocs.created_at', 'DESC')
             ->paginate(10);
-        // dd($lopHoc);
         return view('admin.LopHoc.dslophoc', compact(['lopHoc', 'title', 'search']));
     }
 
@@ -89,7 +103,7 @@ class QlsvLophocController extends Controller
             $sinhVien = DB::table('qlsv_sinhviens')
                 ->where('id_khoahoc', 'like', '%' . $searchkh . '%')
                 ->get();
-                return view('admin.LopHoc.addlophoc', compact(['search', 'searchkh', 'lopHoc', 'monHoc', 'giangVien', 'khoaHoc', 'id', 'sinhVienLopHoc', 'sinhVien', 'title']));
+            return view('admin.LopHoc.addlophoc', compact(['search', 'searchkh', 'lopHoc', 'monHoc', 'giangVien', 'khoaHoc', 'id', 'sinhVienLopHoc', 'sinhVien', 'title']));
         } else {
             if ($search != "" && $searchkh != "") {
                 $sinhVien = DB::table('qlsv_sinhviens')
@@ -218,4 +232,5 @@ class QlsvLophocController extends Controller
             'success' => 'Record deleted successfully!'
         ]);
     }
+
 }

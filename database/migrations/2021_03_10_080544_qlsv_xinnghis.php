@@ -16,6 +16,7 @@ class QlsvXinnghis extends Migration
         Schema::create('qlsv_xinnghis', function (Blueprint $table) {
             $table->increments('id');
             $table->date('ngaynghi');
+            $table->integer('canghi');
             $table->string('noidung');
             $table->string('lydo');
             $table->integer('id_sinhvienlophoc');

@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\DB;
 
 class QlsvThoikhoabieuController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();
+            $quanTri = DB::table('qlsv_nguoidungquantris')
+                ->where('id_user', $user->id)
+                ->get();
+
+            if (count($quanTri) == 0) {
+                exit;
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,11 +37,21 @@ class QlsvThoikhoabieuController extends Controller
     {
 
         $title = "Danh sách thời khoá biểu";
+        $search = $request->get('search') ?? "";
+        $lophoc = $request->get('lophoc') ?? "";
+        $lopHoc = qlsv_lophoc::pluck('tenlophoc', 'id');
+        if ($search == "" && $lophoc != "") {
+            $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')
+                ->where('id_lophoc', 'like', '%' . $lophoc . '%')
+                ->get();
+        }
+
         $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')
+            ->where('id_lophoc', 'like', '%' . $lophoc . '%')
             ->where('deleted_at', 0)
             ->orderBy('ngayhoc', 'desc')
             ->get();
-        return view('admin.ThoiKhoaBieu.dsthoikhoabieu', compact(['thoiKhoaBieu', 'title']));
+        return view('admin.ThoiKhoaBieu.dsthoikhoabieu', compact(['thoiKhoaBieu', 'title', 'lopHoc']));
     }
 
     /**
@@ -168,5 +193,22 @@ class QlsvThoikhoabieuController extends Controller
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')->where('id', $id)->update(["deleted_at" => "1", "updated_at" => Carbon::now()]);
         return redirect()->route('qlsv_thoikhoabieu.index');
+    }
+
+    public function thoikhoabieu(Request $request, $id)
+    {
+        $title = "Danh sách lớp học";
+        $search = $request->get('search') ?? "";
+        $lophoc1 = qlsv_lophoc::find($id);
+        $lopHoc = qlsv_lophoc::pluck('tenlophoc', 'id');
+        $thoiKhoaBieu = DB::table('qlsv_thoikhoabieus')
+            ->join('qlsv_lophocs', 'qlsv_thoikhoabieus.id_lophoc', '=', 'qlsv_lophocs.id')
+            ->where('qlsv_lophocs.id', $id)
+            ->where('qlsv_thoikhoabieus.deleted_at', 0)
+            ->orderBy('qlsv_thoikhoabieus.ngayhoc', 'desc')
+            ->select('qlsv_thoikhoabieus.id', 'qlsv_thoikhoabieus.id_lophoc', 'qlsv_thoikhoabieus.ngayhoc')
+            ->groupBy('qlsv_thoikhoabieus.id')
+            ->get();
+            return view('admin.ThoiKhoaBieu.dsthoikhoabieu', compact(['lophoc1','thoiKhoaBieu','lopHoc','title','search']));
     }
 }

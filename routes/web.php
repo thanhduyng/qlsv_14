@@ -91,6 +91,8 @@ Route::group(['prefix' => 'thoikhoabieu'], function () {
     Route::get('/edit/{id}', 'QlsvThoikhoabieuController@edit')->name('qlsv_thoikhoabieu.edit');
     Route::post('/update/{id}', 'QlsvThoikhoabieuController@update')->name('qlsv_thoikhoabieu.update');
     Route::get('/delete/{id}', 'QlsvThoikhoabieuController@destroy');
+    Route::get('/thoikhoabieu/{id}', 'QlsvThoikhoabieuController@thoikhoabieu')->name('qlsv_thoikhoabieu.thoikhoabieu');
+
 });
 
 

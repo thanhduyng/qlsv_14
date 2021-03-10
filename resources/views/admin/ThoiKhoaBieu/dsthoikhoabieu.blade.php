@@ -4,17 +4,23 @@
 <div style="text-align:right;padding-top: 7px; padding-bottom: 5px;">
     <a class="btn btn-primary btn-sm" href="#" onclick="$('#searcharea').toggle();return false;">
         <i class="glyphicon glyphicon-search"></i></a>
-        <a class="btn btn-success btn-sm" href="<?= route("qlsv_thoikhoabieu.creategiaovu") ?>">
+    <a class="btn btn-success btn-sm" href="<?= route("qlsv_thoikhoabieu.creategiaovu") ?>">
         <i class="glyphicon glyphicon-plus"></i></a>
 </div>
 <div id="searcharea" style="display:none; margin-top: 15px;">
-    <form action="<?= route("qlsvlophoc.index") ?>" method="get">
+    <form action="<?= route("qlsv_thoikhoabieu.index") ?>" method="get">
         <div class="form-group row">
-            <div class="col-sm-12 col-xs-7" style="margin-left: 30px;">
-                <input style="width: 220px; margin-left: -23px; margin-top: -1px;" id="" class="form-control" type="text" value="{{$search}}" name="search" placeholder="nhập tên lớp">
+            <div class="col-sm-6 col-xs-7" style="margin-left: 30px;">
+                <label for="">Tên lớp học</label>
+                <select name="lophoc" class="form-control">
+                    <option>-- Chọn --</option>
+                    @foreach($lopHoc as $nd => $value)
+                    <option value="{{$nd}}">{{$value}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-sm-4 col-xs-3">
-                <button style="margin-left: 9px;" type="submit" class="btn btn-primary btn-sm">Tìm kiếm</button>
+                <button style="margin-left: 9px; margin-top: 30px;" type="submit" class="btn btn-primary btn-sm">Tìm kiếm</button>
             </div>
         </div>
     </form>
@@ -37,7 +43,7 @@
                 </td>
                 <td class="width">
                     <i style="margin-left: 25px;">{{$cl->ngayhoc}}</i><br>
-                    @if($cl->id_phonghoc != null)
+                    @if($cl->id_phonghoc = null)
                     <i style="margin-left: 25px;"><?php echo \App\qlsv_phonghoc::find($cl->id_phonghoc)->tenphonghoc ?></i><br>
                     @endif
                     <i style="margin-left: 25px;"><?php echo \App\qlsv_lophoc::find($cl->id_lophoc)->tenlophoc ?></i><br>

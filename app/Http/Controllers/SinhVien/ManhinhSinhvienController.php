@@ -181,6 +181,7 @@ class ManhinhSinhvienController extends Controller
 
         $xinNghi = new qlsv_xinnghi();
         $xinNghi->ngaynghi = $request->ngaynghi;
+        $xinNghi->canghi = $request->canghi;
         $xinNghi->noidung = $request->noidung;
         $xinNghi->lydo = $request->lydo;
         $xinNghi->id_sinhvienlophoc = $sinhVienLopHoc->id;

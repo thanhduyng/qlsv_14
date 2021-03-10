@@ -57,8 +57,6 @@
                 @endforeach
             </tbody>
         </table>
-      
-
         <button type="submit" style="margin-left: 15px; margin-top: 8px;" class="btn btn-primary px-4 float-right"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
     </form>
 </main>

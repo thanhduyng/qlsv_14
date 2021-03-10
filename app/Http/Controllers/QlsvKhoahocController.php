@@ -12,6 +12,21 @@ use \Validator;
 
 class QlsvKhoahocController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();
+            $quanTri = DB::table('qlsv_nguoidungquantris')
+                ->where('id_user', $user->id)
+                ->get();
+
+            if (count($quanTri) == 0) {
+                exit;
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *

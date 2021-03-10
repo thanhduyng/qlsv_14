@@ -11,6 +11,21 @@ use Carbon\Carbon;
 
 class QlsvWorktaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();
+            $quanTri = DB::table('qlsv_nguoidungquantris')
+                ->where('id_user', $user->id)
+                ->get();
+
+            if (count($quanTri) == 0) {
+                exit;
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -32,28 +47,28 @@ class QlsvWorktaskController extends Controller
      */
     public function create($id)
     {
-      
+
         $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
-        $monhoc2= DB::table("qlsv_monhocs")
-        ->where('id',$id)
-        ->where('deleted_at', 0)->get();
-        $title = "Tạo WorkTask môn ".$monhoc2[0]->tenmonhoc;
+        $monhoc2 = DB::table("qlsv_monhocs")
+            ->where('id', $id)
+            ->where('deleted_at', 0)->get();
+        $title = "Tạo WorkTask môn " . $monhoc2[0]->tenmonhoc;
         $thutu = DB::table("qlsv_worktasks")
             ->where('deleted_at', 0)
             ->where('id_monhoc', $monhoc2[0]->id)
             ->max('thutu');
-           // dd($monhoc2);
-        return view("admin/WorkTask/themworktask", ['monhoc' => $monhoc,'monhoc2' => $monhoc2, 'title' => $title, 'thutu' => $thutu + 1,'id'=>$id]);
+        // dd($monhoc2);
+        return view("admin/WorkTask/themworktask", ['monhoc' => $monhoc, 'monhoc2' => $monhoc2, 'title' => $title, 'thutu' => $thutu + 1, 'id' => $id]);
     }
 
-  //  public function chonmon()
-   // {
-        // $title = "Chọn Môn Học ";
-        // $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
+    //  public function chonmon()
+    // {
+    // $title = "Chọn Môn Học ";
+    // $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
 
 
-        // return view("admin/WorkTask/chonmon", ['monhoc' => $monhoc, 'title' => $title]);
-  //  }
+    // return view("admin/WorkTask/chonmon", ['monhoc' => $monhoc, 'title' => $title]);
+    //  }
     /**
      * Store a newly created resource in storage.
      *
@@ -63,21 +78,21 @@ class QlsvWorktaskController extends Controller
     public function store(Request $request)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $validatedData = $request->validate([
-            'tenworktask' => 'required',
-           
+        $validatedData = $request->validate(
+            [
+                'tenworktask' => 'required',
 
-        ]
-        ,
 
-        [
-            'required' => 'Không được để trống',
-            'min' => 'Không được nhỏ hơn :min',
-            'max' => 'Không được lớn hơn :max',
-            'integer' => 'Chỉ được nhập số'
-            // 'integer' => ':attribute Chỉ được nhập số'
-        ]
-    );
+            ],
+
+            [
+                'required' => 'Không được để trống',
+                'min' => 'Không được nhỏ hơn :min',
+                'max' => 'Không được lớn hơn :max',
+                'integer' => 'Chỉ được nhập số'
+                // 'integer' => ':attribute Chỉ được nhập số'
+            ]
+        );
         $worktask = new qlsv_worktask();
 
         $worktask->tenworktask = $request->request->get("tenworktask");
@@ -90,7 +105,7 @@ class QlsvWorktaskController extends Controller
         $worktask->save();
         $thutu = DB::table("qlsv_worktasks")
             ->where('deleted_at', 0)
-            ->where('id_monhoc',$worktask->id_monhoc)
+            ->where('id_monhoc', $worktask->id_monhoc)
             ->max('thutu');
         $worktaskdetail = new qlsv_worktaskdetail();
         $ten = $request->request->get("ten");
@@ -113,8 +128,8 @@ class QlsvWorktaskController extends Controller
                 $worktaskdetail = new qlsv_worktaskdetail();
             }
         }
-        
-        return  redirect()->route('qlsv_worktask.create', ['id' =>$worktask->id_monhoc ,'thutu'=>$thutu]);
+
+        return  redirect()->route('qlsv_worktask.create', ['id' => $worktask->id_monhoc, 'thutu' => $thutu]);
     }
 
     /**
@@ -124,40 +139,40 @@ class QlsvWorktaskController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-  //  public function search(qlsv_worktask $qlsv_worktask, Request $request)
-  //  {
-        // $term = $request->request->get("tenworktask");
-        // $worktask = DB::table('qlsv_worktasks')->where('tenworktask', 'LIKE', '%' . $term . '%')
-        //     ->paginate(2);
-        // $title = "Danh Sách WorkTask Tìm Được";
-        // $worktask->withPath('/find?tenworktask=' . $term);
-        // $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
-        // return view("admin/WorkTask/dsworktask", ['worktask' => $worktask, 'title' => $title, 'monhoc' => $monhoc]);
-  //  }
+    //  public function search(qlsv_worktask $qlsv_worktask, Request $request)
+    //  {
+    // $term = $request->request->get("tenworktask");
+    // $worktask = DB::table('qlsv_worktasks')->where('tenworktask', 'LIKE', '%' . $term . '%')
+    //     ->paginate(2);
+    // $title = "Danh Sách WorkTask Tìm Được";
+    // $worktask->withPath('/find?tenworktask=' . $term);
+    // $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
+    // return view("admin/WorkTask/dsworktask", ['worktask' => $worktask, 'title' => $title, 'monhoc' => $monhoc]);
+    //  }
 
-   // public function searchmon(qlsv_worktask $qlsv_worktask, Request $request)
-  //  {
-        // $keyword = $request->get("search");
-        // $monhocs = DB::table("qlsv_monhocs")->where('tenmonhoc', 'LIKE', '%' . $keyword . '%')->get();
-        // $response = array();
-        // foreach ($monhocs as $monhoc) {
-        //     $response[] = array("id" => $monhoc->id, "value" => $monhoc->tenmonhoc, "ghichu" => $monhoc->ghichu);
-        // }
+    // public function searchmon(qlsv_worktask $qlsv_worktask, Request $request)
+    //  {
+    // $keyword = $request->get("search");
+    // $monhocs = DB::table("qlsv_monhocs")->where('tenmonhoc', 'LIKE', '%' . $keyword . '%')->get();
+    // $response = array();
+    // foreach ($monhocs as $monhoc) {
+    //     $response[] = array("id" => $monhoc->id, "value" => $monhoc->tenmonhoc, "ghichu" => $monhoc->ghichu);
+    // }
 
-        // return response()->json(['response' => $response]);
-   // }
+    // return response()->json(['response' => $response]);
+    // }
 
-   // public function searchmon1(qlsv_worktask $qlsv_worktask, Request $request)
-   // {
-        // $keyword = $request->get("search1");
-        // $monhocs = DB::table("qlsv_monhocs")->where('tenmonhoc', 'LIKE', '%' . $keyword . '%')->get();
-        // $response = array();
-        // foreach ($monhocs as $monhoc) {
-        //     $response[] = array("id" => $monhoc->id, "value" => $monhoc->tenmonhoc, "ghichu" => $monhoc->ghichu);
-        // }
-        // $monhoco = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
-        // return response()->json(['response' => $response, 'monhoc' => $monhoco]);
-  //  }
+    // public function searchmon1(qlsv_worktask $qlsv_worktask, Request $request)
+    // {
+    // $keyword = $request->get("search1");
+    // $monhocs = DB::table("qlsv_monhocs")->where('tenmonhoc', 'LIKE', '%' . $keyword . '%')->get();
+    // $response = array();
+    // foreach ($monhocs as $monhoc) {
+    //     $response[] = array("id" => $monhoc->id, "value" => $monhoc->tenmonhoc, "ghichu" => $monhoc->ghichu);
+    // }
+    // $monhoco = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
+    // return response()->json(['response' => $response, 'monhoc' => $monhoco]);
+    //  }
 
     public function worktaskfind(qlsv_worktask $qlsv_worktask, Request $request)
     {
@@ -173,27 +188,27 @@ class QlsvWorktaskController extends Controller
         if (isset($id) && !(isset($tenworktask))) {
 
             $monhoc1 = DB::table("qlsv_monhocs")->where("id", $id)->get();
-			  $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
+            $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
             //->pluck("tenmonhoc", "id");
-			//dd($monhoc1[0]->tenmonhoc);
-            $title = "Dang Sách  WorkTask ".$monhoc1[0]->tenmonhoc;
+            //dd($monhoc1[0]->tenmonhoc);
+            $title = "Dang Sách  WorkTask " . $monhoc1[0]->tenmonhoc;
             $worktask = DB::table('qlsv_worktasks')
                 ->where('id_monhoc', $id)
                 ->where('deleted_at', '=', 0)->paginate(2);
-           $worktask->withPath('/worktask/worktaskfind?id=' . $id . '&tenworktask=');
+            $worktask->withPath('/worktask/worktaskfind?id=' . $id . '&tenworktask=');
             $worktaskdetail = DB::table("qlsv_worktaskdetails")->get();
             return view("admin/WorkTask/dsworktask1", ['worktask' => $worktask, 'monhoc' => $monhoc, 'worktaskdetail' => $worktaskdetail, 'title' => $title]);
         } else {
             if ((isset($id)) && (isset($tenworktask))) {
 
                 $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
-               $monhoc1= qlsv_monhoc::find($id);
+                $monhoc1 = qlsv_monhoc::find($id);
                 $worktask = DB::table('qlsv_worktasks')
                     ->where('tenworktask', 'LIKE', '%' . $tenworktask . '%')
                     ->orWhere('id_monhoc', $id)
                     ->where('deleted_at', '=', 0)->paginate(2);
                 $worktask->withPath('/worktask/worktaskfind?id=' . $id . '&tenworktask=' . $tenworktask);
-                $title = "Dang Sách  WorkTask theo môn ".$monhoc1->tenmonhoc;
+                $title = "Dang Sách  WorkTask theo môn " . $monhoc1->tenmonhoc;
                 $worktaskdetail = DB::table("qlsv_worktaskdetails")->get();
                 return view("admin/WorkTask/dsworktask", ['worktask' => $worktask, 'monhoc' => $monhoc, 'worktaskdetail' => $worktaskdetail, 'title' => $title]);
             } else {
@@ -252,56 +267,44 @@ class QlsvWorktaskController extends Controller
     public function mon(qlsv_worktask $qlsv_worktask, Request $request, $id)
     {
         $monhoc1 = qlsv_monhoc::find($id);
-        $k=DB::table('qlsv_worktasks');
-        $worktask = DB::table('qlsv_worktasks')
-        ->join('qlsv_monhocs', 'qlsv_worktasks.id_monhoc', '=', 'qlsv_monhocs.id')
-        // ->join('qlsv_monhocs', function ($join) {
-        //     $join->on('qlsv_worktasks.id_monhoc', '=', 'qlsv_monhocs.id')
-        //     ->where('qlsv_worktasks.id', '>', 5)
-        //    ;
-        //     //->orOn(...);
-        // })
-         ->where('qlsv_monhocs.id', $id)
         
-         ->where('qlsv_worktasks.deleted_at',0)
-        ->orderBy('qlsv_worktasks.thutu')
-        // //->selectRaw('qlsv_worktasks.id * ? as price_with_tax', [1.0825])
-        // //->select(DB::raw('count(qlsv_worktasks.id) as user_count'))
-	   ->select('qlsv_worktasks.id','qlsv_worktasks.id_monhoc','qlsv_worktasks.tenworktask',DB::raw('count(*) as user_count'))
-         ->groupBy('qlsv_worktasks.id')
-        //->union($k)
-        ->get();
-		//dd($worktask);
-        //->pluck("qlsv_worktasks.tenworktask", "qlsv_worktasks.id");
+        $worktask = DB::table('qlsv_worktasks')
+            ->join('qlsv_monhocs', 'qlsv_worktasks.id_monhoc', '=', 'qlsv_monhocs.id')
+            ->where('qlsv_monhocs.id', $id)
+            ->where('qlsv_worktasks.deleted_at', 0)
+            ->select('qlsv_worktasks.id', 'qlsv_worktasks.id_monhoc', 'qlsv_worktasks.tenworktask', DB::raw('count(*) as user_count'))
+            ->groupBy('qlsv_worktasks.id')
+            ->get();
+
         $monhoc = DB::table("qlsv_monhocs")->pluck("tenmonhoc", "id");
-    $worktaskdetail = DB::table('qlsv_worktaskdetails')->get();
-	//dd($monhoc1);
-    $title = "Danh Sách WorkTask  Môn  ".$monhoc1->tenmonhoc;
-    // dd($worktask);
-    return view("admin/WorkTask/dsworktask", ['worktask' => $worktask, 'title' => $title, 'monhoc' => $monhoc, 'worktaskdetail' => $worktaskdetail,'idd'=>$id]);
+        $worktaskdetail = DB::table('qlsv_worktaskdetails')->get();
+
+        $title = "Danh Sách WorkTask  Môn  " . $monhoc1->tenmonhoc;
+
+        return view("admin/WorkTask/dsworktask", ['worktask' => $worktask, 'title' => $title, 'monhoc' => $monhoc, 'worktaskdetail' => $worktaskdetail, 'idd' => $id]);
     }
 
     //public function worktaskmon(qlsv_worktask $qlsv_worktask, Request $request, $id)
-   // {
-        //$id =$request->request->get("id");
-        //$monhoc=DB::table("qlsv_monhocs")->where('id',$term)->get();
-        // $monhoc = qlsv_monhoc::find($id);
-        // //dd($monhoc);
-        // $worktask = DB::table('qlsv_worktasks')
-        //     ->join('qlsv_monhocs', 'qlsv_worktasks.id_monhoc', '=', 'qlsv_monhocs.id')
-        //     ->where('qlsv_monhocs.id', $id)
-            
-        //     ->pluck("qlsv_worktasks.tenworktask", "qlsv_worktasks.id");
-        // $worktaskdetail = DB::table('qlsv_worktaskdetails')->get();
-        // $title = "Danh Sách WorkTask Tìm Được";
-        // // dd($worktask);
-        // return view("admin/WorkTask/dsworktaskmon", ['worktask' => $worktask, 'title' => $title, 'monhoc' => $monhoc, 'worktaskdetail' => $worktaskdetail]);
+    // {
+    //$id =$request->request->get("id");
+    //$monhoc=DB::table("qlsv_monhocs")->where('id',$term)->get();
+    // $monhoc = qlsv_monhoc::find($id);
+    // //dd($monhoc);
+    // $worktask = DB::table('qlsv_worktasks')
+    //     ->join('qlsv_monhocs', 'qlsv_worktasks.id_monhoc', '=', 'qlsv_monhocs.id')
+    //     ->where('qlsv_monhocs.id', $id)
+
+    //     ->pluck("qlsv_worktasks.tenworktask", "qlsv_worktasks.id");
+    // $worktaskdetail = DB::table('qlsv_worktaskdetails')->get();
+    // $title = "Danh Sách WorkTask Tìm Được";
+    // // dd($worktask);
+    // return view("admin/WorkTask/dsworktaskmon", ['worktask' => $worktask, 'title' => $title, 'monhoc' => $monhoc, 'worktaskdetail' => $worktaskdetail]);
     //}
 
     public function show(qlsv_worktask $qlsv_worktask, Request $request)
     {
         // $name = $request->name;
-        
+
         // $sothutu = DB::table('qlsv_worktasks')
         //     ->join('qlsv_monhocs', 'qlsv_worktasks.id_monhoc', '=', 'qlsv_monhocs.id')
         //     ->where('qlsv_monhocs.id', $name)
@@ -309,7 +312,7 @@ class QlsvWorktaskController extends Controller
         //     ->where('qlsv_monhocs.deleted_at', 0)
         //     ->max('qlsv_worktasks.thutu');
         // $sothutu = $sothutu + 1;
-      
+
         // return response()->json(['success' => $sothutu ]);
     }
 
@@ -321,17 +324,17 @@ class QlsvWorktaskController extends Controller
      */
     public function edit(qlsv_worktask $qlsv_worktask, $id)
     {
-       
+
         $worktask = qlsv_worktask::find($id);
-       
-        $monhoc2= DB::table("qlsv_worktasks")
-        ->join('qlsv_monhocs', 'qlsv_worktasks.id_monhoc', '=', 'qlsv_monhocs.id')
-        ->where('qlsv_worktasks.id',$id)
-        ->where('qlsv_monhocs.deleted_at', 0)
-        ->where('qlsv_worktasks.deleted_at', 0)
-        ->select('qlsv_monhocs.id','qlsv_monhocs.tenmonhoc')
-        ->get();
-        $title = "Sửa WorkTask môn ".$monhoc2[0]->tenmonhoc;
+
+        $monhoc2 = DB::table("qlsv_worktasks")
+            ->join('qlsv_monhocs', 'qlsv_worktasks.id_monhoc', '=', 'qlsv_monhocs.id')
+            ->where('qlsv_worktasks.id', $id)
+            ->where('qlsv_monhocs.deleted_at', 0)
+            ->where('qlsv_worktasks.deleted_at', 0)
+            ->select('qlsv_monhocs.id', 'qlsv_monhocs.tenmonhoc')
+            ->get();
+        $title = "Sửa WorkTask môn " . $monhoc2[0]->tenmonhoc;
         $worktaskdetail = DB::table("qlsv_worktaskdetails")->get();
         return view("admin/WorkTask/editworktask", ['worktask' => $worktask, 'monhoc2' => $monhoc2, 'worktaskdetail' => $worktaskdetail, 'title' => $title]);
     }
@@ -346,21 +349,21 @@ class QlsvWorktaskController extends Controller
     public function update(Request $request, qlsv_worktask $qlsv_worktask, $id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $validatedData = $request->validate([
-            'tenworktask' => 'required',
-           
+        $validatedData = $request->validate(
+            [
+                'tenworktask' => 'required',
 
-        ]
-        ,
 
-        [
-            'required' => 'Không được để trống',
-            'min' => 'Không được nhỏ hơn :min',
-            'max' => 'Không được lớn hơn :max',
-            'integer' => 'Chỉ được nhập số'
-            // 'integer' => ':attribute Chỉ được nhập số'
-        ]
-    );
+            ],
+
+            [
+                'required' => 'Không được để trống',
+                'min' => 'Không được nhỏ hơn :min',
+                'max' => 'Không được lớn hơn :max',
+                'integer' => 'Chỉ được nhập số'
+                // 'integer' => ':attribute Chỉ được nhập số'
+            ]
+        );
         $worktaske = qlsv_worktask::find($id);
 
         $worktaske->tenworktask = $request->request->get("tenworktask");
@@ -392,7 +395,7 @@ class QlsvWorktaskController extends Controller
                 $worktaskdetail->save();
             }
         }
-        return redirect('/worktask/mon/'.$worktaske->id_monhoc);
+        return redirect('/worktask/mon/' . $worktaske->id_monhoc);
     }
 
     /**
@@ -405,32 +408,31 @@ class QlsvWorktaskController extends Controller
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $worktask1 = qlsv_worktask::find($id);
-      $thutu=$worktask1->thutu;
-      $dsworktask = DB::table("qlsv_worktasks")
-	  ->where('id_monhoc',$worktask1->id_monhoc )
-	  ->where('deleted_at', 0)->get();
-	  //dd( $worktask1);
-      if($thutu==1){
-      
-         foreach($dsworktask as $dsw){
- $dsw->thutu=$dsw->thutu-1;
- $worktask = qlsv_worktask::find($dsw->id);
- $worktask->thutu=$dsw->thutu;
- $worktask->save();
-         }
-       }else{
-       if($thutu==count($dsworktask)){
+        $thutu = $worktask1->thutu;
+        $dsworktask = DB::table("qlsv_worktasks")
+            ->where('id_monhoc', $worktask1->id_monhoc)
+            ->where('deleted_at', 0)->get();
+        //dd( $worktask1);
+        if ($thutu == 1) {
 
-       }else{
-        
-         for($i=$thutu;$i<count($dsworktask);$i++){
-            $dsworktask[$i]->thutu=$dsworktask[$i]->thutu-1;
-			$worktask = qlsv_worktask::find($dsworktask[$i]->id);
-			$worktask->thutu=$dsworktask[$i]->thutu;
-            $worktask->save();
-                     }
-      }
-     }
+            foreach ($dsworktask as $dsw) {
+                $dsw->thutu = $dsw->thutu - 1;
+                $worktask = qlsv_worktask::find($dsw->id);
+                $worktask->thutu = $dsw->thutu;
+                $worktask->save();
+            }
+        } else {
+            if ($thutu == count($dsworktask)) {
+            } else {
+
+                for ($i = $thutu; $i < count($dsworktask); $i++) {
+                    $dsworktask[$i]->thutu = $dsworktask[$i]->thutu - 1;
+                    $worktask = qlsv_worktask::find($dsworktask[$i]->id);
+                    $worktask->thutu = $dsworktask[$i]->thutu;
+                    $worktask->save();
+                }
+            }
+        }
 
 
         $worktask1->deleted_at = 1;
